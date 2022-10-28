@@ -1,10 +1,10 @@
-
-
-
+import * as React from 'react';
+import { Link } from 'react-router-dom';
 const Index = () => {
     return (
-
-        <h2 >登录界面</h2>
+        <Link to="/Login">
+            <button>Click</button>
+        </Link>
     );
 }
 export default Index;
