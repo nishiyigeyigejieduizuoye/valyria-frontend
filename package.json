@@ -11,14 +11,14 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@mui/material": "^5.10.10",
+    "@mui/material": "^5.10.8",
     "@mui/styled-engine-sc": "^5.10.6",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2",
-    "recoil": "^0.7.6",
+    "recoil": "^0.7.5",
     "sort-by": "^1.2.0",
     "styled-components": "^5.3.6"
   },
