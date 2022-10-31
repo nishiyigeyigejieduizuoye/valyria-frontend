@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ButtonGroup, Button, Grid, Avatar } from '@mui/material/ButtonGroup';
+import { ButtonGroup, Button, Grid, Avatar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const MenuBar = () => {
