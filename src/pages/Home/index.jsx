@@ -1,1 +1,6 @@
-// TODO
+function HomePage() {
+  return (
+    <></>
+  );
+}
+export default HomePage;

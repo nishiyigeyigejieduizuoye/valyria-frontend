@@ -9,6 +9,13 @@ import {
 } from '@mui/material';
 import { useNavigate, Link } from 'react-router-dom';
 
+const default_button_sx = {
+  display: { xs: 'none', md: 'flex' },
+  fontFamily: 'Sans-serif',
+  fontWeight: 500,
+  color: 'inherit',
+}
+
 function SiteAppBar() {
   const navigate = useNavigate();
   return (
@@ -34,53 +41,33 @@ function SiteAppBar() {
         </Typography>
         <></>
         <Button color="inherit" component={Link} to="/" size="large"
-          sx={{
-            display: { xs: 'none', md: 'flex' },
-            fontFamily: 'Sans-serif',
-            fontWeight: 600,
-            color: 'inherit',
-          }}
+          sx = { default_button_sx }
         >
           主页
         </Button>
         <Button color="inherit" component={Link} to="/Contest" size="large"
-          sx={{
-            display: { xs: 'none', md: 'flex' },
-            fontFamily: 'Sans-serif',
-            fontWeight: 600,
-            color: 'inherit',
-          }}
+          sx = { default_button_sx }
         >
           赛事大厅
         </Button>
         <Button color="inherit" component={Link} to="/Rank" size="large"
-          sx={{
-            display: { xs: 'none', md: 'flex' },
-            fontFamily: 'Sans-serif',
-            fontWeight: 600,
-            color: 'inherit',
-          }}
+          sx = { default_button_sx }
         >
           排行榜
         </Button>
         <Button color="inherit" component={Link} to="/Battle" size="large"
-          sx={{
-            display: { xs: 'none', md: 'flex' },
-            fontFamily: 'Sans-serif',
-            fontWeight: 600,
-            color: 'inherit',
-          }}
+          sx = { default_button_sx }
         >
           战斗记录
         </Button>
-        <div />
+
         <Button color="inherit" component={Link} to="/Login" size="large"
-          sx={{
+          sx = {{
             display: { xs: 'none', md: 'flex' },
             fontFamily: 'Sans-serif',
-            fontWeight: 600,
+            fontWeight: 500,
             color: 'inherit',
-            marginLeft: "auto"
+            marginLeft: "auto",
           }}
         >
           登录 / 注册
