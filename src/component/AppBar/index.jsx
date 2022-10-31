@@ -45,23 +45,28 @@ function SiteAppBar() {
         >
           主页
         </Button>
-        <Button color="inherit" component={Link} to="/Contest" size="large"
+        <Button color="inherit" component={Link} to="/contest" size="large"
           sx = { default_button_sx }
         >
           赛事大厅
         </Button>
-        <Button color="inherit" component={Link} to="/Rank" size="large"
+        <Button color="inherit" component={Link} to="/rank" size="large"
           sx = { default_button_sx }
         >
           排行榜
         </Button>
-        <Button color="inherit" component={Link} to="/Battle" size="large"
+        <Button color="inherit" component={Link} to="/history" size="large"
           sx = { default_button_sx }
         >
-          战斗记录
+          历史记录
+        </Button>
+        <Button color="inherit" component={Link} to="/battle" size="large"
+          sx = { default_button_sx }
+        >
+          战斗页面（开发者入口）
         </Button>
 
-        <Button color="inherit" component={Link} to="/Login" size="large"
+        <Button color="inherit" component={Link} to="/login" size="large"
           sx = {{
             display: { xs: 'none', md: 'flex' },
             fontFamily: 'Sans-serif',
