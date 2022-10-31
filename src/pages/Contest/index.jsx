@@ -1,18 +1,9 @@
 import * as React from 'react';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
+import { Grid, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import { DataGrid } from '@mui/x-data-grid';
-
+import MenuBar from '../menubar';
+import Running from './Compoent/Running'
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
 }
@@ -65,36 +56,12 @@ const rows2 = [
     { id: 9, name: 'Game9', StartTime: '10th May 2003', Winner: 'chenyuhao', Description: null },
 ];
 const Contest = () => {
-    const navigate = useNavigate();
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={1}>
-                <Grid item xs={1}> </Grid>
-                <Grid item xs={1}><img src={'/'} /> logo</Grid>
-                <Grid item xs={3}></Grid>
-                <Grid item xs={4}>
-                    <ButtonGroup variant="outlined" aria-label="outlined button group">
-                        <Button variant="outlined" onClick={() => {
-                            navigate("/");
-                        }} >Home</Button>
-                        <Button variant="outlined" onClick={() => {
-                            navigate("/Contest");
-                        }} >Contest</Button>
-                        <Button variant="outlined" onClick={() => {
-                            navigate("/Rank");
-                        }} >Rank</Button>
-                        <Button variant="outlined" onClick={() => {
-                            navigate("/Battle");
-                        }} >Battle</Button>
-                    </ButtonGroup>
-                </Grid>
-                <Grid item xs={1}></Grid>
-                <Grid item xs={2}><Button variant="contained" onClick={() => {
-                    navigate("/Login");
-                }} >LOGIN/USERNAME</Button></Grid>
-            </Grid>
+            <MenuBar />
+            <Grid container spacing={1} justifyContent="center" rowSpacing={5}>
+                <Grid item xs={12}> </Grid>
 
-            <Grid container spacing={1} justifyContent="center" >
                 <Grid >
                     <Box sx={{ height: 300, width: 800 }}>
                         <h2>Running context</h2>
@@ -107,9 +74,6 @@ const Contest = () => {
                         />
                     </Box>
                 </Grid>
-                <Grid item xs={12}> </Grid>
-                <Grid item xs={12}> </Grid>
-                <Grid item xs={12}> </Grid>
                 <Grid item xs={12}> </Grid>
                 <Grid >
                     <Box sx={{ height: 300, width: 800 }}>
@@ -124,9 +88,6 @@ const Contest = () => {
                     </Box>
                 </Grid>
                 <Grid item xs={12} > </Grid>
-                <Grid item xs={12}> </Grid>
-                <Grid item xs={12}> </Grid>
-                <Grid item xs={12}> </Grid>
                 <Grid >
                     <Box sx={{ height: 300, width: 800 }}>
                         <h2>History contest</h2>
