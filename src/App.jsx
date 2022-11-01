@@ -15,6 +15,7 @@ import Battle from './pages/Battle'
 import Contest from './pages/Contest'
 import Login from './pages/Login'
 import History from './pages/History'
+import Rank from './pages/Rank'
 import { Container } from '@mui/system';
 
 function App() {
@@ -26,11 +27,12 @@ function App() {
           <SiteAppBar />
           <Container className="main-container" disableGutters>
             <Routes>
-              <Route path = '/' element = {<HomePage/>} />
-              <Route path = '/battle' element = {<Battle/>} />
-              <Route path = '/contest' element = {<Contest/>} />
-              <Route path = '/login' element = {<Login/>} />
-              <Route path = '/history' element = {<History/> }/>
+              <Route path='/' element={<HomePage />} />
+              <Route path='/battle' element={<Battle />} />
+              <Route path='/contest' element={<Contest />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/history' element={<History />} />
+              <Route path='/rank' element={<Rank />} />
             </Routes>
           </Container>
         </HashRouter>

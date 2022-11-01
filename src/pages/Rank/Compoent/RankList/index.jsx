@@ -1,31 +1,97 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { Button, Box, Grid, ButtonGroup, List, ListItem, ListItemText } from "@mui/material";
-const ranklists = [
-    { rank: 1, name: 'Game1', rating: '4' },
-    { rank: 2, name: 'Game2', rating: '5' },
-    { rank: 3, name: 'Game2', rating: '5' },
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import { Grid, Box } from '@mui/material';
+const playlists = [{ 'rank': '1', 'name': 'chenyuhao', 'rating': '100' },
+{ 'rank': '2', 'name': 'chenhaoyu', 'rating': '90' },
+{ 'rank': '3', 'name': 'yuhaochen', 'rating': '80' },
+{ 'rank': '4', 'name': 'chen', 'rating': '80' },
+{ 'rank': '5', 'name': 'yu', 'rating': '80' },
+{ 'rank': '6', 'name': 'hao', 'rating': '80' },
+{ 'rank': '7', 'name': 'ccc', 'rating': '80' },
 ]
+
 const RankList = () => {
     return (
-        <Grid container spacing={1} justifyContent="center" rowSpacing={5}>
-            <Grid item xs={12}></Grid>
-            <List sx={{ width: '100%', maxWidth: 720, bgcolor: 'background.paper' }}>
-                {ranklists.map((playlist) => (
-                    <ListItem key={playlist.rank}>
-                        <ListItemText
-                            rank={playlist.rank}
-                            name={playlist.name}
-                            rating={playlist.rating}
-                        ></ListItemText>
-                    </ListItem>
-                ))}
+        <Grid container spacing={1} justifyContent="center" rowSpacing={0.5}>
+            <Grid container spacing={1} justifyContent="center" rowSpacing={0.5}>
+                {playlists.filter(playlist => playlist.rank <= 3).map((playlist) => (
+                    <List sx={{ width: '100%', maxWidth: 650, bgcolor: 'background.paper' }}>
+                        <ListItem alignItems="flex-start" key={playlist.rank}>
+                            <ListItemAvatar>
+                                <Avatar alt={playlist.rank} src={`/static/images/avatar/${playlist.name}.jpg`}
+                                    sx={{
+                                        width: 100,
+                                        height: 100,
 
-            </List>
+                                    }} />
+                            </ListItemAvatar>
+                            <ListItemText
+                                key={playlist.rank}
+                                primary={playlist.rank + (playlist.rank == '1' ? 'st' : playlist.rank == '2' ? 'nd' : 'rd')}
+                                secondary={
+                                    <React.Fragment>
+                                        <Typography
+                                            sx={{ display: 'inline' }}
+                                            component="span"
+                                            variant="body2"
+                                            color="text.primary"
+                                        >
+                                            name: {playlist.name}
+                                            <br />
+                                            Rating :{playlist.rating}
+                                        </Typography>
+                                        <br />
+                                        introduction:xxxx
+                                    </React.Fragment>
+                                }
+                            />
+                        </ListItem>
+                        <Divider variant="inset" component="li" />
+                    </List>))
+                }
+            </Grid>
+            <Grid container spacing={1} justifyContent="center" rowSpacing={0.5}>
+                {playlists.filter(playlist => playlist.rank > 3).map((playlist) => (
+                    <List sx={{ width: '100%', maxWidth: 650, bgcolor: 'background.paper' }}>
+                        <ListItem alignItems="flex-start" key={playlist.rank}>
+                            <ListItemAvatar>
+                                <Avatar variant="square"
+                                    sx={{ bgcolor: 'background.paper', width: 100, height: 30 }}>
+                                    <span style={{ color: 'black', fontSize: 30 }}>
+                                        {playlist.rank}
+                                        {playlist.rank.substr(-1) == '1' ? 'st' : playlist.rank.substr(-1) == '2' ? 'nd' : playlist.rank.substr(-1) == '3' ? 'rd' : 'th'}
+                                    </span>
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText
+                                key={playlist.rank}
+                                secondary={
+                                    <React.Fragment>
+                                        <Typography
+                                            sx={{ display: 'inline', align: 'center' }}
+                                            component="span"
+                                            variant="body2"
+                                            color="text.primary"
+                                        >
+                                            {playlist.name}
+                                        </Typography>
+                                        <div align='right'>{playlist.rating}</div>
 
-        </Grid>
-
+                                    </React.Fragment>
+                                }
+                            />
+                        </ListItem>
+                        <Divider variant="inset" component="li" />
+                    </List>))
+                }
+            </Grid>
+        </Grid >
     );
 }
 export default RankList;
