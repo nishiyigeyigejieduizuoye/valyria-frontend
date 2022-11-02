@@ -1,12 +1,6 @@
 import * as React from 'react';
 import { Grid, Box } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
-import MenuBar from '../menubar';
-import Running from './Compoent/Running'
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
 const columns = [
     { field: 'id', headerName: 'Constest ID', type: 'number', width: 100 },
     { field: 'name', headerName: 'Constest Name', sortable: false, width: 150 },
@@ -58,7 +52,6 @@ const rows2 = [
 const Contest = () => {
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <MenuBar />
             <Grid container spacing={1} justifyContent="center" rowSpacing={5}>
                 <Grid item xs={12}> </Grid>
 
