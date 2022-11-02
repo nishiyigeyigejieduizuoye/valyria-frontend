@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Button, Box, Grid, TextField, Stack } from '@mui/material';
+import { Button, Autocomplete, Grid, TextField, Stack } from '@mui/material';
+const record = [{ username: 'chenyuhao' },];
 const Form = () => {
     return (
-
         <Grid container spacing={3} alignItems="center" justifyContent="center" rowSpacing={3}>
             <Grid item xs={12}></Grid>
             <Grid item xs={1}></Grid>
@@ -15,20 +15,16 @@ const Form = () => {
                     spacing={2}
                     noValidate
                 >
-                    <TextField
-                        required
+                    <Autocomplete
                         id="login-username"
-                        label="Username"
-                        defaultValue="Username"
-                        size='small'
-
+                        freeSolo
+                        options={record.map((option) => option.username)}
+                        renderInput={(params) => <TextField {...params} required label="Username" />}
                     />
                     <TextField
                         required
                         id="login-password"
                         label="Password"
-                        defaultValue="Password"
-                        size='small'
                         type="password"
                     />
                 </Stack>
@@ -48,15 +44,12 @@ const Form = () => {
                         required
                         id="sign-up-username"
                         label="Username"
-                        defaultValue="Username"
-                        size='small'
+
                     />
                     <TextField
                         required
                         id="sign-up-password"
                         label="Password"
-                        defaultValue="Password"
-                        size='small'
                         type="password"
                     />
                 </Stack>
@@ -69,4 +62,5 @@ const Form = () => {
         </Grid>
     );
 }
+
 export default Form;
