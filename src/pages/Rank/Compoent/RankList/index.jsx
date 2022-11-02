@@ -8,16 +8,16 @@ const playlists = [{ 'rank': '1', 'name': 'chenyuhao', 'rating': '100' },
 { 'rank': '6', 'name': 'hao', 'rating': '80' },
 { 'rank': '7', 'name': 'ccc', 'rating': '80' },
 ]
-
+/*没有传入的数据信息，就暂时先随便生成测试了，灰色的图片*/
 const RankList = () => {
     return (
         <Grid container spacing={1} justifyContent="center" rowSpacing={0.5}>
             <Grid container spacing={1} justifyContent="center" rowSpacing={0.5}>
                 {playlists.filter(playlist => playlist.rank <= 3).map((playlist) => (
-                    <List sx={{ width: '100%', maxWidth: 650, bgcolor: 'background.paper' }}>
+                    <List key={playlist.rank} sx={{ width: '100%', maxWidth: 650, bgcolor: 'background.paper' }}>
                         <ListItem alignItems="flex-start" key={playlist.rank}>
                             <ListItemAvatar>
-                                <Avatar alt={playlist.rank} src={`/static/images/avatar/${playlist.name}.jpg`}
+                                <Avatar alt={playlist.rank} src={`src/logo/logo.png`}
                                     sx={{
                                         width: 100,
                                         height: 100,
@@ -51,7 +51,7 @@ const RankList = () => {
             </Grid>
             <Grid container spacing={1} justifyContent="center" rowSpacing={0.5}>
                 {playlists.filter(playlist => playlist.rank > 3).map((playlist) => (
-                    <List sx={{ width: '100%', maxWidth: 650, bgcolor: 'background.paper' }}>
+                    <List key={playlist.rank} sx={{ width: '100%', maxWidth: 650, bgcolor: 'background.paper' }}>
                         <ListItem alignItems="flex-start" key={playlist.rank}>
                             <ListItemAvatar>
                                 <Avatar variant="square"
