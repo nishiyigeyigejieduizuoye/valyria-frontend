@@ -1,7 +1,31 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
+import monacoEditorPlugin from "vite-plugin-monaco-editor";
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()]
-})
+  plugins: [
+    react(),
+    monacoEditorPlugin.default({
+      languageWorkers: [
+        "editorWorkerService",
+        "css",
+        "html",
+        "json",
+        "typescript",
+      ],
+    }),
+  ],
+  resolve: {
+    alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
+  },
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://101.43.76.104:8000/api",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
+});
