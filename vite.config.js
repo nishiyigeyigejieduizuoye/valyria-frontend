@@ -6,15 +6,6 @@ import monacoEditorPlugin from "vite-plugin-monaco-editor";
 export default defineConfig({
   plugins: [
     react(),
-    monacoEditorPlugin.default({
-      languageWorkers: [
-        "editorWorkerService",
-        "css",
-        "html",
-        "json",
-        "typescript",
-      ],
-    }),
   ],
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
