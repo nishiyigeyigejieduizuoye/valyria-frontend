@@ -17,12 +17,14 @@ import Login from './pages/Login'
 import History from './pages/History'
 import Rank from './pages/Rank'
 import { Container } from '@mui/system';
+import GlobalMessage from './component/GlobalMeaage';
 
 function App() {
   return (
     <RecoilRoot>
       <>
         <CssBaseline />
+        <GlobalMessage />
         <HashRouter>
           <SiteAppBar />
           <Container className="main-container" disableGutters>
