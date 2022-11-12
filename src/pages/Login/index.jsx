@@ -1,6 +1,6 @@
 import { FormEvent, useCallback, useState } from 'react';
 import "./index.css";
-import { login, getUserInfo } from "@/api/login_api"
+import { login, register, getUserInfo } from "@/api/login_api"
 import { UserInfoState } from '@/state/user';
 import Grid from '@mui/material/Unstable_Grid2';
 import { TextField } from '@mui/material';
@@ -11,18 +11,19 @@ import useMessage from "@/hooks/useMessage";
 
 function Login() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [registerLoading, setRegisterLoading] = useState(false);
+  const [registering, setRegistering] = useState(false);
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confPswd, setConfPswd] = useState("");
   const setUserInfo = useSetRecoilState(UserInfoState);
   const [, { addMessage }] = useMessage();
 
-  function handleClick() {
-    onSubmit();
-  }
-  const onSubmit = useCallback(
+  const loginClick = useCallback(
     async () => {
-      setLoading(true);
+      setLoginLoading(true);
       try {
         await login(email, password);
         const [userInfo] = await Promise.all([
@@ -30,14 +31,39 @@ function Login() {
           // getAvatar(), // TODO
         ]);
         setUserInfo(userInfo);
+        addMessage("success", "登录成功")
         navigate("/");
       } catch (e) {
         addMessage("error", "登录失败：用户名或密码错误");
       } finally {
-        setLoading(false);
+        setLoginLoading(false);
       }
     },
-    [email, password, setLoading]
+    [email, password, setLoginLoading]
+  );
+
+  function toRegisterClick() {
+    setRegistering(true);
+  }
+
+  const registerClick = useCallback(
+    async () => {
+      if(password != confPswd) {
+        addMessage("error", "注册失败：密码与确认密码不同");
+      }else {
+        setRegisterLoading(true);
+        try {
+          await register(username, email, password);
+          setRegistering()
+          addMessage("success", "注册成功：请尝试登录")
+        } catch (e) {
+          addMessage("error", "注册失败：邮箱密码不合法或用户名邮箱重复");
+        } finally {
+          setRegisterLoading(false);
+        }
+      }
+    },
+    [username, email, password, confPswd, setRegisterLoading]
   );
 
   return (
@@ -50,6 +76,21 @@ function Login() {
       component="div"
       className="login-page-container"
     >
+      { registering ?
+      <Grid item xs={12} lg={3}>
+        <TextField
+          variant="outlined"
+          label="用户名"
+          name="email"
+          type="text"
+          fullWidth
+          required
+          value={username}
+          onChange={(arg) => {setUsername(arg.target.value);}}
+        />
+      </Grid> : <></>
+      }
+
       <Grid item xs={12} lg={3}>
         <TextField
           variant="outlined"
@@ -76,27 +117,56 @@ function Login() {
         />
       </Grid>
 
+      { registering ? 
+      <Grid item xs={12} lg={3}>
+        <TextField
+          variant="outlined"
+          label="确认密码"
+          name="confirm_password"
+          type="password"
+          fullWidth
+          required
+          value={confPswd}
+          onChange={(arg) => {setConfPswd(arg.target.value);}}
+        />
+      </Grid> : <></>
+      }
+
+      { registering ? <></> :
       <Grid item xs={12} lg={3}>
         <LoadingButton
-        loading={loading}
+        loading={loginLoading}
         variant="contained"
         fullWidth
-        onClick={handleClick}
-        type="submit"
+        onClick={loginClick}
         >
           登录
         </LoadingButton>
       </Grid>
+      }
       
       <Grid item xs={12} lg={3}>
         <LoadingButton
-        loading={false}
-        variant="outlined"
+        loginLoading={registerLoading}
+        variant={registering ? "contained" : "outlined"}
+        onClick={registering ? registerClick : toRegisterClick}
         fullWidth
         >
           注册
         </LoadingButton>
       </Grid>
+
+      { registering ?
+      <Grid item xs={12} lg={3}>
+        <LoadingButton
+        variant="outlined"
+        fullWidth
+        onClick={() => {setRegistering(false);}}
+        >
+          返回登录
+        </LoadingButton>
+      </Grid> : <></>
+      }
     </Grid>
   );
 }
