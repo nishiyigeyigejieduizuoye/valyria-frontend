@@ -1,6 +1,6 @@
 import { FormEvent, useCallback, useState } from 'react';
 import "./index.css";
-import { login, getUserInfo } from "@/api/api"
+import { login, getUserInfo } from "@/api/login_api"
 import { UserInfoState } from '@/state/user';
 import Grid from '@mui/material/Unstable_Grid2';
 import { TextField } from '@mui/material';
