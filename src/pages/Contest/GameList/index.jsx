@@ -14,37 +14,37 @@ import { deepOrange, deepPurple } from '@mui/material/colors';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import useMessage from "@/hooks/useMessage";
-function createData(date, role, status, official,) {
-    return {
-        id: 5,
-        role,
-        date,
-        status,
-        official,
-        result: {
-            winner: 'R',
-            r_stat: {
-                rounds: 5,
-                moves: 50,
-                soldiers_total: 465,
-                soldiers_killed: 555,
-                grids_taken: 123,
-            },
-            b_stat:
-            {
-                rounds: 6,
-                moves: 50,
-                soldiers_total: 465,
-                soldiers_killed: 555,
-                grids_taken: 123,
-            },
-        },
-    };
-}
-const rows = [//测试样例
-    createData('20002000000', 'B', "finished", "yes",),
+// function createData(date, role, status, official,) {
+//     return {
+//         id: 5,
+//         role,
+//         date,
+//         status,
+//         official,
+//         result: {
+//             winner: 'R',
+//             r_stat: {
+//                 rounds: 5,
+//                 moves: 50,
+//                 soldiers_total: 465,
+//                 soldiers_killed: 555,
+//                 grids_taken: 123,
+//             },
+//             b_stat:
+//             {
+//                 rounds: 6,
+//                 moves: 50,
+//                 soldiers_total: 465,
+//                 soldiers_killed: 555,
+//                 grids_taken: 123,
+//             },
+//         },
+//     };
+// }
+// const rows = [//测试样例
+//     createData('20002000000', 'B', "finished", "yes",),
 
-];
+// ];
 
 function Row(props) {
     const { row } = props;
@@ -145,10 +145,11 @@ export default function GameList() {
     const onSubmit = useCallback(
         async () => {
             try {
+
                 const [gamelist] = await Promise.all([
                     get_game_list(limit, offset),
                 ]);
-                addMessage("success", "OK")
+                addMessage("success", "OK");
                 setGameListsState(gamelist);
             } catch (e) {
                 addMessage("error", "error");
