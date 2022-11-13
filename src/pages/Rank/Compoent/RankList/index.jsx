@@ -1,23 +1,18 @@
 import * as React from 'react';
 import { Grid, Divider, Typography, ListItemAvatar, ListItemText, ListItem, List, Avatar } from '@mui/material';
-const playlists = [{ 'rank': '1', 'name': 'chenyuhao', 'rating': '100' },
-{ 'rank': '2', 'name': 'chenhaoyu', 'rating': '90' },
-{ 'rank': '3', 'name': 'yuhaochen', 'rating': '80' },
-{ 'rank': '4', 'name': 'chen', 'rating': '80' },
-{ 'rank': '5', 'name': 'yu', 'rating': '80' },
-{ 'rank': '6', 'name': 'hao', 'rating': '80' },
-{ 'rank': '7', 'name': 'ccc', 'rating': '80' },
-]
-/*没有传入的数据信息，就暂时先随便生成测试了，灰色的图片*/
+import { RankListsState } from "../../../../state/ranklists";
+import { useRecoilValue } from "recoil";
 const RankList = () => {
+    const ranklists = useRecoilValue(RankListsState);
+    //
     return (
         <Grid container spacing={1} justifyContent="center" rowSpacing={0.5}>
             <Grid container spacing={1} justifyContent="center" rowSpacing={0.5}>
-                {playlists.filter(playlist => playlist.rank <= 3).map((playlist) => (
+                {ranklists.filter(playlist => playlist.rank <= 3).map((playlist) => (
                     <List key={playlist.rank} sx={{ width: '100%', maxWidth: 650, bgcolor: 'background.paper' }}>
                         <ListItem alignItems="flex-start" key={playlist.rank}>
                             <ListItemAvatar>
-                                <Avatar alt={playlist.rank} src={`src/logo/logo.png`}
+                                <Avatar alt={playlist.rank} src={playlist.Avatar}
                                     sx={{
                                         width: 100,
                                         height: 100,
@@ -40,7 +35,7 @@ const RankList = () => {
                                             Rating :{playlist.rating}
                                         </Typography>
                                         <br />
-                                        introduction:xxxx
+                                        introduction:{playlist.introduction}
                                     </React.Fragment>
                                 }
                             />
@@ -50,7 +45,7 @@ const RankList = () => {
                 }
             </Grid>
             <Grid container spacing={1} justifyContent="center" rowSpacing={0.5}>
-                {playlists.filter(playlist => playlist.rank > 3).map((playlist) => (
+                {ranklists.filter(playlist => playlist.rank > 3).map((playlist) => (
                     <List key={playlist.rank} sx={{ width: '100%', maxWidth: 650, bgcolor: 'background.paper' }}>
                         <ListItem alignItems="flex-start" key={playlist.rank}>
                             <ListItemAvatar>
