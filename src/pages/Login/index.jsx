@@ -48,9 +48,9 @@ function Login() {
 
   const registerClick = useCallback(
     async () => {
-      if(password != confPswd) {
+      if (password != confPswd) {
         addMessage("error", "注册失败：密码与确认密码不同");
-      }else {
+      } else {
         setRegisterLoading(true);
         try {
           await register(username, email, password);
@@ -76,19 +76,19 @@ function Login() {
       component="div"
       className="login-page-container"
     >
-      { registering ?
-      <Grid item xs={12} lg={3}>
-        <TextField
-          variant="outlined"
-          label="用户名"
-          name="email"
-          type="text"
-          fullWidth
-          required
-          value={username}
-          onChange={(arg) => {setUsername(arg.target.value);}}
-        />
-      </Grid> : <></>
+      {registering ?
+        <Grid item xs={12} lg={3}>
+          <TextField
+            variant="outlined"
+            label="用户名"
+            name="email"
+            type="text"
+            fullWidth
+            required
+            value={username}
+            onChange={(arg) => { setUsername(arg.target.value); }}
+          />
+        </Grid> : <></>
       }
 
       <Grid item xs={12} lg={3}>
@@ -100,7 +100,7 @@ function Login() {
           fullWidth
           required
           value={email}
-          onChange={(arg) => {setEmail(arg.target.value);}}
+          onChange={(arg) => { setEmail(arg.target.value); }}
         />
       </Grid>
 
@@ -113,59 +113,59 @@ function Login() {
           fullWidth
           required
           value={password}
-          onChange={(arg) => {setPassword(arg.target.value);}}
+          onChange={(arg) => { setPassword(arg.target.value); }}
         />
       </Grid>
 
-      { registering ? 
+      {registering ?
+        <Grid item xs={12} lg={3}>
+          <TextField
+            variant="outlined"
+            label="确认密码"
+            name="confirm_password"
+            type="password"
+            fullWidth
+            required
+            value={confPswd}
+            onChange={(arg) => { setConfPswd(arg.target.value); }}
+          />
+        </Grid> : <></>
+      }
+
+      {registering ? <></> :
+        <Grid item xs={12} lg={3}>
+          <LoadingButton
+            loading={loginLoading}
+            variant="contained"
+            fullWidth
+            onClick={loginClick}
+          >
+            登录
+          </LoadingButton>
+        </Grid>
+      }
+
       <Grid item xs={12} lg={3}>
-        <TextField
-          variant="outlined"
-          label="确认密码"
-          name="confirm_password"
-          type="password"
+        <LoadingButton
+          loginLoading={registerLoading}
+          variant={registering ? "contained" : "outlined"}
+          onClick={registering ? registerClick : toRegisterClick}
           fullWidth
-          required
-          value={confPswd}
-          onChange={(arg) => {setConfPswd(arg.target.value);}}
-        />
-      </Grid> : <></>
-      }
-
-      { registering ? <></> :
-      <Grid item xs={12} lg={3}>
-        <LoadingButton
-        loading={loginLoading}
-        variant="contained"
-        fullWidth
-        onClick={loginClick}
-        >
-          登录
-        </LoadingButton>
-      </Grid>
-      }
-      
-      <Grid item xs={12} lg={3}>
-        <LoadingButton
-        loginLoading={registerLoading}
-        variant={registering ? "contained" : "outlined"}
-        onClick={registering ? registerClick : toRegisterClick}
-        fullWidth
         >
           注册
         </LoadingButton>
       </Grid>
 
-      { registering ?
-      <Grid item xs={12} lg={3}>
-        <LoadingButton
-        variant="outlined"
-        fullWidth
-        onClick={() => {setRegistering(false);}}
-        >
-          返回登录
-        </LoadingButton>
-      </Grid> : <></>
+      {registering ?
+        <Grid item xs={12} lg={3}>
+          <LoadingButton
+            variant="outlined"
+            fullWidth
+            onClick={() => { setRegistering(false); }}
+          >
+            返回登录
+          </LoadingButton>
+        </Grid> : <></>
       }
     </Grid>
   );
