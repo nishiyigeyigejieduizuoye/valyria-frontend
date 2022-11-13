@@ -8,6 +8,8 @@ import {
   Button
 } from '@mui/material';
 import { useNavigate, Link } from 'react-router-dom';
+import { UserInfoState, LoadingUserInfoState } from '@/state/user';
+import { useRecoilState } from 'recoil';
 
 function AppBarButton(param) {
   return (
@@ -25,6 +27,9 @@ function AppBarButton(param) {
 
 function SiteAppBar() {
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useRecoilState(UserInfoState);
+  const [loading] = useRecoilState(LoadingUserInfoState);
+
   return (
     <AppBar position = "relative" sx = {{ zIndex: "10" }}>
       <Toolbar>
@@ -52,7 +57,11 @@ function SiteAppBar() {
         <AppBarButton content="排行榜" to="/rank"/>
         <AppBarButton content="历史记录" to="history"/>
         <AppBarButton content="战斗页面（开发者入口）" to="/battle"/>
-        <AppBarButton content="登录 / 注册" rightSide to="/login"/>
+        { loading ? <></> : ( userInfo === null ? 
+          <AppBarButton content="登录 / 注册" rightSide to="/login"/>
+        :
+          <AppBarButton content={userInfo.data.name} rightSide to="/login"/>
+        )}
       </Toolbar>
     </AppBar>
   );

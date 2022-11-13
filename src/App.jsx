@@ -16,13 +16,16 @@ import Contest from './pages/Contest'
 import Login from './pages/Login'
 import History from './pages/History'
 import Rank from './pages/Rank'
+import UserProfile from './pages/UserProfile';
 import { Container } from '@mui/system';
 import GlobalMessage from './components/GlobalMeaage';
+import DefaultState from './components/DefaultState';
 
 function App() {
   return (
     <RecoilRoot>
       <>
+        <DefaultState/>
         <CssBaseline />
         <GlobalMessage />
         <HashRouter>
@@ -35,6 +38,7 @@ function App() {
               <Route path='/login' element={<Login />} />
               <Route path='/history' element={<History />} />
               <Route path='/rank' element={<Rank />} />
+              <Route path='/profile' element={<UserProfile />} />
             </Routes>
           </Container>
         </HashRouter>
@@ -42,4 +46,4 @@ function App() {
     </RecoilRoot>
   );
 }
-export default App
+export default App;
