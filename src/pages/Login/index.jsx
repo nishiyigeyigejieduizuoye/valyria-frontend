@@ -1,6 +1,6 @@
 import { FormEvent, useCallback, useState } from 'react';
 import "./index.css";
-import { login, register, getUserInfo } from "@/api/login_api"
+import { login, register, getUserInfo } from "@/api/login_api";
 import { UserInfoState } from '@/state/user';
 import Grid from '@mui/material/Unstable_Grid2';
 import { TextField } from '@mui/material';
@@ -54,7 +54,7 @@ function Login() {
         setRegisterLoading(true);
         try {
           await register(username, email, password);
-          setRegistering()
+          setRegistering(false)
           addMessage("success", "注册成功：请尝试登录")
         } catch (e) {
           addMessage("error", "注册失败：邮箱密码不合法或用户名邮箱重复");
@@ -73,22 +73,20 @@ function Login() {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      component="div"
       className="login-page-container"
     >
-      {registering ?
-        <Grid item xs={12} lg={3}>
-          <TextField
-            variant="outlined"
-            label="用户名"
-            name="email"
-            type="text"
-            fullWidth
-            required
-            value={username}
-            onChange={(arg) => { setUsername(arg.target.value); }}
-          />
-        </Grid> : <></>
+      { registering ?
+      <Grid item xs={12} lg={3}>
+        <TextField
+          variant="outlined"
+          label="用户名"
+          name="email"
+          type="text"
+          fullWidth
+          value={username}
+          onChange={(arg) => {setUsername(arg.target.value);}}
+        />
+      </Grid> : <></>
       }
 
       <Grid item xs={12} lg={3}>
@@ -98,7 +96,6 @@ function Login() {
           name="email"
           type="text"
           fullWidth
-          required
           value={email}
           onChange={(arg) => { setEmail(arg.target.value); }}
         />
@@ -111,46 +108,44 @@ function Login() {
           name="password"
           type="password"
           fullWidth
-          required
           value={password}
           onChange={(arg) => { setPassword(arg.target.value); }}
         />
       </Grid>
 
-      {registering ?
-        <Grid item xs={12} lg={3}>
-          <TextField
-            variant="outlined"
-            label="确认密码"
-            name="confirm_password"
-            type="password"
-            fullWidth
-            required
-            value={confPswd}
-            onChange={(arg) => { setConfPswd(arg.target.value); }}
-          />
-        </Grid> : <></>
+      { registering ? 
+      <Grid item xs={12} lg={3}>
+        <TextField
+          variant="outlined"
+          label="确认密码"
+          name="confirm_password"
+          type="password"
+          fullWidth
+          value={confPswd}
+          onChange={(arg) => {setConfPswd(arg.target.value);}}
+        />
+      </Grid> : <></>
       }
 
-      {registering ? <></> :
-        <Grid item xs={12} lg={3}>
-          <LoadingButton
-            loading={loginLoading}
-            variant="contained"
-            fullWidth
-            onClick={loginClick}
-          >
-            登录
-          </LoadingButton>
-        </Grid>
+      { registering ? <></> :
+      <Grid item xs={12} lg={3}>
+        <LoadingButton
+        loading={loginLoading}
+        variant="contained"
+        fullWidth
+        onClick={loginClick}
+        >
+          登录
+        </LoadingButton>
+      </Grid>
       }
 
       <Grid item xs={12} lg={3}>
         <LoadingButton
-          loginLoading={registerLoading}
-          variant={registering ? "contained" : "outlined"}
-          onClick={registering ? registerClick : toRegisterClick}
-          fullWidth
+        loading={registerLoading}
+        variant={registering ? "contained" : "outlined"}
+        onClick={registering ? registerClick : toRegisterClick}
+        fullWidth
         >
           注册
         </LoadingButton>
