@@ -10,10 +10,11 @@ import {
 import { useNavigate, Link } from 'react-router-dom';
 import { UserInfoState, LoadingUserInfoState } from '@/state/user';
 import { useRecoilState } from 'recoil';
+import { logout } from "@/api/login_api";
 
 function AppBarButton(param) {
   return (
-    <Button color="inherit" component={Link} to={param.to} size="large"
+    <Button color="inherit" component={Link} to={param.to} size="large" onClick={param.onClick}
       sx = {{ 
         display: { xs: 'none', md: 'flex' },
         fontFamily: 'Sans-serif',
@@ -29,6 +30,20 @@ function SiteAppBar() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useRecoilState(UserInfoState);
   const [loading] = useRecoilState(LoadingUserInfoState);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleLogout = async () => {
+    await logout();
+    setUserInfo(null);
+    handleClose();
+  };
 
   return (
     <AppBar position = "relative" sx = {{ zIndex: "10" }}>
@@ -60,9 +75,22 @@ function SiteAppBar() {
         { loading ? <></> : ( userInfo === null ? 
           <AppBarButton content="登录 / 注册" rightSide to="/login"/>
         :
-          <AppBarButton content={userInfo.data.name} rightSide to="/login"/>
+          <AppBarButton content={userInfo.data.name} rightSide onClick={handleClick}/>
         )}
       </Toolbar>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      </Menu>
     </AppBar>
   );
 }
