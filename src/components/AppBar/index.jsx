@@ -87,9 +87,9 @@ function SiteAppBar() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem onClick={ () => { navigate("/profile"); handleClose(); } }>个人资料</MenuItem>
+        <MenuItem onClick={ () => { navigate("/scripts"); handleClose(); } }>脚本仓库</MenuItem>
+        <MenuItem onClick={handleLogout}>登出</MenuItem>
       </Menu>
     </AppBar>
   );
