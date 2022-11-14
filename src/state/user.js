@@ -9,3 +9,8 @@ export const UserInfoState = atom({
   key: 'CurrentUserInfo',
   default: null
 });
+
+export const ScriptsState = atom({
+  key: 'UserScripts',
+  default: []
+});
