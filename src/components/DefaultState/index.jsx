@@ -1,16 +1,19 @@
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { getUserInfo } from "@/api/login_api";
-import { LoadingUserInfoState, UserInfoState } from "@/state/user";
+import { listScripts } from "@/api/scripts_api";
+import { LoadingUserInfoState, UserInfoState, ScriptsState } from "@/state/user";
 
 const DefaultState = () => {
   const setUserInfo = useSetRecoilState(UserInfoState);
+  const setScripts = useSetRecoilState(ScriptsState);
   const settLoadingUserInfo = useSetRecoilState(LoadingUserInfoState);
   useEffect(() => {
     (async () => {
       try {
-        const [userInfo] = await Promise.all([
+        const [userInfo, listScriptsInfo] = await Promise.all([
           getUserInfo(),
+          listScripts(),
         ]);
         setUserInfo(userInfo);
       } catch (e) {
