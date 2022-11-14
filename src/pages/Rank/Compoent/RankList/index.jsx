@@ -105,8 +105,8 @@ const RankList = () => {
                             sx={{
                                 color: blue[500],
                                 position: 'absolute',
-                                top: -6,
-                                left: -6,
+                                top: -5,
+                                left: -5,
                                 zIndex: 1,
                             }}
                         />
