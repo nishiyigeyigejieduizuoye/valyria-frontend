@@ -14,35 +14,35 @@ import { deepOrange, deepPurple } from '@mui/material/colors';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import useMessage from "@/hooks/useMessage";
-// function createData(date, role, status, official,) {
+// function createData() {
 //     return {
-//         id: 5,
-//         role,
-//         date,
-//         status,
-//         official,
+//         id: "123",
+//         role: "R",
+//         date: 2002,
+//         status: "queue",
+//         official: "boolean",
 //         result: {
-//             winner: 'R',
+//             winner: "R",
 //             r_stat: {
-//                 rounds: 5,
-//                 moves: 50,
-//                 soldiers_total: 465,
-//                 soldiers_killed: 555,
+//                 rounds: 123,
+//                 moves: 256,
+//                 soldiers_total: 789,
+//                 soldiers_killed: 123,
 //                 grids_taken: 123,
 //             },
 //             b_stat:
 //             {
-//                 rounds: 6,
-//                 moves: 50,
-//                 soldiers_total: 465,
-//                 soldiers_killed: 555,
-//                 grids_taken: 123,
+//                 rounds: 123,
+//                 moves: 456,
+//                 soldiers_total: 789,
+//                 soldiers_killed: 874,
+//                 grids_taken: 564,
 //             },
 //         },
 //     };
 // }
-// const rows = [//测试样例
-//     createData('20002000000', 'B', "finished", "yes",),
+// const gamelists = [//测试样例
+//     createData(),
 
 // ];
 

@@ -5,7 +5,6 @@ const Rank = () => {
     return (
         <Grid container spacing={1} justifyContent="center" rowSpacing={3}>
             <Grid item xs={12} > </Grid>
-
             <RankList />
         </Grid>
     );
