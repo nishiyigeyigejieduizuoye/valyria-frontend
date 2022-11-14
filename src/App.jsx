@@ -17,9 +17,11 @@ import Login from './pages/Login'
 import History from './pages/History'
 import Rank from './pages/Rank'
 import UserProfile from './pages/UserProfile';
+// import UserScripts from './pages/UserScripts';
 import { Container } from '@mui/system';
 import GlobalMessage from './components/GlobalMeaage';
 import DefaultState from './components/DefaultState';
+import UserScripts from './pages/UserScripts';
 
 function App() {
   return (
@@ -39,6 +41,7 @@ function App() {
               <Route path='/history' element={<History />} />
               <Route path='/rank' element={<Rank />} />
               <Route path='/profile' element={<UserProfile />} />
+              <Route path='/scripts' element={<UserScripts />} />
             </Routes>
           </Container>
         </HashRouter>
