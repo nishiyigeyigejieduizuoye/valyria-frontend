@@ -8,45 +8,15 @@ import { Typography, TableRow, TableHead, TableContainer, TableCell, TableBody, 
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import SendIcon from '@mui/icons-material/Send';
 import Avatar from '@mui/material/Avatar';
-import { deepOrange, deepPurple } from '@mui/material/colors';
+import { deepOrange, deepPurple, blueGrey } from '@mui/material/colors';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
-import useMessage from "@/hooks/useMessage";
-function createData() {
-    return {
-        id: "123",
-        role: "R",
-        date: 2002,
-        status: "queue",
-        official: "boolean",
-        result: {
-            winner: "R",
-            r_stat: {
-                rounds: 123,
-                moves: 256,
-                soldiers_total: 789,
-                soldiers_killed: 123,
-                grids_taken: 123,
-            },
-            b_stat:
-            {
-                rounds: 123,
-                moves: 456,
-                soldiers_total: 789,
-                soldiers_killed: 874,
-                grids_taken: 564,
-            },
-        },
-    };
-}
-const gamelists = [//测试样例
-    createData(),
-
-];
-
-function Row(props) {
+import TableFooter from '@mui/material/TableFooter';
+import { useEffect, useMemo } from 'react';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+function Row(props) {//列表子项
     const { row } = props;
     const [open, setOpen] = React.useState(false);
 
@@ -65,11 +35,11 @@ function Row(props) {
                 <TableCell component="th" scope="row">{row.date} </TableCell>
                 <TableCell align="right"><Avatar sx={{
                     bgcolor:
-                        row.role == 'R' ? deepOrange[500] : deepPurple[500]
+                        row.role == 'R' ? deepOrange[500] : row.role == 'B' ? deepPurple[500] : blueGrey[500]
                 }}>{row.role}</Avatar></TableCell>
                 <TableCell align="right"><Avatar sx={{
                     bgcolor:
-                        row.result.winner == 'R' ? deepOrange[500] : deepPurple[500]
+                        row.result.winner == 'R' ? deepOrange[500] : row.result.winner == 'B' ? deepPurple[500] : blueGrey[500]
                 }}>{row.result.winner}</Avatar></TableCell>
                 <TableCell align="right">{row.status}</TableCell>
                 <TableCell align="right">{row.official ? <CheckIcon /> : <ClearIcon />}</TableCell>
@@ -134,51 +104,42 @@ function Row(props) {
 }
 
 export default function GameList() {
-    // const gamelists = useRecoilValue(GameListsState);
-    const setGameListsState = useSetRecoilState(GameListsState)
-    const [, { addMessage }] = useMessage();
-    const [limit, setLimit] = useState("");
-    const [offset, setOffset] = useState("");
-    function handleClick() {
-        onSubmit();
+    const gamelists = useRecoilValue(GameListsState);
+    const setGameList = useSetRecoilState(GameListsState)
+    const [rowsPerPage, setRowsPerPage] = useState(2);
+    const [currentPage, setCurrentPage] = useState(1);
+    const offset = useMemo(() => {
+        return (currentPage - 1) * rowsPerPage;
+    }, [rowsPerPage, currentPage]);
+
+    useEffect(() => {
+        (async () => {
+            setGameList(await get_game_list(rowsPerPage, offset))
+        })()
+    }, [offset, rowsPerPage]);
+
+    const handleChangePageLeft = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+    const handleChangePageRight = () => {
+        if (gamelists?.length == rowsPerPage) {
+            setCurrentPage(currentPage + 1);
+        }
+
+    };
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value));
+        setCurrentPage(1);
+
     }
-    const onSubmit = useCallback(
-        async () => {
-            try {
-
-                const [gamelist] = await Promise.all([
-                    get_game_list(limit, offset),
-                ]);
-                addMessage("success", "OK");
-                setGameListsState(gamelist);
-            } catch (e) {
-                addMessage("error", "error");
-            } finally {
-            }
-        },
-
-    );
+    const handleChangePage = (event) => {
+        setCurrentPage(parseInt(event.target.value));
+        setRowsPerPage(rowsPerPage);
+    }
     return (
         <Grid container sx={{ height: 0, width: 800 }} >
-            <Grid container spacing={2}>
-                <Grid item xs={7.5}> </Grid>
-                <Grid item xs={1.5}>
-                    <TextField id="limit" label="limit" size="small" sx={{ width: '10ch' }}
-                        onChange={(e) => {
-                            setLimit(e.target.value)
-                        }} />
-                </Grid>
-                <Grid item xs={1.5}>
-                    <TextField id="offset" label="offset" size="small" sx={{ width: '10ch' }}
-                        onChange={(e) => {
-                            setOffset(e.target.value)
-                        }} />
-                </Grid>
-                <Grid item xs={1.5}>
-                    <Button variant="contained" endIcon={<SendIcon />} onClick={handleClick}>查询</Button>
-                </Grid>
-            </Grid>
-
             <TableContainer component={Paper}>
                 <Table aria-label="collapsible table">
                     <TableHead>
@@ -192,10 +153,47 @@ export default function GameList() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {gamelists?.map((row) => (
-                            <Row key={row.id} row={row} />
-                        ))}
+                        {
+                            gamelists?.map((row) => (
+                                <Row key={row.id} row={row} />
+                            ))}
+
                     </TableBody>
+                    <TableFooter>
+                        <TableRow>
+
+                            <TableCell colSpan={1} > </TableCell>
+                            <TableCell colSpan={2}><Typography variant="h5" component="h5">Rows per page:
+                                <TextField
+                                    hiddenLabel
+                                    id="filled-hidden-label-small"
+                                    defaultValue="2"
+                                    sx={{ width: '3ch' }}
+                                    size="small"
+                                    onChange={handleChangeRowsPerPage}
+                                /></Typography>
+                            </TableCell>
+                            <TableCell colSpan={2}><Typography variant="h5" component="h5">Page:
+                                <TextField
+                                    hiddenLabel
+                                    id="filled-hidden-label-small"
+                                    defaultValue={currentPage}
+                                    sx={{ width: '3ch' }}
+                                    size="small"
+                                    value={currentPage}
+                                    onChange={handleChangePage}
+                                /></Typography>
+                            </TableCell>
+                            <TableCell colSpan={1}>
+                                <IconButton color="primary" aria-label="upload picture" component="label">
+                                    <KeyboardArrowLeftIcon onClick={handleChangePageLeft} />
+                                </IconButton>
+                                <IconButton color="primary" aria-label="upload picture" component="label">
+                                    <KeyboardArrowRightIcon onClick={handleChangePageRight} />
+                                </IconButton>
+                            </TableCell>
+                        </TableRow>
+                    </TableFooter >
                 </Table>
             </TableContainer>
         </Grid >

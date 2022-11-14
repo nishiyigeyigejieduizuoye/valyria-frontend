@@ -4,8 +4,11 @@ const instance = axios.create({
   timeout: 10000,
 });
 export async function get_game_list(limit, offset) {
-  return await instance.get("/api/games/", {
-    limit,
-    offset,
-  }).data;
+  let res =  await instance.get("/api/games/", {
+     params:{
+        limit,
+        offset,
+    }
+  });
+  return res.data.data;
 }
