@@ -14,37 +14,37 @@ import { deepOrange, deepPurple } from '@mui/material/colors';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import useMessage from "@/hooks/useMessage";
-// function createData() {
-//     return {
-//         id: "123",
-//         role: "R",
-//         date: 2002,
-//         status: "queue",
-//         official: "boolean",
-//         result: {
-//             winner: "R",
-//             r_stat: {
-//                 rounds: 123,
-//                 moves: 256,
-//                 soldiers_total: 789,
-//                 soldiers_killed: 123,
-//                 grids_taken: 123,
-//             },
-//             b_stat:
-//             {
-//                 rounds: 123,
-//                 moves: 456,
-//                 soldiers_total: 789,
-//                 soldiers_killed: 874,
-//                 grids_taken: 564,
-//             },
-//         },
-//     };
-// }
-// const gamelists = [//测试样例
-//     createData(),
+function createData() {
+    return {
+        id: "123",
+        role: "R",
+        date: 2002,
+        status: "queue",
+        official: "boolean",
+        result: {
+            winner: "R",
+            r_stat: {
+                rounds: 123,
+                moves: 256,
+                soldiers_total: 789,
+                soldiers_killed: 123,
+                grids_taken: 123,
+            },
+            b_stat:
+            {
+                rounds: 123,
+                moves: 456,
+                soldiers_total: 789,
+                soldiers_killed: 874,
+                grids_taken: 564,
+            },
+        },
+    };
+}
+const gamelists = [//测试样例
+    createData(),
 
-// ];
+];
 
 function Row(props) {
     const { row } = props;
@@ -134,7 +134,7 @@ function Row(props) {
 }
 
 export default function GameList() {
-    const gamelists = useRecoilValue(GameListsState);
+    // const gamelists = useRecoilValue(GameListsState);
     const setGameListsState = useSetRecoilState(GameListsState)
     const [, { addMessage }] = useMessage();
     const [limit, setLimit] = useState("");
