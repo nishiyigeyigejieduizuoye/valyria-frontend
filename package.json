@@ -15,14 +15,17 @@
     "@mui/material": "^5.10.8",
     "@mui/styled-engine-sc": "^5.10.6",
     "@mui/x-data-grid": "^5.17.8",
+    "konva": "^8.3.14",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-konva": "^18.2.3",
     "react-router-dom": "^6.4.2",
     "recoil": "^0.7.5",
     "sort-by": "^1.2.0",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "use-image": "^1.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
