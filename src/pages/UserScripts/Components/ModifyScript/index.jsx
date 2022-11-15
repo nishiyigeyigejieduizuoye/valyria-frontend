@@ -8,16 +8,17 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css'; //Example style, you can use another
-import { createScript } from "@/api/scripts_api";
+import { createScript, listScripts } from "@/api/scripts_api";
 import useMessage from "@/hooks/useMessage";
+import { ScriptsState } from "@/state/user";
+import { useSetRecoilState } from "recoil";
 
 function ModifyScript(param) {
-  const [code, setCode] = useState(
-    `function add(a, b) {\n  return a + b;\n}`
-  );
-  const [name, setName] = useState("");
+  const [code, setCode] = param.codeState;
+  const [name, setName] = param.nameState;
   const [loading, setLoading] = useState(false);
   const [, { addMessage }] = useMessage();
+  const setScripts = useSetRecoilState(ScriptsState);
 
   const handleSave = () => {
     (async () => {
@@ -31,16 +32,24 @@ function ModifyScript(param) {
       } catch (e) {
         addMessage("error", "保存失败：可能是脚本名重复");
       } finally {
-        setLoading(false);
+        try {
+          const scriptsList = await listScripts();
+          setScripts(scriptsList);
+        } catch (e) {
+        } finally {
+          setLoading(false);
+        }
       }
     })();
   };
 
   return (
-    <Grid container
+    <Grid
     direction="column"
     justifyContent="center"
-    className="script-container">
+    className="script-container"
+    fullWidth
+    >
       <Grid >
         <Grid item xs>新建脚本</Grid>
         <Grid item xs/>
@@ -58,7 +67,6 @@ function ModifyScript(param) {
           label="脚本名"
           name="script_name"
           type="text"
-          fullWidth
           value={name}
           onChange={(arg) => { setName(arg.target.value); }}
         />

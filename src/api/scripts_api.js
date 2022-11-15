@@ -5,9 +5,9 @@ const instance = axios.create({
 });
 
 export async function listScripts() {
-  return (await instance.get("/api/script")).data;
+  return (await instance.get("/api/script")).data.data;
 }
 
-export async function createScript(name, content) {
-  return await instance.post("/api/script/", { name, content });
+export async function createScript(name, code) {
+  return await instance.post("/api/script", { name: name, code: code });
 }

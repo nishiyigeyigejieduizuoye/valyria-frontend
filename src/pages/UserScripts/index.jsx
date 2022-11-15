@@ -1,11 +1,85 @@
-import SideList from "./Components/SideList"
 import ModifyScript from "./Components/ModifyScript"
+import { ScriptsState } from "@/state/user";
+import { useRecoilValue } from "recoil";
+import { useState, useEffect } from "react"
+import Grid from '@mui/material/Unstable_Grid2';
+import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import NotesIcon from "@mui/icons-material/Notes";
+
+import {
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+} from "@mui/material";
+
 function UserScripts() {
+  const scripts = useRecoilValue(ScriptsState);
+  const [name, setName] = useState('');
+  const [code, setCode] = useState('function add(a, b) {\n  return a + b;\n}');
+
   return (
-    <>
-    <SideList></SideList>
-    <ModifyScript></ModifyScript>
-    </>
+    <Grid>
+      <Grid>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: "none", sm: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: "300px",
+              zIndex: "1",
+            },
+          }}
+          open
+        >
+          <Toolbar />
+          <Divider />
+          <List>
+            <ListItem>
+              <ListItemButton onClick={() => {}}>
+                <ListItemIcon>
+                  <NoteAddIcon />
+                </ListItemIcon>
+                <ListItemText primary="新建备忘录" />
+              </ListItemButton>
+            </ListItem>
+            <Divider />
+            {scripts.map((m) => (
+              <ListItem key={m.name}>
+                <ListItemButton onClick={() => {
+                  setName(m.name);
+                  setCode(m.code);
+                }}>
+                  <ListItemIcon>
+                    <NotesIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={m.name}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
+      </Grid>
+
+      <Grid
+        fullWidth
+        sx={{
+          paddingLeft: {
+            xs: 0,
+            sm: "310px",
+          },
+        }}
+      >
+        <ModifyScript nameState={[name, setName]} codeState={[code, setCode]}/>
+      </Grid>
+    </Grid>
   );
 }
 export default UserScripts;
