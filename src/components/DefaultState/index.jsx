@@ -11,11 +11,12 @@ const DefaultState = () => {
   useEffect(() => {
     (async () => {
       try {
-        const [userInfo, listScriptsInfo] = await Promise.all([
+        const [userInfo, scriptsList] = await Promise.all([
           getUserInfo(),
           listScripts(),
         ]);
         setUserInfo(userInfo);
+        setScripts(scriptsList);
       } catch (e) {
       } finally {
         settLoadingUserInfo(false);
