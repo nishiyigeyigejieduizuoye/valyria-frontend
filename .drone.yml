@@ -1,0 +1,15 @@
+kind: pipeline
+type: docker
+name: publish
+
+trigger:
+  event:
+    - push
+    - pull_request
+
+steps:
+  - name: build
+    image: yarnpkg/node-yarn
+    commands:
+      - yarn install && yarn build
+
