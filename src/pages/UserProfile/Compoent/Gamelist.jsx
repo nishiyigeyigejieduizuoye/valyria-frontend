@@ -7,50 +7,24 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
 import Grid from '@mui/material/Grid'
-import { useRecoilValue } from "recoil";
-import { GameListsState } from '@/state/gamelists';
-
-function createData() {
-    return {
-        id: "123",
-        role: "R",
-        date: 2002,
-        status: "queue",
-        official: "boolean",
-        result: {
-            winner: "R",
-            r_stat: {
-                rounds: 123,
-                moves: 256,
-                soldiers_total: 789,
-                soldiers_killed: 123,
-                grids_taken: 123,
-            },
-            b_stat:
-            {
-                rounds: 123,
-                moves: 456,
-                soldiers_total: 789,
-                soldiers_killed: 874,
-                grids_taken: 564,
-            },
-        },
-    };
-}
-// const gamelists = [//测试样例
-//     createData(),
-//     createData(),
-//     createData(),
-//     createData(),
-//     createData(),
-// ];
-
-function preventDefault(event) {
-    event.preventDefault();
-}
-
+import { get_game_list } from '@/api/game_api';
+import { useEffect } from 'react';
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
 export default function Gamesists() {
-    const gamelists = useRecoilValue(GameListsState);
+    useEffect(() => {
+        (async () => {
+            try {
+                const [gamelist] = await Promise.all(
+                    [get_game_list(),]
+                )
+                setGamelists(gamelist)
+            }
+            catch {
+            }
+        })()
+    });
+    const [gamelists, setGamelists] = React.useState([]);
     return (
         <Grid>
             <Title>Recent Games</Title>
@@ -71,12 +45,12 @@ export default function Gamesists() {
                             <TableCell>{row.role}</TableCell>
                             <TableCell>{row.result.winner}</TableCell>
                             <TableCell>{row.status}</TableCell>
-                            <TableCell align="right">{row.official}</TableCell>
+                            <TableCell align="right">{row.official ? <CheckIcon /> : <ClearIcon />}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
-            <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+            <Link color="primary" href="/#/contest" sx={{ mt: 3 }}>
                 查看更多信息
             </Link>
         </Grid>
