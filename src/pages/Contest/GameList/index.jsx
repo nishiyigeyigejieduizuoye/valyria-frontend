@@ -114,7 +114,15 @@ export default function GameList() {
 
     useEffect(() => {
         (async () => {
-            setGameList(await get_game_list(rowsPerPage, offset))
+            try {
+                const [gamelist] = await Promise.all(
+                    [get_game_list(rowsPerPage, offset),]
+                )
+                setGameList(gamelist)
+            }
+            catch {
+            }
+
         })()
     }, [offset, rowsPerPage]);
 
@@ -167,9 +175,9 @@ export default function GameList() {
                                 <TextField
                                     hiddenLabel
                                     id="filled-hidden-label-small"
+                                    defaultValue="2"
                                     sx={{ width: '3ch' }}
                                     size="small"
-                                    value={rowsPerPage}
                                     onChange={handleChangeRowsPerPage}
                                 /></Typography>
                             </TableCell>
@@ -187,7 +195,7 @@ export default function GameList() {
                                 <IconButton color="primary" aria-label="upload picture" component="label" onClick={handleChangePageLeft}>
                                     <KeyboardArrowLeftIcon />
                                 </IconButton>
-                                <IconButton color="primary" aria-label="upload picture" component="label" onClick={handleChangePageRight} >
+                                <IconButton color="primary" aria-label="upload picture" component="label" onClick={handleChangePageRight}>
                                     <KeyboardArrowRightIcon />
                                 </IconButton>
                             </TableCell>

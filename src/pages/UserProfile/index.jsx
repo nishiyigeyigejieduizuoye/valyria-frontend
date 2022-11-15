@@ -14,8 +14,9 @@ import { Avatar, ButtonGroup } from '@mui/material';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { blue } from '@mui/material/colors';
 import Button from '@mui/material/Button';
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { UserInfoState } from '@/state/user';
+
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -101,16 +102,15 @@ const UserProfile = () => {
 
 
                     <Typography component="h1" variant="h5">
-                        {userInfo?.name}
+                        {userInfo?.data.name}
                     </Typography>
                     <Typography >
-                        <ListItemIcon>
-                            <EmailIcon sx={{ color: blue[500], fontSize: 20, }} />Email:2581216@qq.com</ListItemIcon>
+
+                        <EmailIcon sx={{ color: blue[500], fontSize: 20, }} />Email: {userInfo?.data.email}
                     </Typography>
                     <ButtonGroup
                         orientation="vertical"
                         aria-label="vertical contained button group"
-
                     >
                         <Button key="one">修改密码</Button>
                         <Button key="two">修改头像</Button>
