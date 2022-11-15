@@ -10,7 +10,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Box from '@mui/material/Box'
-
 const RankList = () => {
     const ranklists = useRecoilValue(RankListsState);
     const setRankListState = useSetRecoilState(RankListsState);

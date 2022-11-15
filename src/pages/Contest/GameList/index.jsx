@@ -185,6 +185,7 @@ export default function GameList() {
                                 <TextField
                                     hiddenLabel
                                     id="filled-hidden-label-small"
+                                    defaultValue={currentPage}
                                     sx={{ width: '3ch' }}
                                     size="small"
                                     value={currentPage}
