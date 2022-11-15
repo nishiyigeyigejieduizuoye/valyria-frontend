@@ -167,9 +167,9 @@ export default function GameList() {
                                 <TextField
                                     hiddenLabel
                                     id="filled-hidden-label-small"
+                                    defaultValue="2"
                                     sx={{ width: '3ch' }}
                                     size="small"
-                                    value={rowsPerPage}
                                     onChange={handleChangeRowsPerPage}
                                 /></Typography>
                             </TableCell>
@@ -177,6 +177,7 @@ export default function GameList() {
                                 <TextField
                                     hiddenLabel
                                     id="filled-hidden-label-small"
+                                    defaultValue={currentPage}
                                     sx={{ width: '3ch' }}
                                     size="small"
                                     value={currentPage}
@@ -184,11 +185,11 @@ export default function GameList() {
                                 /></Typography>
                             </TableCell>
                             <TableCell colSpan={1}>
-                                <IconButton color="primary" aria-label="upload picture" component="label" onClick={handleChangePageLeft}>
-                                    <KeyboardArrowLeftIcon />
+                                <IconButton color="primary" aria-label="upload picture" component="label">
+                                    <KeyboardArrowLeftIcon onClick={handleChangePageLeft} />
                                 </IconButton>
-                                <IconButton color="primary" aria-label="upload picture" component="label" onClick={handleChangePageRight} >
-                                    <KeyboardArrowRightIcon />
+                                <IconButton color="primary" aria-label="upload picture" component="label">
+                                    <KeyboardArrowRightIcon onClick={handleChangePageRight} />
                                 </IconButton>
                             </TableCell>
                         </TableRow>
