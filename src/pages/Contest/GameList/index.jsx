@@ -175,7 +175,7 @@ export default function GameList() {
                                 <TextField
                                     hiddenLabel
                                     id="filled-hidden-label-small"
-                                    defaultValue="2"
+                                    value={rowsPerPage}
                                     sx={{ width: '3ch' }}
                                     size="small"
                                     onChange={handleChangeRowsPerPage}
@@ -185,7 +185,6 @@ export default function GameList() {
                                 <TextField
                                     hiddenLabel
                                     id="filled-hidden-label-small"
-                                    defaultValue={currentPage}
                                     sx={{ width: '3ch' }}
                                     size="small"
                                     value={currentPage}
