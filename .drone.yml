@@ -10,11 +10,13 @@ trigger:
 steps:
   - name: restore-cache
     image: drillster/drone-volume-cache
-    restore: true
+    settings:
+      restore: true
     mount:
       - ./node_modules
     volumes:
-      - /tmp/cache/drone:/cache
+      - name: cache
+        path: /cache
   - name: build
     image: yarnpkg/node-yarn
     commands:
@@ -24,8 +26,15 @@ steps:
       - yarn install && yarn build
   - name: rebuild-cache
     image: drillster/drone-volume-cache
-    rebuild: true
+    settings:
+      rebuild: true
     mount:
       - ./node_modules
     volumes:
-      - /tmp/cache/drone:/cache
+      - name: cache
+        path: /cache
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache/drone
