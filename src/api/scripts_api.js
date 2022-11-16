@@ -11,3 +11,7 @@ export async function listScripts() {
 export async function createScript(name, code) {
   return await instance.post("/api/script", { name: name, code: code });
 }
+
+export async function editScript(name, code, origin) {
+  return await instance.patch("/api/script/" + origin.toString(), { name: name, code: code });
+}

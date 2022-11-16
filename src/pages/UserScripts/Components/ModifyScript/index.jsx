@@ -8,7 +8,7 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css'; //Example style, you can use another
-import { createScript, listScripts } from "@/api/scripts_api";
+import { createScript, listScripts, editScript } from "@/api/scripts_api";
 import useMessage from "@/hooks/useMessage";
 import { ScriptsState } from "@/state/user";
 import { useSetRecoilState } from "recoil";
@@ -16,6 +16,7 @@ import { useSetRecoilState } from "recoil";
 function ModifyScript(param) {
   const [code, setCode] = param.codeState;
   const [name, setName] = param.nameState;
+  const [originName, setOriginName] = param.originState;
   const [loading, setLoading] = useState(false);
   const [, { addMessage }] = useMessage();
   const setScripts = useSetRecoilState(ScriptsState);
@@ -26,8 +27,9 @@ function ModifyScript(param) {
         return;
       }
       setLoading(true);
+      const operateScript = originName === null ? createScript : editScript;
       try {
-        await createScript(name, code);
+        await operateScript(name, code, originName);
         addMessage("success", "保存成功");
       } catch (e) {
         addMessage("error", "保存失败：可能是脚本名重复");
@@ -35,6 +37,7 @@ function ModifyScript(param) {
         try {
           const scriptsList = await listScripts();
           setScripts(scriptsList);
+          setOriginName(name);
         } catch (e) {
         } finally {
           setLoading(false);
@@ -51,7 +54,7 @@ function ModifyScript(param) {
     fullWidth
     >
       <Grid >
-        <Grid item xs>新建脚本</Grid>
+        <Grid item xs>{originName === null ? "新建脚本" : "编辑脚本"}</Grid>
         <Grid item xs/>
         <Grid item xs={1}>
           <Tooltip title="保存">
