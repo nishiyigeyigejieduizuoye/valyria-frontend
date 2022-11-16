@@ -16,6 +16,7 @@ import TableFooter from '@mui/material/TableFooter';
 import { useEffect, useMemo } from 'react';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import SendIcon from '@mui/icons-material/Send';
 function Row(props) {//列表子项
     const { row } = props;
     const [open, setOpen] = React.useState(false);
@@ -91,7 +92,9 @@ function Row(props) {//列表子项
                                 <Grid item xs={10.5}> </Grid>
 
                                 <Grid item xs={1.5}>
-                                    <Button variant="outlined" >复盘</Button>
+                                    <Button variant="contained" endIcon={<SendIcon />}>
+                                        复盘
+                                    </Button>
                                 </Grid>
                             </Grid>
 
@@ -147,9 +150,9 @@ export default function GameList() {
         setRowsPerPage(rowsPerPage);
     }
     return (
-        <Grid container sx={{ height: 0, width: 800 }} >
-            <TableContainer component={Paper}>
-                <Table aria-label="collapsible table">
+        <Grid container >
+            <TableContainer component={Paper} sx={{ boxShadow: 10 }} >
+                <Table aria-label="collapsible table" >
                     <TableHead>
                         <TableRow>
                             <TableCell />
@@ -169,7 +172,6 @@ export default function GameList() {
                     </TableBody>
                     <TableFooter>
                         <TableRow>
-
                             <TableCell colSpan={1} > </TableCell>
                             <TableCell colSpan={2}><Typography variant="h5" component="h5">Rows per page:
                                 <TextField

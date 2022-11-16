@@ -16,7 +16,7 @@ const RankList = () => {
 
                     <ListItem alignItems="flex-start" component="span" >
                         <ListItemAvatar>
-                            <Avatar alt={player.id} src={""}
+                            <Avatar alt={player.id} src={"/api/user/" + player.id + "/avatar"}
                                 sx={{
                                     width: 120,
                                     height: 120,
@@ -62,7 +62,7 @@ const RankList = () => {
                                     </ListItemIcon>
                                     {player.name}
 
-                                    <span style="text-align:right;" >{player.rating}</span>
+                                    {player.rating}
                                 </span>
                             }
                         />
