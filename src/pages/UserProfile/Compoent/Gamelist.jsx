@@ -7,24 +7,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
 import Grid from '@mui/material/Grid'
-import { get_game_list } from '@/api/game_api';
-import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
+import { GameListsState } from "@/state/gamelists";
 export default function Gamesists() {
-    useEffect(() => {
-        (async () => {
-            try {
-                const [gamelist] = await Promise.all(
-                    [get_game_list(),]
-                )
-                setGamelists(gamelist)
-            }
-            catch {
-            }
-        })()
-    });
-    const [gamelists, setGamelists] = React.useState([]);
+    const gamelists = useRecoilValue(GameListsState);
     return (
         <Grid>
             <Title>Recent Games</Title>

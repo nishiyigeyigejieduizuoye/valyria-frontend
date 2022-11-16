@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import EmailIcon from '@mui/icons-material/Email';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -10,13 +9,8 @@ import Link from '@mui/material/Link';
 import Chart from './Compoent/Chart';
 import Rank from './Compoent/Rank';
 import Gamelist from './Compoent/Gamelist';
-import { Avatar, ButtonGroup } from '@mui/material';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import { blue } from '@mui/material/colors';
-import Button from '@mui/material/Button';
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { UserInfoState } from '@/state/user';
-
+import DefaultState from './Compoent/DefaultState';
+import Rightbar from './Compoent/Rightbar'
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -31,12 +25,12 @@ function Copyright(props) {
 }
 
 const mdTheme = createTheme();
-
 const UserProfile = () => {
-    const userInfo = useRecoilValue(UserInfoState);
     return (
         <Grid container spacing={1} rowSpacing={3}>
+            <DefaultState />
             <Grid item md={9} >
+
                 <ThemeProvider theme={mdTheme}>
                     <Box sx={{ display: 'flex' }}>
                         <Box
@@ -87,39 +81,8 @@ const UserProfile = () => {
                     </Box>
                 </ThemeProvider>
             </Grid>
-
-            <Grid item xs={12} sm={8} md={3} component={Paper} elevation={6} square>
-                <Box
-                    sx={{
-                        my: 8,
-                        mx: 4,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Avatar alt="Remy Sharp" src="" sx={{ width: 140, height: 140 }} />
-
-
-                    <Typography component="h1" variant="h5">
-                        {userInfo?.data.name}
-                    </Typography>
-                    <Typography >
-
-                        <EmailIcon sx={{ color: blue[500], fontSize: 20, }} />Email: {userInfo?.data.email}
-                    </Typography>
-                    <ButtonGroup
-                        orientation="vertical"
-                        aria-label="vertical contained button group"
-                    >
-                        <Button key="one">修改密码</Button>
-                        <Button key="two">修改头像</Button>
-
-                    </ButtonGroup>
-                </Box>
-            </Grid>
-
-        </Grid>
+            <Rightbar />
+        </Grid >
 
     );
 }
