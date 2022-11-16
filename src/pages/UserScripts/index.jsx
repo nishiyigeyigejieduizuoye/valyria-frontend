@@ -44,11 +44,13 @@ function UserScripts() {
             <ListItem>
               <ListItemButton onClick={() => {
                 setOriginName(null);
+                setName('');
+                setCode('function add(a, b) {\n  return a + b;\n}');
               }}>
                 <ListItemIcon>
                   <NoteAddIcon />
                 </ListItemIcon>
-                <ListItemText primary="新建备忘录" />
+                <ListItemText primary="新建脚本" />
               </ListItemButton>
             </ListItem>
             <Divider />
