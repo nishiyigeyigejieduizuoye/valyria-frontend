@@ -32,6 +32,22 @@ steps:
     volumes:
       - name: cache
         path: /cache
+  - name: update-dc
+    image: alpine/git
+    pull: if-not-exists
+    commands:
+      - git config --global user.email "drone@drone"
+      - git config --global user.name "drone"
+      - git clone https://git.s8k.top/TeamNEDP/valyria-dc.git
+      - git submodule update --remote
+      - git add .
+      - git commit -m "Bump frontend"
+      - git push
+    when:
+      event:
+        - push
+      branch:
+        - master
 
 volumes:
   - name: cache
