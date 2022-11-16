@@ -21,6 +21,7 @@ function UserScripts() {
   const scripts = useRecoilValue(ScriptsState);
   const [name, setName] = useState('');
   const [code, setCode] = useState('function add(a, b) {\n  return a + b;\n}');
+  const [originName, setOriginName] = useState(null);
 
   return (
     <Grid>
@@ -41,7 +42,9 @@ function UserScripts() {
           <Divider />
           <List>
             <ListItem>
-              <ListItemButton onClick={() => {}}>
+              <ListItemButton onClick={() => {
+                setOriginName(null);
+              }}>
                 <ListItemIcon>
                   <NoteAddIcon />
                 </ListItemIcon>
@@ -52,6 +55,7 @@ function UserScripts() {
             {scripts.map((m) => (
               <ListItem key={m.name}>
                 <ListItemButton onClick={() => {
+                  setOriginName(m.name);
                   setName(m.name);
                   setCode(m.code);
                 }}>
@@ -77,7 +81,7 @@ function UserScripts() {
           },
         }}
       >
-        <ModifyScript nameState={[name, setName]} codeState={[code, setCode]}/>
+        <ModifyScript nameState={[name, setName]} codeState={[code, setCode]} originState={[originName, setOriginName]}/>
       </Grid>
     </Grid>
   );
