@@ -39,6 +39,7 @@ steps:
       - git config --global user.email "drone@drone"
       - git config --global user.name "drone"
       - git clone https://git.s8k.top/TeamNEDP/valyria-dc.git
+      - cd valyria-dc
       - git submodule update --remote
       - git add .
       - git commit -m "Bump frontend"
