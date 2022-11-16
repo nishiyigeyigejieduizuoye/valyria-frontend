@@ -13,5 +13,9 @@ export async function createScript(name, code) {
 }
 
 export async function editScript(name, code, origin) {
-  return await instance.patch("/api/script/" + origin.toString(), { name: name, code: code });
+  return await instance.patch("/api/script/" + origin.toString() + '/', { name: name, code: code });
+}
+
+export async function deleteScript(origin) {
+  return await instance.delete("/api/script/" + origin.toString() + '/');
 }
