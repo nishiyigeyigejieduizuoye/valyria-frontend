@@ -17,10 +17,15 @@ import { useEffect, useMemo } from 'react';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import SendIcon from '@mui/icons-material/Send';
+import { rendering_id } from '@/state/rendering';
+import { useNavigate } from 'react-router-dom';
+
+
 function Row(props) {//列表子项
+    const navigate = useNavigate();
     const { row } = props;
     const [open, setOpen] = React.useState(false);
-
+    const setRenderId = useSetRecoilState(rendering_id);
     return (
         <React.Fragment>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -92,7 +97,8 @@ function Row(props) {//列表子项
                                 <Grid item xs={10.5}> </Grid>
 
                                 <Grid item xs={1.5}>
-                                    <Button variant="contained" endIcon={<SendIcon />}>
+                                    <Button variant="contained" endIcon={<SendIcon />}
+                                        onClick={() => { setRenderId(row.id); navigate("/battle"); }}>
                                         复盘
                                     </Button>
                                 </Grid>
@@ -111,6 +117,7 @@ export default function GameList() {
     const setGameList = useSetRecoilState(GameListsState)
     const [rowsPerPage, setRowsPerPage] = useState(2);
     const [currentPage, setCurrentPage] = useState(1);
+
     const offset = useMemo(() => {
         return (currentPage - 1) * rowsPerPage;
     }, [rowsPerPage, currentPage]);
