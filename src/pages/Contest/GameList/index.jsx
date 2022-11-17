@@ -115,7 +115,7 @@ function Row(props) {//列表子项
 export default function GameList() {
     const gamelists = useRecoilValue(GameListsState);
     const setGameList = useSetRecoilState(GameListsState)
-    const [rowsPerPage, setRowsPerPage] = useState(2);
+    const [rowsPerPage, setRowsPerPage] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
 
     const offset = useMemo(() => {
