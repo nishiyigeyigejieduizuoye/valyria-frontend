@@ -12,7 +12,7 @@ let ticks;
 let ticks_length;
 const Gx = window.innerWidth / 10;
 const Gy = window.innerHeight / 10;
-let timer = null;
+
 function draw(i, j, size, type, soldiers) {
   switch (type) {
     case "M":
@@ -43,12 +43,9 @@ function draw(i, j, size, type, soldiers) {
 
 const Judge = (param) => {
   const tick = param.tick;
-  const str = [];
   console.log(tick);
-  if (tick % 2 == 0) {
-    return;
-  }
-if(ticks[tick].changes==null){
+
+if(ticks[tick].changes===undefined){
     return;
   }
   for (var i = 0; i < ticks[tick].changes.length; i++) {
@@ -60,15 +57,7 @@ if(ticks[tick].changes==null){
     map.grids[
       ticks[tick].changes[i].x * map.width + ticks[tick].changes[i].y
     ].soldiers = ticks[tick].changes[i].grid.soldiers;
-    str.push(
-      draw(
-        ticks[tick].changes[i].x,
-        ticks[tick].changes[i].y,
-        50,
-        ticks[tick].changes[i].grid.type,
-        ticks[tick].changes[i].grid.soldiers
-      )
-    );
+    
   }
   return;
 };
@@ -344,7 +333,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tick: 1,
+      tick: 0,
     };
   }
   render() {
@@ -352,7 +341,7 @@ class App extends Component {
       <>
         <div>
           <button onClick={ this.setState({ tick: this.state.tick + 2 })}>
-            第 {(this.state.tick - 1) / 2}步
+            第 步
           </button>
         </div>
         <Stage width={1238} height={window.innerHeight}>
