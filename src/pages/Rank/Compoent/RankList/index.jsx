@@ -1,40 +1,22 @@
 import * as React from 'react';
-import { Grid, Divider, Typography, ListItemAvatar, ListItemText, ListItem, List, Avatar } from '@mui/material';
+import { Grid, Divider, ListItemAvatar, ListItemText, ListItem, List, Avatar } from '@mui/material';
 import { RankListsState } from "@/state/ranklists";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { get_rank_list } from '@/api/rank_api';
+import { useRecoilValue } from "recoil";
 import { blue } from '@mui/material/colors';
-import { useEffect } from 'react';
 import EmailIcon from '@mui/icons-material/Email';
 import PersonIcon from '@mui/icons-material/Person';
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Box from '@mui/material/Box'
 const RankList = () => {
     const ranklists = useRecoilValue(RankListsState);
-    const setRankListState = useSetRecoilState(RankListsState);
-    useEffect(() => {
-        (async () => {
-            try {
-                const [ranklist] = await Promise.all(
-                    [get_rank_list(),]
-                )
-                setRankListState(ranklist)
-            }
-            catch {
-            }
-
-        })()
-    });
     return (
-
         <Grid container spacing={1} justifyContent="center" rowSpacing={0.5} component="div">
             {ranklists.filter((player, index) => index < 3).map((player, index) => (
                 <List key={player.id} sx={{ width: '100%', maxWidth: 650, bgcolor: 'background.paper' }} component="div">
 
                     <ListItem alignItems="flex-start" component="span" >
                         <ListItemAvatar>
-                            <Avatar alt={player.id} src={""}
+                            <Avatar alt={player.id} src={"/api/user/" + player.id + "/avatar"}
                                 sx={{
                                     width: 120,
                                     height: 120,
@@ -77,9 +59,10 @@ const RankList = () => {
                                 <span>
                                     <ListItemIcon component="p">
                                         <PersonIcon sx={{ color: blue[500], fontSize: 20 }} />
-                                    </ListItemIcon>{player.name}
+                                    </ListItemIcon>
+                                    {player.name}
 
-                                    <span align="right" component="span">{player.rating}</span>
+                                    {player.rating}
                                 </span>
                             }
                         />
