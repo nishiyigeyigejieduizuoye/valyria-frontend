@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import { rendering_id } from "@/state/rendering";
 import { get_games_details } from "../../api/battle_api";
 
-let map;
+let map;		//map
 let size;
 let ticks;
 let ticks_length;
