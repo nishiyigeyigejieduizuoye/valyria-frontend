@@ -48,6 +48,9 @@ const Judge = (param) => {
   if (tick % 2 == 0) {
     return;
   }
+if(ticks[tick].changes==null){
+    return;
+  }
   for (var i = 0; i < ticks[tick].changes.length; i++) {
     //更新地图指定格的状态
     console.log(ticks[tick].changes.length);
@@ -348,7 +351,7 @@ class App extends Component {
     return (
       <>
         <div>
-          <button onClick={() => this.setState({ tick: this.state.tick + 2 })}>
+          <button onClick={ this.setState({ tick: this.state.tick + 2 })}>
             第 {(this.state.tick - 1) / 2}步
           </button>
         </div>
