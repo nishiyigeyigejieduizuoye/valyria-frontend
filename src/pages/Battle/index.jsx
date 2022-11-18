@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import { rendering_id } from "@/state/rendering";
 import { get_games_details } from "../../api/battle_api";
 
-let map;		//map
+let map; //map
 let size;
 let ticks;
 let ticks_length;
@@ -17,25 +17,18 @@ function draw(i, j, size, type, soldiers) {
   switch (type) {
     case "M":
       return <ShanImage x={i} y={j} size={size} />;
-      break;
     case "C":
       return <ChenbaoImage x={i} y={j} size={size} num={soldiers} />;
-      break;
     case "R":
       return <WangguanImage_red x={i} y={j} size={size} num={soldiers} />;
-      break;
     case "B":
       return <WangguanImage_blue x={i} y={j} size={size} num={soldiers} />;
-      break;
     case "CR":
       return <ChenbaoImage_red x={i} y={j} size={size} num={soldiers} />;
-      break;
     case "CB":
       return <ChenbaoImage_blue x={i} y={j} size={size} num={soldiers} />;
-      break;
     case "LR":
       return <Plaid_red x={i} y={j} size={size} num={soldiers} />;
-      break;
     case "LB":
       return <Plaid_blue x={i} y={j} size={size} num={soldiers} />;
   }
@@ -45,21 +38,24 @@ const Judge = (param) => {
   const tick = param.tick;
   console.log(tick);
 
-if(ticks[tick].changes===undefined){
-    return;
-  }
-  for (var i = 0; i < ticks[tick].changes.length; i++) {
-    //更新地图指定格的状态
-    console.log(ticks[tick].changes.length);
-    map.grids[
-      ticks[tick].changes[i].x * map.width + ticks[tick].changes[i].y
-    ].type = ticks[tick].changes[i].grid.type;
-    map.grids[
-      ticks[tick].changes[i].x * map.width + ticks[tick].changes[i].y
-    ].soldiers = ticks[tick].changes[i].grid.soldiers;
-    
-  }
-  return;
+  useEffect(() => {
+    if (tick >= ticks.length) return;
+    if (ticks[tick].changes === undefined || ticks[tick].changes === null) {
+      return;
+    }
+    for (const change of ticks[tick].changes) {
+      //更新地图指定格的状态
+      console.log(ticks[tick].changes.length);
+      map.grids[
+        ticks[tick].changes[i].x * map.width + ticks[tick].changes[i].y
+      ].type = ticks[tick].changes[i].grid.type;
+      map.grids[
+        ticks[tick].changes[i].x * map.width + ticks[tick].changes[i].y
+      ].soldiers = ticks[tick].changes[i].grid.soldiers;
+    }
+  }, [param.tick]);
+
+  return <></>;
 };
 
 const ShanImage = (param) => {
@@ -79,6 +75,7 @@ const ShanImage = (param) => {
     </>
   );
 };
+
 const WangguanImage_red = (param) => {
   const xx = param.x;
   const yy = param.y;
@@ -159,6 +156,7 @@ const ChenbaoImage_red = (param) => {
     </>
   );
 };
+
 const ChenbaoImage_blue = (param) => {
   const xx = param.x;
   const yy = param.y;
@@ -240,6 +238,7 @@ const Plaid_red = (param) => {
     </>
   );
 };
+
 const Plaid_blue = (param) => {
   const xx = param.x;
   const yy = param.y;
@@ -340,7 +339,7 @@ class App extends Component {
     return (
       <>
         <div>
-          <button onClick={ this.setState({ tick: this.state.tick + 2 })}>
+          <button onClick={this.setState({ tick: this.state.tick + 2 })}>
             第 步
           </button>
         </div>
