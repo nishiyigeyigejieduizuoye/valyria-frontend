@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { rendering_id } from "@/state/rendering";
 import { get_games_details } from "../../api/battle_api";
+import { useSearchParams } from "react-router-dom";
 
 let map;
 let ticks;
@@ -348,16 +349,17 @@ class App extends Component {
 
 const Battle = () => {
   const [loading, setLoading] = useState(true);
-  const renderingContestId = useRecoilValue(rendering_id);
+  const [searchParams] = useSearchParams();
+  const contestId = searchParams.get("id");
   useEffect(() => {
     (async () => {
-      let data = await get_games_details(renderingContestId);
+      let data = await get_games_details(contestId);
       console.log(data);
       map = data.data.map;
       ticks = data.data.ticks;
       setLoading(false);
     })();
-  }, [renderingContestId, get_games_details, setLoading]);
+  }, [contestId, get_games_details, setLoading]);
 
   return <>{loading ? <p>加载中</p> : <App />}</>;
 };
