@@ -267,19 +267,19 @@ export default function GameList() {
             <TableRow>
               <TableCell />
               <TableCell align="justify">
-                <strong>Date</strong>
+                <h2><strong >Date</strong></h2>
               </TableCell>
               <TableCell>
-                <strong>Role</strong>
+                <h2><strong>Role</strong></h2>
               </TableCell>
               <TableCell>
-                <strong>Winner</strong>
+                <h2><strong>Winner</strong></h2>
               </TableCell>
               <TableCell align="center">
-                <strong>Status</strong>
+                <h2><strong>Status</strong></h2>
               </TableCell>
               <TableCell align="center">
-                <strong>Official</strong>
+                <h2><strong>Official</strong></h2>
               </TableCell>
             </TableRow>
           </TableHead>
