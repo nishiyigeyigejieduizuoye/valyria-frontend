@@ -37,7 +37,8 @@ import { useNavigate } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import moment from 'moment';
-
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
 function Row(props) {
   //列表子项
   const navigate = useNavigate();
@@ -260,6 +261,9 @@ export default function GameList() {
     setCurrentPage(parseInt(event.target.value));
     setRowsPerPage(rowsPerPage);
   };
+  const onClick = () => {
+
+  }
   return (
     <Grid container>
       <TableContainer component={Paper} sx={{ boxShadow: 10 }}>
@@ -340,6 +344,16 @@ export default function GameList() {
           </TableFooter>
         </Table>
       </TableContainer>
+      <Fab
+        sx={{
+          position: 'fixed',
+          bottom: 16,
+          right: 16,
+        }}
+        aria-label={'Add'}
+        color='primary'>
+        <AddIcon onClick={onClick} />
+      </Fab>
     </Grid>
   );
 }

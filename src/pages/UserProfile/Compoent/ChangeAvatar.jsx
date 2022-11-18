@@ -9,6 +9,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
 import useMessage from "@/hooks/useMessage";
 import { useCallback } from 'react';
+import { post_user_avatar } from "@/api/avatar_api"
+import Grid from '@mui/material/Grid'
+
+
 export default function ChangeAvatar() {
     const [open, setOpen] = useState(false);
     const [Avatar, setavatar] = useState(false)
@@ -23,8 +27,7 @@ export default function ChangeAvatar() {
     const handleClick = useCallback(
         async () => {
             try {
-                await register(username, email, password);
-                setRegistering(false)
+                await post_user_avatar(Avatar);
                 addMessage("success", "修改成功")
             } catch (e) {
                 addMessage("error", "修改失败");
@@ -42,28 +45,33 @@ export default function ChangeAvatar() {
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>修改头像</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        请选择需要上传的头像路径
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        type="file"
-                        fullWidth
-                        variant="standard"
-                    />
-                    {/* <form action="/api/user/avatar" method="POST" encType="multipart/form-data">
-                        <input type="file" name="avatar" />
-                        
-                        <input type="submit" name="上传" />
-                    </form> */}
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>取消</Button>
-                    <Button onClick={(e) => { setavatar(e.target.value); }}>提交</Button>
-                </DialogActions>
+                <Grid
+                    component="form"
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="flex-start"
+                    onSubmit={handleClick}
+                >
+                    <DialogContent>
+                        <DialogContentText>
+                            请选择需要上传的头像路径
+                        </DialogContentText>
+
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            type="file"
+                            fullWidth
+                            variant="standard"
+                            onChange={(e) => { setavatar(e.target.value) }}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose}>取消</Button>
+                        <Button type="submit">提交</Button>
+                    </DialogActions>
+                </Grid>
             </Dialog>
         </div>
     );
