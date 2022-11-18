@@ -32,19 +32,27 @@ import { useEffect, useMemo } from "react";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import SendIcon from "@mui/icons-material/Send";
-import { rendering_id } from "@/state/rendering";
 import { useNavigate } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import moment from 'moment';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
+import MenuItem from '@mui/material/MenuItem';
+import { generate_game } from "@/api/script_api";
+import Select from '@mui/material/Select';
+import { ScriptsState } from "@/state/user";
+import useMessage from "@/hooks/useMessage";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 function Row(props) {
   //列表子项
-  const navigate = useNavigate();
   const { row } = props;
   const [open, setOpen] = React.useState(false);
-  const setRenderId = useSetRecoilState(rendering_id);
+  const navigate = useNavigate();
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -203,15 +211,26 @@ function Row(props) {
                 </Grid>
 
                 <Grid item xs={1.5}>
-                  <Button
-                    variant="contained"
-                    endIcon={<SendIcon />}
-                    onClick={() => {
-                      navigate("/battle?id=" + row.id);
-                    }}
-                  >
-                    复盘
-                  </Button>
+                  {row.status == 'finished' ?
+                    <Button
+                      variant="contained"
+                      endIcon={<SendIcon />}
+                      onClick={() => {
+                        navigate("/battle?id=" + row.id);
+                      }}
+                    >
+                      复盘
+                    </Button> :
+                    <Button
+                      variant="contained"
+                      endIcon={<SendIcon />}
+                      onClick={() => {
+                        navigate("/");
+                      }}
+                    >
+                      直播
+                    </Button>
+                  }
                 </Grid>
               </Grid>
             </Box>
@@ -221,13 +240,29 @@ function Row(props) {
     </React.Fragment>
   );
 }
-
 export default function GameList() {
   const gamelists = useRecoilValue(GameListsState);
   const setGameList = useSetRecoilState(GameListsState);
   const [rowsPerPage, setRowsPerPage] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [name1, setName1] = useState('')
+  const [name2, setName2] = useState('')
+  const scripts = useRecoilValue(ScriptsState);
+  const [, { addMessage }] = useMessage();
+  const handClick = useCallback(
+    async () => {
+      try {
+        console.log(name1, name2)
+        await generate_game(name1, name2);
+        addMessage("success", "生成成功")
+        // navigate("/contest");
+      } catch (e) {
+        addMessage("error", "生成失败");
+      } finally {
+      }
+    },
+    [name1, name2]
+  );
   const offset = useMemo(() => {
     return (currentPage - 1) * rowsPerPage;
   }, [rowsPerPage, currentPage]);
@@ -261,9 +296,7 @@ export default function GameList() {
     setCurrentPage(parseInt(event.target.value));
     setRowsPerPage(rowsPerPage);
   };
-  const onClick = () => {
-
-  }
+  const [open, setOpen] = useState(false);
   return (
     <Grid container>
       <TableContainer component={Paper} sx={{ boxShadow: 10 }}>
@@ -352,8 +385,44 @@ export default function GameList() {
         }}
         aria-label={'Add'}
         color='primary'>
-        <AddIcon onClick={onClick} />
+        <AddIcon onClick={() => { setOpen(true); }} />
       </Fab>
+      <Dialog open={open} onClose={(e) => { setOpen(false) }}>
+        <DialogTitle>生成自定义对局</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            请选择R&D的脚本
+          </DialogContentText>
+        </DialogContent>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          value={name1}
+          label="R script name"
+          onChange={(e) => { setName1(e.target.value) }}
+        >{scripts.map((script) => (
+          <MenuItem key={script.name} value={script.name}>
+            {script.name}
+          </MenuItem >
+        ))}
+        </Select>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          value={name2}
+          label="B script name"
+          onChange={(e) => { setName2(e.target.value) }}
+        >{scripts.map((script) => (
+          <MenuItem key={script.name} value={script.name}>
+            {script.name}
+          </MenuItem >
+        ))}
+        </Select>
+        <DialogActions>
+          <Button onClick={(e) => { setOpen(false) }}>关闭</Button>
+          <Button onClick={handClick}>生成</Button>
+        </DialogActions>
+      </Dialog>
     </Grid>
   );
 }
