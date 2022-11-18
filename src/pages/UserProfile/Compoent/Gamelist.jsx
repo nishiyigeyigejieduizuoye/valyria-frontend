@@ -49,7 +49,7 @@ export default function Gamesists() {
                                 </Avatar>
                             </TableCell>
                             <TableCell>
-                                <Avatar
+                                {row.result == null ? <></> : <Avatar
                                     sx={{
                                         bgcolor:
                                             row.result.winner == "R"
@@ -60,7 +60,7 @@ export default function Gamesists() {
                                     }}
                                 >
                                     {row.result.winner}
-                                </Avatar>
+                                </Avatar>}
                             </TableCell>
                             <TableCell align="center">
                                 <Chip
