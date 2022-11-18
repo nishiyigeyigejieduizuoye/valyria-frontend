@@ -6,10 +6,8 @@ import { useRecoilValue } from "recoil";
 import { rendering_id } from "@/state/rendering";
 import { get_games_details } from "../../api/battle_api";
 
-let map; //map
-let size;
+let map;
 let ticks;
-let ticks_length;
 const Gx = window.innerWidth / 10;
 const Gy = window.innerHeight / 10;
 
@@ -34,8 +32,8 @@ function draw(i, j, size, type, soldiers) {
   }
 }
 
-const Judge = (param) => {
-  const tick = param.tick;
+const Judge = (props) => {
+  const tick = props.tick;
   console.log(tick);
 
   useEffect(() => {
@@ -50,7 +48,7 @@ const Judge = (param) => {
       map.grids[change.x * map.width + change.y].soldiers =
         change.grid.soldiers;
     }
-  }, [param.tick]);
+  }, [props.tick]);
 
   return <></>;
 };
@@ -312,9 +310,6 @@ class Board extends Component {
 class Game extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tick: 1,
-    };
   }
   render() {
     return (
@@ -336,8 +331,8 @@ class App extends Component {
     return (
       <>
         <div>
-          <button onClick={this.setState({ tick: this.state.tick + 2 })}>
-            第 步
+          <button onClick={() => this.setState({ tick: this.state.tick + 1 })}>
+            第 {this.state.tick} 步
           </button>
         </div>
         <Stage width={1238} height={window.innerHeight}>
@@ -359,9 +354,7 @@ const Battle = () => {
       let data = await get_games_details(renderingContestId);
       console.log(data);
       map = data.data.map;
-      size = map.size;
       ticks = data.data.ticks;
-      ticks_length = ticks.length;
       setLoading(false);
     })();
   }, [renderingContestId, get_games_details, setLoading]);
