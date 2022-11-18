@@ -321,31 +321,51 @@ class Game extends Component {
   }
 }
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tick: 0,
-    };
-  }
-  render() {
-    return (
-      <>
-        <div>
-          <button onClick={() => this.setState({ tick: this.state.tick + 1 })}>
-            第 {this.state.tick} 步
-          </button>
-        </div>
-        <Stage width={1238} height={window.innerHeight}>
-          <Layer>
-            <Board />
-            <Game tick={this.state.tick} />
-          </Layer>
-        </Stage>
-      </>
-    );
-  }
-}
+const App = () => {
+  const [tick, setTick] = useState(0);
+  const [auto, setAuto] = useState(false);
+
+  useEffect(() => {
+    if (tick >= ticks.length) {
+      setAuto(false);
+    }
+  }, [tick, setAuto]);
+
+  useEffect(() => {
+    if (auto) {
+      setTimeout(() => {
+        setTick(tick + 1);
+      }, 100);
+    }
+  }, [tick, setTick, auto]);
+
+  return (
+    <>
+      <div>
+        <button
+          onClick={() => {
+            if (tick <= ticks.length) setTick(tick + 1);
+          }}
+        >
+          第 {tick} 步
+        </button>
+        <button
+          onClick={() => {
+            setAuto(!auto);
+          }}
+        >
+          {auto ? "关闭自动播放" : "开启自动播放"}
+        </button>
+      </div>
+      <Stage width={1238} height={window.innerHeight}>
+        <Layer>
+          <Board />
+          <Game tick={tick} />
+        </Layer>
+      </Stage>
+    </>
+  );
+};
 
 const Battle = () => {
   const [loading, setLoading] = useState(true);
