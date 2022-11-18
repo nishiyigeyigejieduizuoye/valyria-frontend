@@ -22,12 +22,12 @@ import { Container } from '@mui/system';
 import GlobalMessage from './components/GlobalMeaage';
 import DefaultState from './components/DefaultState';
 import UserScripts from './pages/UserScripts';
-
+import Customgame from './pages/Customgame'
 function App() {
   return (
     <RecoilRoot>
       <>
-        <DefaultState/>
+        <DefaultState />
         <CssBaseline />
         <GlobalMessage />
         <HashRouter>
@@ -42,6 +42,7 @@ function App() {
               <Route path='/rank' element={<Rank />} />
               <Route path='/profile' element={<UserProfile />} />
               <Route path='/scripts' element={<UserScripts />} />
+              <Route path='/customgame' element={<Customgame />} />
             </Routes>
           </Container>
         </HashRouter>

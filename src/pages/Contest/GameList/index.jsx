@@ -32,19 +32,18 @@ import { useEffect, useMemo } from "react";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import SendIcon from "@mui/icons-material/Send";
-import { rendering_id } from "@/state/rendering";
 import { useNavigate } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import moment from 'moment';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
+
 function Row(props) {
   //列表子项
-  const navigate = useNavigate();
   const { row } = props;
   const [open, setOpen] = React.useState(false);
-  const setRenderId = useSetRecoilState(rendering_id);
+  const navigate = useNavigate();
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -203,15 +202,26 @@ function Row(props) {
                 </Grid>
 
                 <Grid item xs={1.5}>
-                  <Button
-                    variant="contained"
-                    endIcon={<SendIcon />}
-                    onClick={() => {
-                      navigate("/battle?id=" + row.id);
-                    }}
-                  >
-                    复盘
-                  </Button>
+                  {row.status == 'finished' ?
+                    <Button
+                      variant="contained"
+                      endIcon={<SendIcon />}
+                      onClick={() => {
+                        navigate("/battle?id=" + row.id);
+                      }}
+                    >
+                      复盘
+                    </Button> :
+                    <Button
+                      variant="contained"
+                      endIcon={<SendIcon />}
+                      onClick={() => {
+                        navigate("/");
+                      }}
+                    >
+                      直播
+                    </Button>
+                  }
                 </Grid>
               </Grid>
             </Box>
@@ -221,13 +231,11 @@ function Row(props) {
     </React.Fragment>
   );
 }
-
 export default function GameList() {
   const gamelists = useRecoilValue(GameListsState);
   const setGameList = useSetRecoilState(GameListsState);
   const [rowsPerPage, setRowsPerPage] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
-
   const offset = useMemo(() => {
     return (currentPage - 1) * rowsPerPage;
   }, [rowsPerPage, currentPage]);
@@ -352,7 +360,7 @@ export default function GameList() {
         }}
         aria-label={'Add'}
         color='primary'>
-        <AddIcon onClick={onClick} />
+        <AddIcon onClick={() => { navigate("/"); }} />
       </Fab>
     </Grid>
   );
