@@ -14,7 +14,7 @@ import HomePage from './pages/Home'
 import Battle from './pages/Battle'
 import Contest from './pages/Contest'
 import Login from './pages/Login'
-import History from './pages/History'
+import Qualifying from './pages/Qualifying'
 import Rank from './pages/Rank'
 import UserProfile from './pages/UserProfile';
 // import UserScripts from './pages/UserScripts';
@@ -38,7 +38,7 @@ function App() {
               <Route path='/battle' element={<Battle />} />
               <Route path='/contest' element={<Contest />} />
               <Route path='/login' element={<Login />} />
-              <Route path='/history' element={<History />} />
+              <Route path='/qualifying' element={<Qualifying />} />
               <Route path='/rank' element={<Rank />} />
               <Route path='/profile' element={<UserProfile />} />
               <Route path='/scripts' element={<UserScripts />} />
