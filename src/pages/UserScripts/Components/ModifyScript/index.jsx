@@ -36,6 +36,12 @@ function ModifyScript(param) {
       if (loading) {
         return;
       }
+
+      if(name === "") {
+        addMessage("error", "保存失败：脚本名不能为空");
+        return;
+      }
+
       setLoading(true);
       const operateScript = originName === null ? createScript : editScript;
       try {
