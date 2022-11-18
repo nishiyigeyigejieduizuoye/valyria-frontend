@@ -19,8 +19,9 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import SendIcon from '@mui/icons-material/Send';
 import { rendering_id } from '@/state/rendering';
 import { useNavigate } from 'react-router-dom';
-
-
+import Chip from '@mui/material/Chip';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import DoneIcon from '@mui/icons-material/Done';
 function Row(props) {//列表子项
     const navigate = useNavigate();
     const { row } = props;
@@ -37,8 +38,9 @@ function Row(props) {//列表子项
                     >
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
-                </TableCell>
-                <TableCell component="th" scope="row">{row.date} </TableCell>
+                </TableCell >
+                <TableCell component="th" scope="row" align="justify">
+                    <Chip icon={<AccessTimeIcon />} label={row.date} /> </TableCell>
                 <TableCell align="right"><Avatar sx={{
                     bgcolor:
                         row.role == 'R' ? deepOrange[500] : row.role == 'B' ? deepPurple[500] : blueGrey[500]
@@ -47,8 +49,13 @@ function Row(props) {//列表子项
                     bgcolor:
                         row.result.winner == 'R' ? deepOrange[500] : row.result.winner == 'B' ? deepPurple[500] : blueGrey[500]
                 }}>{row.result.winner}</Avatar></TableCell>
-                <TableCell align="right">{row.status}</TableCell>
-                <TableCell align="right">{row.official ? <CheckIcon /> : <ClearIcon />}</TableCell>
+                <TableCell align="center">
+                    <Chip label={row.status == 'finished' ? 'Finished' : row.status == 'queue' ? 'Queue' : 'Running'}
+                        variant="outlined"
+                        color={row.status == 'finished' ? 'secondary' : row.status == 'queue' ? 'primary' : 'warning'}
+                    />
+                </TableCell>
+                <TableCell align="center">{row.official ? <CheckIcon /> : <ClearIcon />}</TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -60,12 +67,12 @@ function Row(props) {//列表子项
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Role</TableCell>
-                                        <TableCell>Rounds</TableCell>
-                                        <TableCell align="right">Moves</TableCell>
-                                        <TableCell align="right">Soldiers_total</TableCell>
-                                        <TableCell align="right">Soldiers_killed</TableCell>
-                                        <TableCell align="right">Grids_taken</TableCell>
+                                        <TableCell><strong >Role</strong></TableCell>
+                                        <TableCell><strong >Rounds</strong></TableCell>
+                                        <TableCell align="right"><strong >Moves</strong></TableCell>
+                                        <TableCell align="right"><strong >Soldiers_total</strong></TableCell>
+                                        <TableCell align="right"><strong >Soldiers_killed</strong></TableCell>
+                                        <TableCell align="right"><strong >Grids_taken</strong></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -163,11 +170,11 @@ export default function GameList() {
                     <TableHead>
                         <TableRow>
                             <TableCell />
-                            <TableCell><strong >Date</strong></TableCell>
+                            <TableCell align="justify"><strong >Date</strong></TableCell>
                             <TableCell ><strong >Role</strong></TableCell>
                             <TableCell ><strong >Winner</strong></TableCell>
-                            <TableCell align="right"><strong >Status</strong></TableCell>
-                            <TableCell align="right"><strong >Official</strong></TableCell>
+                            <TableCell align="center"><strong >Status</strong></TableCell>
+                            <TableCell align="center"><strong >Official</strong></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -185,7 +192,7 @@ export default function GameList() {
                                     hiddenLabel
                                     id="filled-hidden-label-small"
                                     value={rowsPerPage}
-                                    sx={{ width: '3ch' }}
+                                    sx={{ width: '5ch' }}
                                     size="small"
                                     onChange={handleChangeRowsPerPage}
                                 /></Typography>
@@ -194,13 +201,13 @@ export default function GameList() {
                                 <TextField
                                     hiddenLabel
                                     id="filled-hidden-label-small"
-                                    sx={{ width: '3ch' }}
+                                    sx={{ width: '5ch' }}
                                     size="small"
                                     value={currentPage}
                                     onChange={handleChangePage}
                                 /></Typography>
                             </TableCell>
-                            <TableCell colSpan={1}>
+                            <TableCell colSpan={1} align='right'>
                                 <IconButton color="primary" aria-label="upload picture" component="label" onClick={handleChangePageLeft}>
                                     <KeyboardArrowLeftIcon />
                                 </IconButton>
