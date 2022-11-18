@@ -46,12 +46,9 @@ const Judge = (param) => {
     for (const change of ticks[tick].changes) {
       //更新地图指定格的状态
       console.log(ticks[tick].changes.length);
-      map.grids[
-        ticks[tick].changes[i].x * map.width + ticks[tick].changes[i].y
-      ].type = ticks[tick].changes[i].grid.type;
-      map.grids[
-        ticks[tick].changes[i].x * map.width + ticks[tick].changes[i].y
-      ].soldiers = ticks[tick].changes[i].grid.soldiers;
+      map.grids[change.x * map.width + change.y].type = change.grid.type;
+      map.grids[change.x * map.width + change.y].soldiers =
+        change.grid.soldiers;
     }
   }, [param.tick]);
 
