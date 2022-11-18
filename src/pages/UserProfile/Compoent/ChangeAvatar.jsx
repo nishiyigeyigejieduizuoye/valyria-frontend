@@ -12,6 +12,7 @@ import { useCallback } from 'react';
 import { post_user_avatar } from "@/api/avatar_api"
 import Grid from '@mui/material/Grid'
 
+
 export default function ChangeAvatar() {
     const [open, setOpen] = useState(false);
     const [Avatar, setavatar] = useState(false)
