@@ -36,7 +36,8 @@ import { rendering_id } from "@/state/rendering";
 import { useNavigate } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import DoneIcon from "@mui/icons-material/Done";
+import moment from 'moment';
+
 function Row(props) {
   //列表子项
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row" align="justify">
-          <Chip icon={<AccessTimeIcon />} label={row.date} />{" "}
+          <Chip icon={<AccessTimeIcon />} label={moment(row.date * 1000).format("YYYY-MM-DD HH:mm:ss")} />{" "}
         </TableCell>
         <TableCell align="right">
           <Avatar
@@ -65,8 +66,8 @@ function Row(props) {
                 row.role == "R"
                   ? deepOrange[500]
                   : row.role == "B"
-                  ? deepPurple[500]
-                  : blueGrey[500],
+                    ? deepPurple[500]
+                    : blueGrey[500],
             }}
           >
             {row.role}
@@ -79,8 +80,8 @@ function Row(props) {
                 row.result.winner == "R"
                   ? deepOrange[500]
                   : row.result.winner == "B"
-                  ? deepPurple[500]
-                  : blueGrey[500],
+                    ? deepPurple[500]
+                    : blueGrey[500],
             }}
           >
             {row.result.winner}
@@ -92,16 +93,16 @@ function Row(props) {
               row.status == "finished"
                 ? "Finished"
                 : row.status == "queue"
-                ? "Queue"
-                : "Running"
+                  ? "Queue"
+                  : "Running"
             }
             variant="outlined"
             color={
               row.status == "finished"
                 ? "secondary"
                 : row.status == "queue"
-                ? "primary"
-                : "warning"
+                  ? "primary"
+                  : "warning"
             }
           />
         </TableCell>
@@ -236,7 +237,7 @@ export default function GameList() {
           get_game_list(rowsPerPage, offset),
         ]);
         setGameList(gamelist);
-      } catch {}
+      } catch { }
     })();
   }, [offset, rowsPerPage]);
 
