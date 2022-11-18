@@ -12,9 +12,8 @@ const RankList = () => {
     return (
         <Grid container spacing={1} justifyContent="center" rowSpacing={0.5} component="div">
             {ranklists.filter((player, index) => index < 3).map((player, index) => (
-                <List key={player.id} sx={{ width: '100%', maxWidth: 650, bgcolor: 'background.paper' }} component="div">
-
-                    <ListItem alignItems="flex-start" component="span" >
+                <List key={player.id} sx={{ boxShadow: 10, width: '100%', maxWidth: 800, bgcolor: 'background.paper' }} component="div" >
+                    <ListItem disablePadding alignItems="flex-start" component="span" >
                         <ListItemAvatar>
                             <Avatar alt={player.id} src={"/api/user/" + player.id + "/avatar"}
                                 sx={{
@@ -24,25 +23,30 @@ const RankList = () => {
                         </ListItemAvatar>
                         <ListItemText
                             key={player.id}
-                            primary={index + 1 + (index + 1 == '1' ? 'st' : index + 1 == '2' ? 'nd' : 'rd')}
+                            primary={<h1><strong><i>{index + 1 + (index + 1 == '1' ? 'st' : index + 1 == '2' ? 'nd' : 'rd')}</i></strong></h1>}
                             secondary={
 
                                 <span>
-                                    <PersonIcon sx={{ color: blue[500], fontSize: 15 }} ></PersonIcon>Name: {player.name}
+                                    <PersonIcon sx={{ color: blue[500], fontSize: 15 }} ></PersonIcon><strong>Name:</strong> {player.name}
                                     <br />
-                                    <GradeOutlinedIcon sx={{ color: blue[500], fontSize: 15 }} ></GradeOutlinedIcon>  Rating :{player.rating}
+                                    <GradeOutlinedIcon sx={{ color: blue[500], fontSize: 15 }} ></GradeOutlinedIcon><strong>Rating:</strong>{player.rating}
                                     <br />
-                                    <EmailIcon sx={{ color: blue[500], fontSize: 15, }} ></EmailIcon>Email:{player.email}
+                                    <EmailIcon sx={{ color: blue[500], fontSize: 15, }} ></EmailIcon><strong>Email:</strong>{player.email}
                                 </span>
                             }
                         />
+                        <Avatar alt={player.id} src={"src/pages/Rank/Compoent/trophy/" + (index == 0 ? "first" : index == 1 ? "second" : "third") + ".svg"}
+                            sx={{
+                                width: 120,
+                                height: 120,
+                            }} />
                     </ListItem>
-                    <Divider variant="inset" component="li" />
+
                 </List>
             )
             )}
             {ranklists.filter((player, index) => index >= 3).map((player, index) => (
-                <List key={player.id} sx={{ width: '100%', maxWidth: 650, bgcolor: 'background.paper' }}>
+                <List key={player.id} sx={{ width: '100%', maxWidth: 800, bgcolor: 'background.paper', boxShadow: 10 }}>
                     <ListItem alignItems="flex-start" key={player.id}>
                         <ListItemAvatar>
                             <Avatar variant="square"
@@ -57,17 +61,22 @@ const RankList = () => {
                             key={player.id}
                             secondary={
                                 <span>
-                                    <ListItemIcon component="p">
-                                        <PersonIcon sx={{ color: blue[500], fontSize: 20 }} />
-                                    </ListItemIcon>
-                                    {player.name}
 
-                                    {player.rating}
+                                    <PersonIcon sx={{ color: blue[500], fontSize: 20 }} />
+
+                                    {player.name}
                                 </span>
                             }
                         />
+                        <ListItemAvatar>
+                            <Avatar variant="square"
+                                sx={{ bgcolor: 'background.paper', width: 100, height: 30 }}>
+                                <span style={{ color: 'black', fontSize: 30 }}>
+                                    {player.rating}
+                                </span>
+                            </Avatar>
+                        </ListItemAvatar>
                     </ListItem>
-                    <Divider variant="inset" component="li" />
                 </List>))
             }
         </Grid >
