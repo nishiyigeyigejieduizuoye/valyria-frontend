@@ -20,6 +20,21 @@ export default function ChangeAvatar() {
     const handleClose = () => {
         setOpen(false);
     };
+    const handleClick = useCallback(
+        async () => {
+            try {
+                await register(username, email, password);
+                setRegistering(false)
+                addMessage("success", "修改成功")
+            } catch (e) {
+                addMessage("error", "修改失败");
+            } finally {
+
+            }
+        },
+        [Avatar,]
+    );
+
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
@@ -31,14 +46,23 @@ export default function ChangeAvatar() {
                     <DialogContentText>
                         请选择需要上传的头像路径
                     </DialogContentText>
-                    <form action="/api/user/avatar" method="POST" encType="multipart/form-data">
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        type="file"
+                        fullWidth
+                        variant="standard"
+                    />
+                    {/* <form action="/api/user/avatar" method="POST" encType="multipart/form-data">
                         <input type="file" name="avatar" />
+                        
                         <input type="submit" name="上传" />
-                    </form>
+                    </form> */}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>取消</Button>
-                    <Button onClick={handleClose}>提交</Button>
+                    <Button onClick={(e) => { setavatar(e.target.value); }}>提交</Button>
                 </DialogActions>
             </Dialog>
         </div>

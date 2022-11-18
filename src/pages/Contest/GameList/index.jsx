@@ -74,7 +74,7 @@ function Row(props) {
           </Avatar>
         </TableCell>
         <TableCell align="right">
-          <Avatar
+          {row.result == null ? <></> : <Avatar
             sx={{
               bgcolor:
                 row.result.winner == "R"
@@ -85,7 +85,8 @@ function Row(props) {
             }}
           >
             {row.result.winner}
-          </Avatar>
+          </Avatar>}
+
         </TableCell>
         <TableCell align="center">
           <Chip
@@ -152,19 +153,19 @@ function Row(props) {
                       </Avatar>
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {row.result.r_stat.rounds}
+                      {row.result == null ? " " : row.result.r_stat.rounds}
                     </TableCell>
                     <TableCell align="right">
-                      {row.result.r_stat.moves}
+                      {row.result == null ? " " : row.result.r_stat.moves}
                     </TableCell>
                     <TableCell align="right">
-                      {row.result.r_stat.soldiers_total}
+                      {row.result == null ? " " : row.result.r_stat.soldiers_total}
                     </TableCell>
                     <TableCell align="right">
-                      {row.result.r_stat.soldiers_killed}
+                      {row.result == null ? " " : row.result.r_stat.soldiers_killed}
                     </TableCell>
                     <TableCell align="right">
-                      {row.result.r_stat.grids_taken}
+                      {row.result == null ? " " : row.result.r_stat.grids_taken}
                     </TableCell>
                   </TableRow>
                   <TableRow key={"B"}>
@@ -178,19 +179,19 @@ function Row(props) {
                       </Avatar>
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {row.result.b_stat.rounds}
+                      {row.result == null ? " " : row.result.b_stat.rounds}
                     </TableCell>
                     <TableCell align="right">
-                      {row.result.b_stat.moves}
+                      {row.result == null ? " " : row.result.b_stat.moves}
                     </TableCell>
                     <TableCell align="right">
-                      {row.result.b_stat.soldiers_total}
+                      {row.result == null ? " " : row.result.b_stat.soldiers_total}
                     </TableCell>
                     <TableCell align="right">
-                      {row.result.b_stat.soldiers_killed}
+                      {row.result == null ? " " : row.result.b_stat.soldiers_killed}
                     </TableCell>
                     <TableCell align="right">
-                      {row.result.b_stat.grids_taken}
+                      {row.result == null ? " " : row.result.b_stat.grids_taken}
                     </TableCell>
                   </TableRow>
                 </TableBody>

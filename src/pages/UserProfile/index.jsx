@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import Chart from './Compoent/Chart';
-import Rank from './Compoent/Rank';
+import Rating from './Compoent/Rating';
 import Gamelist from './Compoent/Gamelist';
 import DefaultState from './Compoent/DefaultState';
 import Rightbar from './Compoent/Rightbar'
@@ -55,7 +55,7 @@ const UserProfile = () => {
                                             <Chart />
                                         </Paper>
                                     </Grid>
-                                    {/* Rank*/}
+                                    {/* Rating*/}
                                     <Grid item xs={12} md={4} lg={3}>
                                         <Paper
                                             sx={{
@@ -65,7 +65,7 @@ const UserProfile = () => {
                                                 height: 240,
                                             }}
                                         >
-                                            <Rank />
+                                            <Rating />
                                         </Paper>
                                     </Grid>
                                     {/* Gamelists*/}
