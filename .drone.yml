@@ -10,6 +10,7 @@ trigger:
 steps:
   - name: restore-cache
     image: drillster/drone-volume-cache
+    pull: if-not-exists
     settings:
       restore: true
       mount:
@@ -19,12 +20,14 @@ steps:
         path: /cache
   - name: build
     image: node:19-alpine
+    pull: if-not-exists
     commands:
       - node -v
       - yarn --version
       - yarn install && yarn build
   - name: rebuild-cache
     image: drillster/drone-volume-cache
+    pull: if-not-exists
     settings:
       rebuild: true
       mount:
