@@ -11,6 +11,10 @@ import { useRecoilValue } from 'recoil';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { GameListsState } from "@/state/gamelists";
+import moment from 'moment';
+import Chip from "@mui/material/Chip";
+import Avatar from "@mui/material/Avatar";
+import { deepOrange, deepPurple, blueGrey } from "@mui/material/colors";
 export default function Gamesists() {
     const gamelists = useRecoilValue(GameListsState);
     return (
@@ -19,20 +23,64 @@ export default function Gamesists() {
             <Table size="small">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Role</TableCell>
-                        <TableCell>Winner</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell align="right">Official</TableCell>
+                        <TableCell><strong>Date</strong></TableCell>
+                        <TableCell><strong>Role</strong></TableCell>
+                        <TableCell><strong>Winner</strong></TableCell>
+                        <TableCell align="center"><strong>Status</strong></TableCell>
+                        <TableCell align="right"><strong>Official</strong></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {gamelists.filter((row, index) => (index < 5)).map((row) => (
                         <TableRow key={row.id}>
-                            <TableCell>{row.date}</TableCell>
-                            <TableCell>{row.role}</TableCell>
-                            <TableCell>{row.result.winner}</TableCell>
-                            <TableCell>{row.status}</TableCell>
+                            <TableCell>{moment(row.date * 1000).format("YYYY-MM-DD HH:mm:ss")}</TableCell>
+                            <TableCell>
+                                <Avatar
+                                    sx={{
+                                        bgcolor:
+                                            row.role == "R"
+                                                ? deepOrange[500]
+                                                : row.role == "B"
+                                                    ? deepPurple[500]
+                                                    : blueGrey[500],
+                                    }}
+                                >
+                                    {row.role}
+                                </Avatar>
+                            </TableCell>
+                            <TableCell>
+                                <Avatar
+                                    sx={{
+                                        bgcolor:
+                                            row.result.winner == "R"
+                                                ? deepOrange[500]
+                                                : row.result.winner == "B"
+                                                    ? deepPurple[500]
+                                                    : blueGrey[500],
+                                    }}
+                                >
+                                    {row.result.winner}
+                                </Avatar>
+                            </TableCell>
+                            <TableCell align="center">
+                                <Chip
+                                    label={
+                                        row.status == "finished"
+                                            ? "Finished"
+                                            : row.status == "queue"
+                                                ? "Queue"
+                                                : "Running"
+                                    }
+                                    variant="outlined"
+                                    color={
+                                        row.status == "finished"
+                                            ? "secondary"
+                                            : row.status == "queue"
+                                                ? "primary"
+                                                : "warning"
+                                    }
+                                />
+                            </TableCell>
                             <TableCell align="right">{row.official ? <CheckIcon /> : <ClearIcon />}</TableCell>
                         </TableRow>
                     ))}

@@ -10,7 +10,7 @@ export default function Deposits() {
     return (
         <React.Fragment>
             <Title>Rating</Title>
-            <Typography component="p" variant="h4">
+            <Typography component="p" variant="h1">
                 {userInfo?.data.rating}
             </Typography>
             <Typography color="text.secondary" sx={{ flex: 2 }}>
