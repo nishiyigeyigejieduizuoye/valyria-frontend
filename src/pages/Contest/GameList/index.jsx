@@ -249,13 +249,15 @@ export default function GameList() {
   const [name2, setName2] = useState('')
   const scripts = useRecoilValue(ScriptsState);
   const [, { addMessage }] = useMessage();
+  const nav = useNavigate();
   const handClick = useCallback(
     async () => {
       try {
         console.log(name1, name2)
         await generate_game(name1, name2);
         addMessage("success", "生成成功")
-        // navigate("/contest");
+        nav("/contest");
+        setOpen(false)
       } catch (e) {
         addMessage("error", "生成失败");
       } finally {
@@ -387,7 +389,7 @@ export default function GameList() {
         color='primary'>
         <AddIcon onClick={() => { setOpen(true); }} />
       </Fab>
-      <Dialog open={open} onClose={(e) => { setOpen(false) }}>
+      <Dialog open={open} fullWidth maxWidth={'xs'} onClose={(e) => { setOpen(false) }}>
         <DialogTitle>生成自定义对局</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -423,6 +425,6 @@ export default function GameList() {
           <Button onClick={handClick}>生成</Button>
         </DialogActions>
       </Dialog>
-    </Grid>
+    </Grid >
   );
 }
