@@ -1,11 +1,12 @@
-import { Stage, Layer, Rect, Shape, Text, Image, Group } from "react-konva";
-import React, { Component, useState } from "react";
+import {Stage, Layer, Rect, Shape, Text, Image, Group} from "react-konva";
+import React, {Component, useState} from "react";
 import useImage from "use-image";
-import { useEffect } from "react";
-import { useRecoilValue } from "recoil";
-import { rendering_id } from "@/state/rendering";
-import { get_games_details } from "../../api/battle_api";
-import { useSearchParams } from "react-router-dom";
+import {useEffect} from "react";
+import {useRecoilValue} from "recoil";
+import {rendering_id} from "@/state/rendering";
+import {get_games_details} from "../../api/battle_api";
+import {useSearchParams} from "react-router-dom";
+import {Input} from "@mui/material";
 
 let map;
 let ticks;
@@ -15,21 +16,21 @@ const Gy = window.innerHeight / 10;
 function draw(i, j, size, type, soldiers) {
   switch (type) {
     case "M":
-      return <ShanImage x={i} y={j} size={size} />;
+      return <ShanImage x={i} y={j} size={size}/>;
     case "C":
-      return <ChenbaoImage x={i} y={j} size={size} num={soldiers} />;
+      return <ChenbaoImage x={i} y={j} size={size} num={soldiers}/>;
     case "R":
-      return <WangguanImage_red x={i} y={j} size={size} num={soldiers} />;
+      return <WangguanImage_red x={i} y={j} size={size} num={soldiers}/>;
     case "B":
-      return <WangguanImage_blue x={i} y={j} size={size} num={soldiers} />;
+      return <WangguanImage_blue x={i} y={j} size={size} num={soldiers}/>;
     case "CR":
-      return <ChenbaoImage_red x={i} y={j} size={size} num={soldiers} />;
+      return <ChenbaoImage_red x={i} y={j} size={size} num={soldiers}/>;
     case "CB":
-      return <ChenbaoImage_blue x={i} y={j} size={size} num={soldiers} />;
+      return <ChenbaoImage_blue x={i} y={j} size={size} num={soldiers}/>;
     case "LR":
-      return <Plaid_red x={i} y={j} size={size} num={soldiers} />;
+      return <Plaid_red x={i} y={j} size={size} num={soldiers}/>;
     case "LB":
-      return <Plaid_blue x={i} y={j} size={size} num={soldiers} />;
+      return <Plaid_blue x={i} y={j} size={size} num={soldiers}/>;
   }
 }
 
@@ -273,6 +274,7 @@ class Board extends Component {
       str: [],
     };
   }
+
   renderdraw() {
     for (let i = 0; i < map.width; i++) {
       for (let j = 0; j < map.height; j++) {
@@ -289,6 +291,7 @@ class Board extends Component {
     }
     return this.state.str;
   }
+
   render() {
     return (
       <>
@@ -312,10 +315,11 @@ class Game extends Component {
   constructor(props) {
     super(props);
   }
+
   render() {
     return (
       <>
-        <Judge tick={this.props.tick} />
+        <Judge tick={this.props.tick}/>
       </>
     );
   }
@@ -326,7 +330,7 @@ const App = () => {
   const [auto, setAuto] = useState(false);
 
   useEffect(() => {
-    if (tick >= ticks.length) {
+    if (tick + 1 >= ticks.length) {
       setAuto(false);
     }
   }, [tick, setAuto]);
@@ -344,7 +348,7 @@ const App = () => {
       <div>
         <button
           onClick={() => {
-            if (tick <= ticks.length) setTick(tick + 1);
+            if (tick + 1 < ticks.length) setTick(tick + 1);
           }}
         >
           第 {tick} 步
@@ -357,12 +361,21 @@ const App = () => {
           {auto ? "关闭自动播放" : "开启自动播放"}
         </button>
       </div>
-      <Stage width={1238} height={window.innerHeight}>
+      <Stage width={1238} height={450}>
         <Layer>
-          <Board />
-          <Game tick={tick} />
+          <Board/>
+          <Game tick={tick}/>
         </Layer>
       </Stage>
+
+      {tick < ticks.length && <>
+        <p>Next tick:</p>
+        <p>Operator: {ticks[tick].operator}</p>
+        <p>Action error: {ticks[tick].action_error}</p>
+        <Input multiline fullWidth disabled value={JSON.stringify(ticks[tick].action, null, 2)}/>
+        <p>Changes: </p>
+        <Input multiline fullWidth disabled value={JSON.stringify(ticks[tick].changes, null, 2)}/>
+      </>}
     </>
   );
 };
@@ -381,7 +394,7 @@ const Battle = () => {
     })();
   }, [contestId, get_games_details, setLoading]);
 
-  return <>{loading ? <p>加载中</p> : <App />}</>;
+  return <>{loading ? <p>加载中</p> : <App/>}</>;
 };
 
 export default Battle;
