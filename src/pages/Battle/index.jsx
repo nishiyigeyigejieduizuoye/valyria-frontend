@@ -1,9 +1,7 @@
-import {Stage, Layer, Rect, Shape, Text, Image, Group} from "react-konva";
+import {Stage, Layer, Rect, Text, Image, Group} from "react-konva";
 import React, {Component, useState} from "react";
 import useImage from "use-image";
 import {useEffect} from "react";
-import {useRecoilValue} from "recoil";
-import {rendering_id} from "@/state/rendering";
 import {get_games_details} from "../../api/battle_api";
 import {useSearchParams} from "react-router-dom";
 import {Input} from "@mui/material";
