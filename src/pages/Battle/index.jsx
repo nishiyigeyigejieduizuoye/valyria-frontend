@@ -366,14 +366,14 @@ const App = () => {
         </Layer>
       </Stage>
 
-      {tick < ticks.length && <>
+      {/* {tick < ticks.length && <>
         <p>Next tick:</p>
         <p>Operator: {ticks[tick].operator}</p>
         <p>Action error: {ticks[tick].action_error}</p>
         <Input multiline fullWidth disabled value={JSON.stringify(ticks[tick].action, null, 2)}/>
         <p>Changes: </p>
         <Input multiline fullWidth disabled value={JSON.stringify(ticks[tick].changes, null, 2)}/>
-      </>}
+      </>} */}
     </>
   );
 };
