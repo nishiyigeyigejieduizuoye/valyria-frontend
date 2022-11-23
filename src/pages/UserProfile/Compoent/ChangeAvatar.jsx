@@ -15,7 +15,7 @@ import Grid from '@mui/material/Grid'
 
 export default function ChangeAvatar() {
     const [open, setOpen] = useState(false);
-    const [Avatar, setavatar] = useState(false)
+    const [avatar, setAvatar] = useState('');
     const [, { addMessage }] = useMessage();
     const handleClickOpen = () => {
         setOpen(true);
@@ -27,15 +27,16 @@ export default function ChangeAvatar() {
     const handleClick = useCallback(
         async () => {
             try {
-                await post_user_avatar(Avatar);
+                await post_user_avatar(avatar);
                 addMessage("success", "修改成功")
+                setOpen(false);
             } catch (e) {
                 addMessage("error", "修改失败");
             } finally {
 
             }
         },
-        [Avatar,]
+        [avatar,]
     );
 
     return (
@@ -54,7 +55,7 @@ export default function ChangeAvatar() {
                 >
                     <DialogContent>
                         <DialogContentText>
-                            请选择需要上传的头像路径
+                            请选择需要上传的头像
                         </DialogContentText>
 
                         <TextField
@@ -63,8 +64,9 @@ export default function ChangeAvatar() {
                             id="name"
                             type="file"
                             fullWidth
+                            defaultValue={''}
                             variant="standard"
-                            onChange={(e) => { setavatar(e.target.value) }}
+                            onChange={(e) => { setAvatar(e.target.files[0]) }}
                         />
                     </DialogContent>
                     <DialogActions>
@@ -72,6 +74,7 @@ export default function ChangeAvatar() {
                         <Button type="submit">提交</Button>
                     </DialogActions>
                 </Grid>
+
             </Dialog>
         </div>
     );
