@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { 
+import {
   AppBar,
   Typography,
   Toolbar,
@@ -15,7 +15,7 @@ import { logout } from "@/api/login_api";
 function AppBarButton(param) {
   return (
     <Button color="inherit" component={Link} to={param.to} size="large" onClick={param.onClick}
-      sx = {{ 
+      sx={{
         display: { xs: 'none', md: 'flex' },
         fontFamily: 'Sans-serif',
         fontWeight: 500,
@@ -48,14 +48,13 @@ function SiteAppBar() {
   };
 
   return (
-    <AppBar position = "relative" sx = {{ zIndex: "10" }}>
+    <AppBar position="relative" sx={{ zIndex: "10" }}>
       <Toolbar>
         <Typography
-          variant = "h6"
+          variant="h6"
           noWrap
-          component = "a"
-          href = "/"
-          sx = {{
+          component="a"
+          sx={{
             mr: 6,
             display: { xs: 'none', md: 'flex' },
             fontFamily: 'monospace',
@@ -69,15 +68,15 @@ function SiteAppBar() {
           Valyria
         </Typography>
         <></>
-        <AppBarButton content="主页" to="/"/>
-        <AppBarButton content="赛事大厅" to="/contest"/>
-        <AppBarButton content="排行榜" to="/rank"/>
-        <AppBarButton content="排位赛" to="/qualifying"/>
-        <AppBarButton content="战斗页面（开发者入口）" to="/battle"/>
-        { loading ? <></> : ( userInfo === null ? 
-          <AppBarButton content="登录 / 注册" rightSide to="/login"/>
-        :
-          <AppBarButton content={userInfo.data.name} rightSide onClick={handleClick}/>
+        <AppBarButton content="主页" to="/" />
+        <AppBarButton content="赛事大厅" to="/contest" />
+        <AppBarButton content="排行榜" to="/rank" />
+        <AppBarButton content="排位赛" to="/qualifying" />
+        <AppBarButton content="战斗页面（开发者入口）" to="/battle" />
+        {loading ? <></> : (userInfo === null ?
+          <AppBarButton content="登录 / 注册" rightSide to="/login" />
+          :
+          <AppBarButton content={userInfo.data.name} rightSide onClick={handleClick} />
         )}
       </Toolbar>
       <Menu
@@ -89,8 +88,8 @@ function SiteAppBar() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={ () => { navigate("/profile"); handleClose(); } }>个人资料</MenuItem>
-        <MenuItem onClick={ () => { navigate("/scripts"); handleClose(); } }>脚本仓库</MenuItem>
+        <MenuItem onClick={() => { navigate("/profile"); handleClose(); }}>个人资料</MenuItem>
+        <MenuItem onClick={() => { navigate("/scripts"); handleClose(); }}>脚本仓库</MenuItem>
         <MenuItem onClick={handleLogout}>登出</MenuItem>
       </Menu>
     </AppBar>
