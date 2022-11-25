@@ -1,13 +1,15 @@
 import { FormEvent, useCallback, useState } from 'react';
 import "./index.css";
 import { login, register, getUserInfo } from "@/api/login_api";
-import { UserInfoState } from '@/state/user';
+import {  } from "@/api/script_api";
+import { UserInfoState, ScriptsState } from '@/state/user';
 import Grid from '@mui/material/Unstable_Grid2';
 import { TextField } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil"
 import useMessage from "@/hooks/useMessage";
+import { listScripts } from "@/api/scripts_api";
 
 function Login() {
   const navigate = useNavigate();
@@ -19,6 +21,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [confPswd, setConfPswd] = useState("");
   const setUserInfo = useSetRecoilState(UserInfoState);
+  const setUserScriptsState = useSetRecoilState(ScriptsState);
   const [, { addMessage }] = useMessage();
 
   const loginClick = useCallback(
@@ -26,11 +29,13 @@ function Login() {
       setLoginLoading(true);
       try {
         await login(email, password);
-        const [userInfo] = await Promise.all([
+        const [userInfo, scriptsList] = await Promise.all([
           getUserInfo(),
+          listScripts(),
           // getAvatar(), // TODO
         ]);
         setUserInfo(userInfo);
+        setUserScriptsState(scriptsList);
         addMessage("success", "登录成功")
         navigate("/");
       } catch (e) {

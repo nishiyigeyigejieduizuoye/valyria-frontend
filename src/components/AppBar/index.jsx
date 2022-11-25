@@ -8,8 +8,8 @@ import {
   Button
 } from '@mui/material';
 import { useNavigate, Link } from 'react-router-dom';
-import { UserInfoState, LoadingUserInfoState } from '@/state/user';
-import { useRecoilState } from 'recoil';
+import { UserInfoState, LoadingUserInfoState, ScriptsState } from '@/state/user';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { logout } from "@/api/login_api";
 
 function AppBarButton(param) {
@@ -29,6 +29,7 @@ function AppBarButton(param) {
 function SiteAppBar() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useRecoilState(UserInfoState);
+  const setUserScripts = useSetRecoilState(ScriptsState);
   const [loading] = useRecoilState(LoadingUserInfoState);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -42,6 +43,7 @@ function SiteAppBar() {
   const handleLogout = async () => {
     await logout();
     setUserInfo(null);
+    setUserScripts([]);
     handleClose();
   };
 
