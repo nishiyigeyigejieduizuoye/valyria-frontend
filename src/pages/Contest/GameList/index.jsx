@@ -386,8 +386,9 @@ export default function GameList() {
           right: 16,
         }}
         aria-label={'Add'}
-        color='primary'>
-        <AddIcon onClick={() => { setOpen(true); }} />
+        color='primary'
+        onClick={() => { setOpen(true); }}>
+        <AddIcon/>
       </Fab>
       <Dialog open={open} fullWidth maxWidth={'xs'} onClose={(e) => { setOpen(false) }}>
         <DialogTitle>生成自定义对局</DialogTitle>
