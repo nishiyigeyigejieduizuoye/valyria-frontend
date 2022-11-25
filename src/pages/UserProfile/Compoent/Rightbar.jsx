@@ -13,7 +13,7 @@ import ChangeAvatar from '@/pages/UserProfile/Compoent/ChangeAvatar';
 export default function Rightbar() {
     const userInfo = useRecoilValue(UserInfoState);
     return (
-        <Grid item xs={12} sm={8} md={3} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={3} component={Paper} elevation={2} square>
             <Box
                 sx={{
                     my: 8,
