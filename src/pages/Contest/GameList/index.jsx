@@ -48,6 +48,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+
 function Row(props) {
   //列表子项
   const { row } = props;
@@ -388,39 +389,48 @@ export default function GameList() {
         aria-label={'Add'}
         color='primary'
         onClick={() => { setOpen(true); }}>
-        <AddIcon/>
+        <AddIcon />
       </Fab>
       <Dialog open={open} fullWidth maxWidth={'xs'} onClose={(e) => { setOpen(false) }}>
         <DialogTitle>生成自定义对局</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            请选择R&D的脚本
+            请选择自定义对战双方的脚本
           </DialogContentText>
         </DialogContent>
-        <Select
-          labelId="demo-simple-select-helper-label"
-          id="demo-simple-select-helper"
-          value={name1}
-          label="R script name"
-          onChange={(e) => { setName1(e.target.value) }}
-        >{scripts.map((script) => (
-          <MenuItem key={script.name} value={script.name}>
-            {script.name}
-          </MenuItem >
-        ))}
-        </Select>
-        <Select
-          labelId="demo-simple-select-helper-label"
-          id="demo-simple-select-helper"
-          value={name2}
-          label="B script name"
-          onChange={(e) => { setName2(e.target.value) }}
-        >{scripts.map((script) => (
-          <MenuItem key={script.name} value={script.name}>
-            {script.name}
-          </MenuItem >
-        ))}
-        </Select>
+        <Grid container justifyContent="center" >
+          <Grid item md={2}><h3>Role R:</h3></Grid>
+          <Grid item md={9}>
+            <Select
+              displayEmpty
+              id="Ascript"
+              value={name1}
+
+              sx={{ m: 1, minWidth: 280 }}
+              onChange={(e) => { setName1(e.target.value) }}
+            >{scripts.map((script) => (
+              <MenuItem key={script.name} value={script.name}>
+                {script.name}
+              </MenuItem >
+            ))}
+            </Select>
+          </Grid >
+          <Grid item md={2}><h3>Role B:</h3></Grid>
+          <Grid item md={9}>
+            <Select
+              displayEmpty
+              id="Bscript"
+              value={name2}
+              sx={{ m: 1, minWidth: 280 }}
+              onChange={(e) => { setName2(e.target.value) }}
+            >{scripts.map((script) => (
+              <MenuItem key={script.name} value={script.name}>
+                {script.name}
+              </MenuItem >
+            ))}
+            </Select>
+          </Grid>
+        </Grid>
         <DialogActions>
           <Button onClick={(e) => { setOpen(false) }}>关闭</Button>
           <Button onClick={handClick}>生成</Button>
