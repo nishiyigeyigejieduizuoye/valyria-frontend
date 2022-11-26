@@ -14,30 +14,35 @@ const RankList = () => {
             {ranklists.filter((player, index) => index < 3).map((player, index) => (
                 <List key={player.id} sx={{ boxShadow: 3, width: '100%', maxWidth: 800, bgcolor: 'background.paper' }} component="div" >
                     <ListItem disablePadding alignItems="flex-start" component="span" >
-                        <ListItemAvatar>
-                            <Avatar alt={player.id} src={"/api/user/" + player.id + "/avatar"}
-                                sx={{
-                                    width: 100,
-                                    height: 100,
-                                }} />
-                        </ListItemAvatar>
-                        <ListItemText
-                            key={player.id}
-                            primary={<p sx={{ fontSize: 100 }}><strong><i>{player.name == "" ? 'null' : player.name} </i></strong></p>}
-                            secondary={
-                                <span>
+                        <Grid container >
+                            &nbsp;&nbsp;
+                            <ListItemAvatar>
+                                <Avatar alt={player.id} src={"/api/user/" + player.id + "/avatar"}
+                                    sx={{
+                                        width: 100,
+                                        height: 100,
+                                    }} />
+                            </ListItemAvatar>
+                            &nbsp;&nbsp;
+                            <ListItemText
+                                key={player.id}
+                                primary={<p sx={{ fontSize: 100 }}><strong><i>{player.name == "" ? 'null' : player.name} </i></strong></p>}
+                                secondary={
+                                    <span>
 
-                                    <strong>积分:{player.rating}</strong>
-                                    <br />
-                                    <strong>邮箱:{player.email}</strong>
-                                </span>
-                            }
-                        />
-                        <Avatar alt={player.id} src={"src/pages/Rank/Compoent/trophy/" + (index == 0 ? "first" : index == 1 ? "second" : "third") + ".svg"}
-                            sx={{
-                                width: 120,
-                                height: 120,
-                            }} />
+                                        <strong>积分:{player.rating}</strong>
+                                        <br />
+                                        <strong>邮箱:{player.email}</strong>
+                                    </span>
+                                }
+                            />
+                            <Avatar alt={player.id} src={"../src/Pages/Rank/Compoent/trophy/" + (index == 0 ? "first" : index == 1 ? "second" : "third") + ".svg"}
+                                sx={{
+                                    width: 120,
+                                    height: 120,
+                                }} />
+
+                        </Grid>
                     </ListItem>
 
                 </List>
@@ -79,6 +84,7 @@ const RankList = () => {
                         </ListItem>
                     </List>))
             }
+
         </Grid >
     );
 
