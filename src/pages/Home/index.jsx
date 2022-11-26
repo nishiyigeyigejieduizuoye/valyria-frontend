@@ -16,7 +16,7 @@ import Footer from './Component/Footer';
 const mainFeaturedPost = {
   title: '项目介绍',
   description:
-    "感觉链接可以放包括整个游戏的介绍，以及各个页面的操作详细操作,这后面的图片是随机放的",
+    "感觉链接可以放包括整个游戏的介绍，以及各个页面的详细操作教程,这后面的图片是随机放的",
   image: 'https://source.unsplash.com/random',//图片还没想好放啥
   imageText: 'main image description',
   linkText: '获取更多信息',
