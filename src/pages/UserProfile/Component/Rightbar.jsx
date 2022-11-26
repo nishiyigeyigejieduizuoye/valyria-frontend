@@ -8,8 +8,8 @@ import EmailIcon from '@mui/icons-material/Email';
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import ChangePwdForm from '@/pages/UserProfile/Compoent/ChangePwdForm';
-import ChangeAvatar from '@/pages/UserProfile/Compoent/ChangeAvatar';
+import ChangePwdForm from '@/pages/UserProfile/Component/ChangePwdForm';
+import ChangeAvatar from '@/pages/UserProfile/Component/ChangeAvatar';
 export default function Rightbar() {
     const userInfo = useRecoilValue(UserInfoState);
     return (
