@@ -9,7 +9,7 @@ export default function Deposits() {
     const userInfo = useRecoilValue(UserInfoState);
     return (
         <React.Fragment>
-            <Title>Rating</Title>
+            <Title>积分</Title>
             <Typography component="p" variant="h1">
                 {userInfo?.data.rating}
             </Typography>

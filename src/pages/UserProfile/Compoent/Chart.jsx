@@ -21,7 +21,7 @@ export default function Chart() {
     const theme = useTheme();
     return (
         <React.Fragment>
-            <Title>Game number</Title>
+            <Title>近七日对局数量</Title>
             <ResponsiveContainer>
                 <LineChart
                     data={data}
