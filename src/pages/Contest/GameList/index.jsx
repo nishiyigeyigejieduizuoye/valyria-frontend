@@ -266,11 +266,13 @@ export default function GameList() {
   const handleChangePageLeft = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      window.scrollTo(0, 0)
     }
   };
   const handleChangePageRight = () => {
     if (gamelists?.length == rowsPerPage) {
       setCurrentPage(currentPage + 1);
+      window.scrollTo(0, 0)
     }
   };
   const handleChangeRowsPerPage = (event) => {
@@ -284,6 +286,7 @@ export default function GameList() {
   const [open, setOpen] = useState(false);
   return (
     <Grid container>
+      <a href="top" id="top" />
       <TableContainer component={Paper} sx={{ boxShadow: 10 }} >
         <Table aria-label="collapsible table" >
           <TableHead >

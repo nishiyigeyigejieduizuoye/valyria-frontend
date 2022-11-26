@@ -7,7 +7,7 @@ function Contest() {
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={1} justifyContent="center" rowSpacing={3}>
                 <Grid item xs={12} > </Grid>
-                <h1> 赛事大厅</h1>
+                <Grid item xs={12} > </Grid>
 
                 <GameList />
             </Grid>
