@@ -19,57 +19,34 @@ export default function Gamesists() {
     const gamelists = useRecoilValue(GameListsState);
     return (
         <Grid>
-            <Title>Recent Games</Title>
+            <Title>近期比赛</Title>
             <Table size="small">
                 <TableHead>
                     <TableRow>
-                        <TableCell><strong>Date</strong></TableCell>
-                        <TableCell><strong>Role</strong></TableCell>
-                        <TableCell><strong>Winner</strong></TableCell>
-                        <TableCell align="center"><strong>Status</strong></TableCell>
-                        <TableCell align="right"><strong>Official</strong></TableCell>
+                        <TableCell><strong>游戏时间</strong></TableCell>
+                        <TableCell><strong>游戏结果</strong></TableCell>
+                        <TableCell align="center"><strong>游戏状态</strong></TableCell>
+                        <TableCell align="right"><strong>游戏类别</strong></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {gamelists.filter((row, index) => (index < 5)).map((row) => (
                         <TableRow key={row.id}>
                             <TableCell>{moment(row.date * 1000).format("YYYY-MM-DD HH:mm:ss")}</TableCell>
+
                             <TableCell>
-                                <Avatar
-                                    sx={{
-                                        bgcolor:
-                                            row.role == "R"
-                                                ? deepOrange[500]
-                                                : row.role == "B"
-                                                    ? deepPurple[500]
-                                                    : blueGrey[500],
-                                    }}
-                                >
-                                    {row.role}
-                                </Avatar>
-                            </TableCell>
-                            <TableCell>
-                                {row.result == null ? <></> : <Avatar
-                                    sx={{
-                                        bgcolor:
-                                            row.result.winner == "R"
-                                                ? deepOrange[500]
-                                                : row.result.winner == "B"
-                                                    ? deepPurple[500]
-                                                    : blueGrey[500],
-                                    }}
-                                >
-                                    {row.result.winner}
-                                </Avatar>}
+                                {row.result == null ? <></> : row.result.winner == 'R' ?
+                                    <strong><p style={{ color: "blue", fontFamily: '楷体', letterSpacing: 15, fontSize: 15 }} >胜利</p></strong>
+                                    : <strong><p style={{ color: "red ", fontFamily: '楷体', letterSpacing: 15, fontSize: 15 }} >失败</p></strong>}
                             </TableCell>
                             <TableCell align="center">
                                 <Chip
                                     label={
                                         row.status == "finished"
-                                            ? "Finished"
+                                            ? "已完成"
                                             : row.status == "queue"
-                                                ? "Queue"
-                                                : "Running"
+                                                ? "等待中"
+                                                : "进行中"
                                     }
                                     variant="outlined"
                                     color={
@@ -81,7 +58,9 @@ export default function Gamesists() {
                                     }
                                 />
                             </TableCell>
-                            <TableCell align="right">{row.official ? <CheckIcon /> : <ClearIcon />}</TableCell>
+                            <TableCell align="right"> {row.offical ?
+                                <p>排位赛</p>
+                                : <p>常规赛</p>}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

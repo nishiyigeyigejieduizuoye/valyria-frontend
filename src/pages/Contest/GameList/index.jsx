@@ -48,16 +48,17 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { fontFamily, letterSpacing } from "@mui/system";
 
 function Row(props) {
   //列表子项
   const { row } = props;
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
   return (
-    <React.Fragment>
-      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell>
+    <React.Fragment >
+      <TableRow >
+        <TableCell >
           <IconButton
             aria-label="expand row"
             size="small"
@@ -69,43 +70,21 @@ function Row(props) {
         <TableCell component="th" scope="row" align="justify">
           <Chip icon={<AccessTimeIcon />} label={moment(row.date * 1000).format("YYYY-MM-DD HH:mm:ss")} />{" "}
         </TableCell>
-        <TableCell align="right">
-          <Avatar
-            sx={{
-              bgcolor:
-                row.role == "R"
-                  ? deepOrange[500]
-                  : row.role == "B"
-                    ? deepPurple[500]
-                    : blueGrey[500],
-            }}
-          >
-            {row.role}
-          </Avatar>
-        </TableCell>
-        <TableCell align="right">
-          {row.result == null ? <></> : <Avatar
-            sx={{
-              bgcolor:
-                row.result.winner == "R"
-                  ? deepOrange[500]
-                  : row.result.winner == "B"
-                    ? deepPurple[500]
-                    : blueGrey[500],
-            }}
-          >
-            {row.result.winner}
-          </Avatar>}
+
+        <TableCell >
+          {row.result == null ? <></> : row.result.winner == 'R' ?
+            <h1 style={{ color: "blue", fontFamily: '楷体', letterSpacing: 15 }} >胜利</h1>
+            : <h1 style={{ color: "red ", fontFamily: '楷体', letterSpacing: 15 }} >失败</h1>}
 
         </TableCell>
         <TableCell align="center">
           <Chip
             label={
               row.status == "finished"
-                ? "Finished"
+                ? "已完成"
                 : row.status == "queue"
-                  ? "Queue"
-                  : "Running"
+                  ? "等待中"
+                  : "进行中"
             }
             variant="outlined"
             color={
@@ -118,36 +97,39 @@ function Row(props) {
           />
         </TableCell>
         <TableCell align="center">
-          {row.official ? <CheckIcon /> : <ClearIcon />}
+          {/* {row.official ? <CheckIcon /> : <ClearIcon />} */}
+          {row.offical ?
+            <h3>排位赛</h3>
+            : <h3>常规赛</h3>}
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5} sx={{ borderBottom: 1 }}>
+          <Collapse in={open} timeout="auto" unmountOnExit >
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                Detail
+                游戏详情
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
                     <TableCell>
-                      <strong>Role</strong>
+                      <strong>角色</strong>
                     </TableCell>
-                    <TableCell>
-                      <strong>Rounds</strong>
+                    <TableCell align="center">
+                      <strong>回合</strong>
                     </TableCell>
-                    <TableCell align="right">
-                      <strong>Moves</strong>
+                    <TableCell align="center">
+                      <strong>移动格数</strong>
                     </TableCell>
-                    <TableCell align="right">
-                      <strong>Soldiers_total</strong>
+                    <TableCell align="center">
+                      <strong>总士兵</strong>
                     </TableCell>
-                    <TableCell align="right">
-                      <strong>Soldiers_killed</strong>
+                    <TableCell align="center">
+                      <strong>总击杀</strong>
                     </TableCell>
-                    <TableCell align="right">
-                      <strong>Grids_taken</strong>
+                    <TableCell align="center">
+                      <strong>总占领格数</strong>
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -162,19 +144,19 @@ function Row(props) {
                         {"R"}
                       </Avatar>
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell component="th" scope="row" align="center">
                       {row.result == null ? " " : row.result.r_stat.rounds}
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">
                       {row.result == null ? " " : row.result.r_stat.moves}
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">
                       {row.result == null ? " " : row.result.r_stat.soldiers_total}
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">
                       {row.result == null ? " " : row.result.r_stat.soldiers_killed}
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">
                       {row.result == null ? " " : row.result.r_stat.grids_taken}
                     </TableCell>
                   </TableRow>
@@ -188,30 +170,30 @@ function Row(props) {
                         {"B"}
                       </Avatar>
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell component="th" scope="row" align="center">
                       {row.result == null ? " " : row.result.b_stat.rounds}
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">
                       {row.result == null ? " " : row.result.b_stat.moves}
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">
                       {row.result == null ? " " : row.result.b_stat.soldiers_total}
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">
                       {row.result == null ? " " : row.result.b_stat.soldiers_killed}
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">
                       {row.result == null ? " " : row.result.b_stat.grids_taken}
                     </TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
               <Grid container spacing={2}>
-                <Grid item xs={10.5}>
+                <Grid item xs={10.8}>
                   {" "}
                 </Grid>
 
-                <Grid item xs={1.5}>
+                <Grid item xs={1.2} >
                   {row.status == 'finished' ?
                     <Button
                       variant="contained"
@@ -238,7 +220,7 @@ function Row(props) {
           </Collapse>
         </TableCell>
       </TableRow>
-    </React.Fragment>
+    </React.Fragment >
   );
 }
 export default function GameList() {
@@ -302,29 +284,26 @@ export default function GameList() {
   const [open, setOpen] = useState(false);
   return (
     <Grid container>
-      <TableContainer component={Paper} sx={{ boxShadow: 10 }}>
-        <Table aria-label="collapsible table">
-          <TableHead>
-            <TableRow>
-              <TableCell />
-              <TableCell align="justify">
-                <h2><strong >Date</strong></h2>
+      <TableContainer component={Paper} sx={{ boxShadow: 10 }} >
+        <Table aria-label="collapsible table" >
+          <TableHead >
+            <TableRow >
+              <TableCell sx={{ borderBottom: 1 }} />
+              <TableCell align="justify" sx={{ borderBottom: 1 }} >
+                <h2><strong >游戏时间</strong></h2>
               </TableCell>
-              <TableCell>
-                <h2><strong>Role</strong></h2>
+              <TableCell sx={{ borderBottom: 1 }}>
+                <h2><strong>游戏结果</strong></h2>
               </TableCell>
-              <TableCell>
-                <h2><strong>Winner</strong></h2>
+              <TableCell align="center" sx={{ borderBottom: 1 }}>
+                <h2><strong>游戏状态</strong></h2>
               </TableCell>
-              <TableCell align="center">
-                <h2><strong>Status</strong></h2>
-              </TableCell>
-              <TableCell align="center">
-                <h2><strong>Official</strong></h2>
+              <TableCell align="center" sx={{ borderBottom: 1 }}>
+                <h2><strong>比赛类型</strong></h2>
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody >
             {gamelists?.map((row) => (
               <Row key={row.id} row={row} />
             ))}
@@ -334,7 +313,7 @@ export default function GameList() {
               <TableCell colSpan={1}> </TableCell>
               <TableCell colSpan={2}>
                 <Typography variant="h5" component="h5">
-                  Rows per page:
+                  每页数量:
                   <TextField
                     hiddenLabel
                     id="filled-hidden-label-small"
@@ -345,9 +324,9 @@ export default function GameList() {
                   />
                 </Typography>
               </TableCell>
-              <TableCell colSpan={2}>
+              <TableCell colSpan={1}>
                 <Typography variant="h5" component="h5">
-                  Page:
+                  页数:
                   <TextField
                     hiddenLabel
                     id="filled-hidden-label-small"

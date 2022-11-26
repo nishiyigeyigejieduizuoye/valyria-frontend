@@ -12,26 +12,24 @@ const RankList = () => {
     return (
         <Grid container spacing={1} justifyContent="center" rowSpacing={0.5} component="div">
             {ranklists.filter((player, index) => index < 3).map((player, index) => (
-                <List key={player.id} sx={{ boxShadow: 10, width: '100%', maxWidth: 800, bgcolor: 'background.paper' }} component="div" >
+                <List key={player.id} sx={{ boxShadow: 3, width: '100%', maxWidth: 800, bgcolor: 'background.paper' }} component="div" >
                     <ListItem disablePadding alignItems="flex-start" component="span" >
                         <ListItemAvatar>
                             <Avatar alt={player.id} src={"/api/user/" + player.id + "/avatar"}
                                 sx={{
-                                    width: 120,
-                                    height: 120,
+                                    width: 100,
+                                    height: 100,
                                 }} />
                         </ListItemAvatar>
                         <ListItemText
                             key={player.id}
-                            primary={<h1><strong><i>{index + 1 + (index + 1 == '1' ? 'st' : index + 1 == '2' ? 'nd' : 'rd')}</i></strong></h1>}
+                            primary={<p sx={{ fontSize: 100 }}><strong><i>{player.name == "" ? 'null' : player.name} </i></strong></p>}
                             secondary={
-
                                 <span>
-                                    <PersonIcon sx={{ color: blue[500], fontSize: 15 }} ></PersonIcon><strong>Name:</strong> {player.name}
+
+                                    <strong>积分:{player.rating}</strong>
                                     <br />
-                                    <GradeOutlinedIcon sx={{ color: blue[500], fontSize: 15 }} ></GradeOutlinedIcon><strong>Rating:</strong>{player.rating}
-                                    <br />
-                                    <EmailIcon sx={{ color: blue[500], fontSize: 15, }} ></EmailIcon><strong>Email:</strong>{player.email}
+                                    <strong>邮箱:{player.email}</strong>
                                 </span>
                             }
                         />
@@ -45,39 +43,41 @@ const RankList = () => {
                 </List>
             )
             )}
-            {ranklists.filter((player, index) => index >= 3).map((player, index) => (
-                <List key={player.id} sx={{ width: '100%', maxWidth: 800, bgcolor: 'background.paper', boxShadow: 10 }}>
-                    <ListItem alignItems="flex-start" key={player.id}>
-                        <ListItemAvatar>
-                            <Avatar variant="square"
-                                sx={{ bgcolor: 'background.paper', width: 100, height: 30 }}>
-                                <span style={{ color: 'black', fontSize: 30 }}>
-                                    {index + 4}
-                                    {index[-1] + 4 == '1' ? 'st' : index[-1] + 4 == '2' ? 'nd' : index[-1] + 4 == '3' ? 'rd' : 'th'}
-                                </span>
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                            key={player.id}
-                            secondary={
-                                <span>
+            {
+                ranklists.filter((player, index) => index >= 3).map((player, index) => (
+                    <List key={player.id} sx={{ width: '100%', maxWidth: 800, bgcolor: 'background.paper', boxShadow: 3 }}>
+                        <ListItem alignItems="flex-start" key={player.id}>
+                            <ListItemAvatar>
+                                <Avatar variant="square"
+                                    sx={{ bgcolor: 'background.paper', width: 80, height: 30 }}>
+                                    <span style={{ color: 'black', fontSize: 30 }}>
+                                        <strong>{index + 4}
+                                            {index[-1] + 4 == '1' ? 'st' : index[-1] + 4 == '2' ? 'nd' : index[-1] + 4 == '3' ? 'rd' : 'th'}
+                                        </strong>
+                                    </span>
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText
+                                key={player.id}
+                                secondary={
+                                    <span>
 
-                                    <PersonIcon sx={{ color: blue[500], fontSize: 20 }} />
+                                        <PersonIcon sx={{ color: blue[500], fontSize: 20 }} />
+                                        <strong><i>{player.name}</i></strong>
 
-                                    {player.name}
-                                </span>
-                            }
-                        />
-                        <ListItemAvatar>
-                            <Avatar variant="square"
-                                sx={{ bgcolor: 'background.paper', width: 100, height: 30 }}>
-                                <span style={{ color: 'black', fontSize: 30 }}>
-                                    {player.rating}
-                                </span>
-                            </Avatar>
-                        </ListItemAvatar>
-                    </ListItem>
-                </List>))
+                                    </span>
+                                }
+                            />
+                            <ListItemAvatar>
+                                <Avatar variant="square"
+                                    sx={{ bgcolor: 'background.paper', width: 100, height: 30 }}>
+                                    <span style={{ color: 'black', fontSize: 30 }}>
+                                        {player.rating}
+                                    </span>
+                                </Avatar>
+                            </ListItemAvatar>
+                        </ListItem>
+                    </List>))
             }
         </Grid >
     );
