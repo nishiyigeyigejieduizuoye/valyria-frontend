@@ -135,7 +135,7 @@ function ModifyScript(param) {
         <Editor
           value={code}
           onValueChange={code => { setCode(code) }}
-          onMouseLeave={handleSave}
+          onDoubleClick={handleSave}
           highlight={code => highlight(code, languages.js)}
           padding={10}
           style={{
