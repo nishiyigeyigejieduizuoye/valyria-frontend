@@ -6,11 +6,11 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
-import Chart from './Compoent/Chart';
-import Rating from './Compoent/Rating';
-import Gamelist from './Compoent/Gamelist';
-import DefaultState from './Compoent/DefaultState';
-import Rightbar from './Compoent/Rightbar'
+import Chart from './Component/Chart';
+import Rating from './Component/Rating';
+import Gamelist from './Component/Gamelist';
+import DefaultState from './Component/DefaultState';
+import Rightbar from './Component/Rightbar'
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>

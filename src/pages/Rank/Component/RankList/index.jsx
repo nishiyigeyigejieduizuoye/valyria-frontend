@@ -36,7 +36,7 @@ const RankList = () => {
                                     </span>
                                 }
                             />
-                            <Avatar alt={player.id} src={"../src/Pages/Rank/Compoent/trophy/" + (index == 0 ? "first" : index == 1 ? "second" : "third") + ".svg"}
+                            <Avatar alt={player.id} src={"../src/Pages/Rank/Component/trophy/" + (index == 0 ? "first" : index == 1 ? "second" : "third") + ".svg"}
                                 sx={{
                                     width: 120,
                                     height: 120,
