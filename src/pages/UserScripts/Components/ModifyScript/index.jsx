@@ -33,11 +33,12 @@ function ModifyScript(param) {
 
   const handleSave = () => {
     (async () => {
+
       if (loading) {
+
         return;
       }
-
-      if(name === "") {
+      if (name === "") {
         addMessage("error", "保存失败：脚本名不能为空");
         return;
       }
@@ -99,31 +100,25 @@ function ModifyScript(param) {
 
   return (
     <Grid
-    direction="column"
-    justifyContent="center"
-    className="script-container"
-    fullWidth
+      direction="column"
+      justifyContent="center"
+      className="script-container"
+      fullWidth
     >
       <Grid>
-        <Grid item xs>{originName === null ? "新建脚本" : "编辑脚本"}</Grid>
-        <Grid item xs={1}>
-          <Tooltip title="保存">
-            <IconButton onClick={handleSave}>
-              <SaveIcon />
-            </IconButton>
-          </Tooltip>
-        </Grid>
-        { originName === null ? <></> :
-        <>
-          <Grid item xs={1}>
-            <Tooltip title="删除">
-              <IconButton onClick={() => setDialogOpen(true)}>
-                <DeleteIcon />
-              </IconButton>
-            </Tooltip>
-          </Grid>
-          {dialog}
-        </>
+        <Grid item xs><h1><strong >{originName === null ? "新建脚本" : "编辑脚本"}</strong></h1></Grid>
+
+        {originName === null ? <></> :
+          <>
+            <Grid item xs={1}>
+              <Tooltip title="删除">
+                <IconButton onClick={() => setDialogOpen(true)}>
+                  <DeleteIcon />删除脚本
+                </IconButton>
+              </Tooltip>
+            </Grid>
+            {dialog}
+          </>
         }
       </Grid>
       <Grid item xs={12} lg={3}>
@@ -139,13 +134,15 @@ function ModifyScript(param) {
       <Grid>
         <Editor
           value={code}
-          onValueChange={code => setCode(code)}
+          onValueChange={code => { setCode(code) }}
+          onMouseLeave={handleSave}
           highlight={code => highlight(code, languages.js)}
           padding={10}
           style={{
             fontFamily: '"Fira code", "Fira Mono", monospace',
             fontSize: 18,
           }}
+
         />
       </Grid>
     </Grid>
