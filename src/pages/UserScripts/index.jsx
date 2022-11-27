@@ -83,7 +83,7 @@ function UserScripts() {
           },
         }}
       >
-        <ModifyScript nameState={[name, setName]} codeState={[code, setCode]} originState={[originName, setOriginName]}/>
+        <ModifyScript nameState={[name, setName]} codeState={[code, setCode]} originState={[originName, setOriginName]} />
       </Grid>
     </Grid>
   );
