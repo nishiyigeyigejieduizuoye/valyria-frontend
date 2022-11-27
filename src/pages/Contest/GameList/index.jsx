@@ -59,13 +59,7 @@ function Row(props) {
     <React.Fragment >
       <TableRow >
         <TableCell >
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
+
         </TableCell>
         <TableCell component="th" scope="row" align="justify">
           <Chip icon={<AccessTimeIcon />} label={moment(row.date * 1000).format("YYYY-MM-DD HH:mm:ss")} />{" "}
@@ -108,16 +102,13 @@ function Row(props) {
           <Collapse in={open} timeout="auto" unmountOnExit >
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                游戏详情
+                游戏详情:
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>
-                      <strong>角色</strong>
-                    </TableCell>
                     <TableCell align="center">
-                      <strong>回合</strong>
+                      <strong>回合数</strong>
                     </TableCell>
                     <TableCell align="center">
                       <strong>移动格数</strong>
@@ -134,58 +125,24 @@ function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  <TableRow key={"R"}>
-                    <TableCell>
-                      <Avatar
-                        sx={{
-                          bgcolor: deepOrange[500],
-                        }}
-                      >
-                        {"R"}
-                      </Avatar>
-                    </TableCell>
+                  <TableRow key={"row.id"}>
                     <TableCell component="th" scope="row" align="center">
-                      {row.result == null ? " " : row.result.r_stat.rounds}
+                      {row.result == null ? " " : row.role == 'R' ? row.result.r_stat.rounds : row.result.b_stat.rounds}
                     </TableCell>
                     <TableCell align="center">
-                      {row.result == null ? " " : row.result.r_stat.moves}
+                      {row.result == null ? " " : row.role == 'R' ? row.result.r_stat.moves : row.result.b_stat.moves}
                     </TableCell>
                     <TableCell align="center">
-                      {row.result == null ? " " : row.result.r_stat.soldiers_total}
+                      {row.result == null ? " " : row.role == 'R' ? row.result.r_stat.soldiers_total : row.result.b_stat.soldiers_total}
                     </TableCell>
                     <TableCell align="center">
-                      {row.result == null ? " " : row.result.r_stat.soldiers_killed}
+                      {row.result == null ? " " : row.role == 'R' ? row.result.r_stat.soldiers_killed : row.result.b_stat.soldiers_killed}
                     </TableCell>
                     <TableCell align="center">
-                      {row.result == null ? " " : row.result.r_stat.grids_taken}
+                      {row.result == null ? " " : row.role == 'R' ? row.result.r_stat.grids_taken : row.result.b_stat.grids_taken}
                     </TableCell>
                   </TableRow>
-                  <TableRow key={"B"}>
-                    <TableCell>
-                      <Avatar
-                        sx={{
-                          bgcolor: deepPurple[500],
-                        }}
-                      >
-                        {"B"}
-                      </Avatar>
-                    </TableCell>
-                    <TableCell component="th" scope="row" align="center">
-                      {row.result == null ? " " : row.result.b_stat.rounds}
-                    </TableCell>
-                    <TableCell align="center">
-                      {row.result == null ? " " : row.result.b_stat.moves}
-                    </TableCell>
-                    <TableCell align="center">
-                      {row.result == null ? " " : row.result.b_stat.soldiers_total}
-                    </TableCell>
-                    <TableCell align="center">
-                      {row.result == null ? " " : row.result.b_stat.soldiers_killed}
-                    </TableCell>
-                    <TableCell align="center">
-                      {row.result == null ? " " : row.result.b_stat.grids_taken}
-                    </TableCell>
-                  </TableRow>
+
                 </TableBody>
               </Table>
               <Grid container spacing={2}>
@@ -286,9 +243,9 @@ export default function GameList() {
   const [open, setOpen] = useState(false);
   return (
     <Grid container>
-      <a href="top" id="top" />
+
       <TableContainer component={Paper} sx={{ boxShadow: 10 }} >
-        <Table aria-label="collapsible table" >
+        <Table  >
           <TableHead >
             <TableRow >
               <TableCell sx={{ borderBottom: 1 }} />
