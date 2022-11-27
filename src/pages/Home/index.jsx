@@ -12,12 +12,13 @@ import FeaturedPost from './Component/FeaturedPost';
 import Main from './Component/Main';
 import Sidebar from './Component/Sidebar';
 import Footer from './Component/Footer';
+// import post from './Component/post.md'
 
 const mainFeaturedPost = {
-  title: '项目介绍',
+  title: 'Valyria',
   description:
-    "感觉链接可以放包括整个游戏的介绍，以及各个页面的详细操作教程,这后面的图片是随机放的",
-  image: 'https://source.unsplash.com/random',//图片还没想好放啥
+    "Valyria 是基于 generals.io 游戏规则的在线 AI 对战平台，玩家需要通过脚本语言编写自己的 AI 程序，与其他玩家的 AI 程序进行对战。",
+  image: 'src/logo/logo.svg',//图片还没想好放啥
   imageText: 'main image description',
   linkText: '获取更多信息',
 };
@@ -27,8 +28,8 @@ const featuredPosts = [
     title: '编写脚本',
     detail: 'Script',
     description:
-      'balabala，这里要写个啥',
-    image: 'https://source.unsplash.com/random',
+      '参考样例脚本，编写出属于你自己的最强脚本！',
+    image: 'src/pages/Home/Component/edit.svg',
     imageLabel: 'Image Text',
     text: '点击开始编写'
   },
@@ -36,28 +37,22 @@ const featuredPosts = [
     title: '开启排位赛',
     detail: 'Qualifying',
     description:
-      'balabala，这里又要写个啥',
-    image: 'https://source.unsplash.com/random',
+      "对战不同玩家，证明自己的实力！",
+    image: 'src/pages/Home/Component/pk.svg',
     imageLabel: 'Image Text',
-    text: '点击开始对战'
+    text: '点击开始排位'
   },
 ];
-const posts = ['这里可以是个generials简单介绍'];
+
+
 const sidebar = {
-  title: '团队介绍',
+  title: '软工大作业好难受',
   description:
-    '这里可以放个啥呢？',
+    '啊确实',
   archives: [
-    { title: '公告1', url: '#' },
-    { title: '公告2', url: '#' },
-    { title: '公告3', url: '#' },
-    { title: '公告4', url: '#' },
-    { title: '公告5', url: '#' },
-    { title: '公告6', url: '#' },
-    { title: '公告7', url: '#' },
-    { title: '公告8', url: '#' },
-    { title: '公告9', url: '#' },
-    { title: '公告10', url: '#' },
+    { title: '11.20 排位赛开启通知', url: '#' },
+    { title: '11.19 游戏维护通知', url: '#' },
+
 
   ],
   social: [
@@ -70,11 +65,12 @@ const sidebar = {
 const theme = createTheme();
 
 export default function HomePage() {
+
+  const posts = ['1123'];
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container maxWidth="lg">
-
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
