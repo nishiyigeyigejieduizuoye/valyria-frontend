@@ -58,45 +58,9 @@ function ModifyScript(param) {
     })();
   };
 
-  const handleDelete = (originName) => {
-    (async () => {
-      if (loading) {
-        return;
-      }
-      setLoading(true);
-      try {
-        await deleteScript(originName);
-        setScripts(await listScripts());
-        setOriginName(null);
-        addMessage("success", "删除成功");
-      } catch (e) {
-        addMessage("error", "删除失败");
-      } finally {
-        setLoading(false);
-      }
-    })();
-  };
 
-  const [dialogOpen, setDialogOpen] = useState(false);
 
-  let dialog = (
-    <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
-      <DialogTitle>确认删除</DialogTitle>
-      <DialogContent>是否确认删除</DialogContent>
-      <DialogActions>
-        <Button
-          color="primary"
-          onClick={() => {
-            handleDelete(originName);
-            setDialogOpen(false);
-          }}
-        >
-          确认
-        </Button>
-        <Button onClick={() => setDialogOpen(false)}>取消</Button>
-      </DialogActions>
-    </Dialog>
-  );
+
 
   return (
     <Grid
@@ -108,18 +72,7 @@ function ModifyScript(param) {
       <Grid>
         <Grid item xs><h1><strong >{originName === null ? "新建脚本" : "编辑脚本"}</strong></h1></Grid>
 
-        {originName === null ? <></> :
-          <>
-            <Grid item xs={1}>
-              <Tooltip title="删除">
-                <IconButton onClick={() => setDialogOpen(true)}>
-                  <DeleteIcon />删除脚本
-                </IconButton>
-              </Tooltip>
-            </Grid>
-            {dialog}
-          </>
-        }
+
       </Grid>
       <Grid item xs={12} lg={3}>
         <TextField
