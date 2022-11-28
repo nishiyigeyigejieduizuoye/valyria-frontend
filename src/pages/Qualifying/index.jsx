@@ -7,9 +7,11 @@ import Paper from '@mui/material/Paper';
 import Rating from './Component/Setting';
 import AppWidgetSummary from './Component/AppWidgetSummary';
 import Chart from './Component/Chart';
+import { Toolbar, } from "@mui/material";
 function Qualifying() {
   return (
     <Grid container spacing={1} rowSpacing={3}>
+      <Toolbar />
       <Grid item md={12} >
         <Box sx={{ display: 'flex' }}>
           <Box
