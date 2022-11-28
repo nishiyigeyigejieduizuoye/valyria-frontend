@@ -48,7 +48,7 @@ function SiteAppBar() {
   };
 
   return (
-    <AppBar position="sticky" sx={{ zIndex: "10" }}>
+    <AppBar position="fixed" sx={{ zIndex: "10" }}>
       <Toolbar>
         <Typography
           variant="h6"

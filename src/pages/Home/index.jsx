@@ -13,7 +13,7 @@ import Main from './Component/Main';
 import Sidebar from './Component/Sidebar';
 import Footer from './Component/Footer';
 // import post from './Component/post.md'
-
+import { Toolbar, } from "@mui/material";
 const mainFeaturedPost = {
   title: 'Valyria',
   description:
@@ -69,6 +69,7 @@ export default function HomePage() {
   const posts = ['1123'];
   return (
     <ThemeProvider theme={theme}>
+      <Toolbar />
       <CssBaseline />
       <Container maxWidth="lg">
         <main>

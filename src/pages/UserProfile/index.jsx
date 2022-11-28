@@ -11,6 +11,10 @@ import Rating from './Component/Rating';
 import Gamelist from './Component/Gamelist';
 import DefaultState from './Component/DefaultState';
 import Rightbar from './Component/Rightbar'
+import {
+
+    Toolbar,
+} from "@mui/material";
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -28,6 +32,8 @@ const mdTheme = createTheme();
 const UserProfile = () => {
     return (
         <Grid container spacing={1} rowSpacing={3}>
+            <Grid item xs={12}></Grid>
+
             <DefaultState />
             <Grid item md={9} >
 
