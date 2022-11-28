@@ -72,7 +72,6 @@ function SiteAppBar() {
         <AppBarButton content="赛事大厅" to="/contest" />
         <AppBarButton content="排行榜" to="/rank" />
         <AppBarButton content="排位赛" to="/qualifying" />
-        <AppBarButton content="战斗页面（开发者入口）" to="/battle" />
         {loading ? <></> : (userInfo === null ?
           <AppBarButton content="登录 / 注册" rightSide to="/login" />
           :
