@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { Grid } from '@mui/material';
 import ApexCharts from 'apexcharts';
 import Chart from 'react-apexcharts';
@@ -11,7 +10,6 @@ export default function MyChart() {
 
     return (
         <>
-
             <MainCard>
                 <Grid container spacing={gridSpacing}>
                     <Grid item xs={12}>

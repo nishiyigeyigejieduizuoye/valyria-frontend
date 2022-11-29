@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { get_games_details } from "../../api/battle_api";
 import { useSearchParams } from "react-router-dom";
 import { Input } from "@mui/material";
-
+import { Toolbar, } from "@mui/material";
 let map;
 let ticks;
 const Gx = window.innerWidth / 10;
@@ -343,6 +343,12 @@ const App = () => {
 
   return (
     <>
+      <Stage width={1238} height={450}>
+        <Layer>
+          <Board />
+          <Game tick={tick} />
+        </Layer>
+      </Stage>
       <div>
         <button
           onClick={() => {
@@ -359,13 +365,6 @@ const App = () => {
           {auto ? "关闭自动播放" : "开启自动播放"}
         </button>
       </div>
-      <Stage width={1238} height={450}>
-        <Layer>
-          <Board />
-          <Game tick={tick} />
-        </Layer>
-      </Stage>
-
       {/* {tick < ticks.length && <>
         <p>Next tick:</p>
         <p>Operator: {ticks[tick].operator}</p>
@@ -382,6 +381,7 @@ const Battle = () => {
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const contestId = searchParams.get("id");
+
   useEffect(() => {
     (async () => {
       let data = await get_games_details(contestId);
@@ -392,7 +392,7 @@ const Battle = () => {
     })();
   }, [contestId, get_games_details, setLoading]);
 
-  return <>{loading ? <p>加载中</p> : <App />}</>;
+  return <><Toolbar />{loading ? <p>加载中</p> : <App />}</>;
 };
 
 export default Battle;

@@ -11,10 +11,7 @@ import Rating from './Component/Rating';
 import Gamelist from './Component/Gamelist';
 import DefaultState from './Component/DefaultState';
 import Rightbar from './Component/Rightbar'
-import {
 
-    Toolbar,
-} from "@mui/material";
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
