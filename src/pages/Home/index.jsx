@@ -14,11 +14,15 @@ import Sidebar from './Component/Sidebar';
 import Footer from './Component/Footer';
 // import post from './Component/post.md'
 import { Toolbar, } from "@mui/material";
+
+import edit from './Component/edit.svg'
+import pk from './Component/pk.svg'
+
 const mainFeaturedPost = {
   title: 'Valyria',
   description:
     "Valyria 是基于 generals.io 游戏规则的在线 AI 对战平台，玩家需要通过脚本语言编写自己的 AI 程序，与其他玩家的 AI 程序进行对战。",
-  image: 'src/logo/logo.svg',//图片还没想好放啥
+
   imageText: 'main image description',
   linkText: '获取更多信息',
 };
@@ -29,7 +33,7 @@ const featuredPosts = [
     detail: 'Script',
     description:
       '参考样例脚本，编写出属于你自己的最强脚本！',
-    image: 'src/picture/edit.svg',
+    image: edit,
     imageLabel: 'Image Text',
     text: '点击开始编写'
   },
@@ -38,7 +42,7 @@ const featuredPosts = [
     detail: 'Qualifying',
     description:
       "对战不同玩家，证明自己的实力！",
-    image: 'src/picture/pk.svg',
+    image: pk,
     imageLabel: 'Image Text',
     text: '点击开始排位'
   },
