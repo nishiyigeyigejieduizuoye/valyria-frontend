@@ -35,7 +35,7 @@ const featuredPosts = [
       '参考样例脚本，编写出属于你自己的最强脚本！',
     image: edit,
     imageLabel: 'Image Text',
-    text: '#/scripts'
+    text: '#/manual'
   },
   {
     title: '开启排位赛',
@@ -62,8 +62,6 @@ const sidebar = {
 };
 const main = {
   archives: [
-    { title: '12.02 怎么又有考试', url: '#' },
-    { title: '11.30 有考试真的难受', url: '#' },
     { title: '11.29 软工竟然推迟了', url: '#' },
     { title: '11.20 排位赛开启通知', url: '#' },
     { title: '11.19 游戏维护通知', url: '#' },
