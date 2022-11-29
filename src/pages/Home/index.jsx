@@ -29,7 +29,7 @@ const featuredPosts = [
     detail: 'Script',
     description:
       '参考样例脚本，编写出属于你自己的最强脚本！',
-    image: 'src/pages/Home/Component/edit.svg',
+    image: 'src/picture/edit.svg',
     imageLabel: 'Image Text',
     text: '点击开始编写'
   },
@@ -38,7 +38,7 @@ const featuredPosts = [
     detail: 'Qualifying',
     description:
       "对战不同玩家，证明自己的实力！",
-    image: 'src/pages/Home/Component/pk.svg',
+    image: 'src/picture/pk.svg',
     imageLabel: 'Image Text',
     text: '点击开始排位'
   },
