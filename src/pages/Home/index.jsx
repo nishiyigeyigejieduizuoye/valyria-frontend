@@ -35,7 +35,7 @@ const featuredPosts = [
       '参考样例脚本，编写出属于你自己的最强脚本！',
     image: edit,
     imageLabel: 'Image Text',
-    text: '点击开始编写'
+    text: '#/scripts'
   },
   {
     title: '开启排位赛',
@@ -44,7 +44,7 @@ const featuredPosts = [
       "对战不同玩家，证明自己的实力！",
     image: pk,
     imageLabel: 'Image Text',
-    text: '点击开始排位'
+    text: '#/qualifying'
   },
 ];
 
@@ -53,24 +53,27 @@ const sidebar = {
   title: '软工大作业好难受',
   description:
     '啊确实',
-  archives: [
-    { title: '11.20 排位赛开启通知', url: '#' },
-    { title: '11.19 游戏维护通知', url: '#' },
 
-
-  ],
   social: [
     { name: 'GitHub', icon: GitHubIcon },
     { name: 'Twitter', icon: TwitterIcon },
     { name: 'Facebook', icon: FacebookIcon },
   ],
 };
-
+const main = {
+  archives: [
+    { title: '12.02 怎么又有考试', url: '#' },
+    { title: '11.30 有考试真的难受', url: '#' },
+    { title: '11.29 软工竟然推迟了', url: '#' },
+    { title: '11.20 排位赛开启通知', url: '#' },
+    { title: '11.19 游戏维护通知', url: '#' },
+    { title: '11.18 前端又出了点bug', url: '#' },
+    { title: '11.17 前端出了点bug', url: '#' },
+  ],
+}
 const theme = createTheme();
 
 export default function HomePage() {
-
-  const posts = ['1123'];
   return (
     <ThemeProvider theme={theme}>
       <Toolbar />
@@ -84,13 +87,13 @@ export default function HomePage() {
             ))}
           </Grid>
           <Grid container spacing={5} sx={{ mt: 3 }}>
-            <Main title="游戏介绍" posts={posts} />
+            <Main title="公告" archives={main.archives} />
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}
-              archives={sidebar.archives}
               social={sidebar.social}
             />
+
           </Grid>
         </main>
       </Container>
