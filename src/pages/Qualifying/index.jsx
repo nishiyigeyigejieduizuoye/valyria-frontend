@@ -6,8 +6,9 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Rating from './Component/Setting';
 import AppWidgetSummary from './Component/AppWidgetSummary';
-import Chart from './Component/Chart';
+import MyChart from './Component/Chart';
 import { Toolbar, } from "@mui/material";
+import CardMedia from '@mui/material/CardMedia';
 function Qualifying() {
   return (
     <Grid container spacing={1} rowSpacing={3}>
@@ -49,8 +50,8 @@ function Qualifying() {
                 </Grid>
                 {/* 图*/}
                 <Grid item xs={12} md={8} lg={8}>
-                  <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 240, }}>
-                    <Chart />
+                  <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                    <MyChart />
                   </Paper>
                 </Grid>
                 {/* Rating*/}
@@ -58,7 +59,14 @@ function Qualifying() {
                   <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 240, }}>
                     <Rating />
                   </Paper>
+                  <CardMedia
+                    component="img"
+                    sx={{ width: 360, display: { xs: 'none', sm: 'block' } }}
+                    image={'src/logo/logo.svg'}
+                    alt={'logo'}
+                  />
                 </Grid>
+
               </Grid>
 
             </Container>
