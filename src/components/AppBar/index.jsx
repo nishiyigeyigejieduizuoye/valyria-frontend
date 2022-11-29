@@ -70,6 +70,7 @@ function SiteAppBar() {
         <></>
         <AppBarButton content="主页" to="/" />
         <AppBarButton content="赛事大厅" to="/contest" />
+        <AppBarButton content="用户手册" to="/manual" />
         <AppBarButton content="排行榜" to="/rank" />
         <AppBarButton content="排位赛" to="/qualifying" />
         {loading ? <></> : (userInfo === null ?
