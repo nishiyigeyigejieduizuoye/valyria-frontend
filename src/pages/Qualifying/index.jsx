@@ -9,6 +9,7 @@ import AppWidgetSummary from './Component/AppWidgetSummary';
 import MyChart from './Component/Chart';
 import { Toolbar, } from "@mui/material";
 import CardMedia from '@mui/material/CardMedia';
+import logo from '@/logo/logo.svg';
 function Qualifying() {
   return (
     <Grid container spacing={1} rowSpacing={3}>
@@ -62,7 +63,7 @@ function Qualifying() {
                   <CardMedia
                     component="img"
                     sx={{ width: 360, display: { xs: 'none', sm: 'block' } }}
-                    image={'src/logo/logo.svg'}
+                    image={logo}
                     alt={'logo'}
                   />
                 </Grid>
