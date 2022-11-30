@@ -10,7 +10,12 @@ import MyChart from './Component/Chart';
 import { Toolbar, } from "@mui/material";
 import CardMedia from '@mui/material/CardMedia';
 import logo from '@/logo/logo.svg';
+import { UserInfoState } from '@/state/user';
+import { useRecoilValue } from 'recoil';
+import { useState } from 'react';
 function Qualifying() {
+  const userInfo = useRecoilValue(UserInfoState);
+  const rating = useState(userInfo?.data.rating)
   return (
     <Grid container spacing={1} rowSpacing={3}>
       <Toolbar />
@@ -26,9 +31,11 @@ function Qualifying() {
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
               <Grid container spacing={3}>
                 {/* 积分*/}
+
                 <Grid item xs={12} md={3} lg={3}>
                   <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 240, }}>
-                    <AppWidgetSummary title="积分" total={714000} icon={'ant-design:android-filled'} />
+                    <AppWidgetSummary title="积分" total={rating} icon={'ant-design:android-filled'} />
+
                   </Paper>
                 </Grid>
                 {/* 总对局数*/}
