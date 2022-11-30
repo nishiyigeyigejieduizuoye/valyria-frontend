@@ -26,7 +26,7 @@ const featuredPosts = [
       '参考样例脚本，编写出属于你自己的最强脚本！',
     image: edit,
     imageLabel: 'Image Text',
-    text: '#/manual'
+    text: 'https://joky02.github.io'
   },
   {
     title: '开启排位赛',
@@ -41,9 +41,9 @@ const featuredPosts = [
 
 
 const sidebar = {
-  title: '软工大作业好难受',
+  title: 'About',
   description:
-    '啊确实',
+    '这是一个软工实践大作业',
 
   social: [
     { name: 'GitHub', icon: GitHubIcon, url: 'https://github.com/TeamNEDP?tab=repositories' },

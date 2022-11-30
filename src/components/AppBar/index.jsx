@@ -25,7 +25,19 @@ function AppBarButton(param) {
     >{param.content}</Button>
   )
 }
-
+function AppBarButton2(param) {
+  return (
+    <Button href="https://joky02.github.io/" component="a" color="inherit" size="large" onClick={param.onClick}
+      sx={{
+        display: { xs: 'none', md: 'flex' },
+        fontFamily: 'Sans-serif',
+        fontWeight: 500,
+        color: 'inherit',
+        marginLeft: param.rightSide ? "auto" : 0
+      }}
+    >{param.content}</Button>
+  )
+}
 function SiteAppBar() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useRecoilState(UserInfoState);
@@ -70,7 +82,7 @@ function SiteAppBar() {
         <></>
         <AppBarButton content="主页" to="/" />
         <AppBarButton content="赛事大厅" to="/contest" />
-        <AppBarButton content="用户手册" to="/manual" />
+        <AppBarButton2 content="用户手册" />
         <AppBarButton content="排行榜" to="/rank" />
         <AppBarButton content="排位赛" to="/qualifying" />
         {loading ? <></> : (userInfo === null ?
