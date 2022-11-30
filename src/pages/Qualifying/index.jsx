@@ -34,26 +34,26 @@ function Qualifying() {
 
                 <Grid item xs={12} md={3} lg={3}>
                   <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 240, }}>
-                    <AppWidgetSummary title="积分" total={rating} icon={'ant-design:android-filled'} />
+                    <AppWidgetSummary title="积分" total={rating} icon={'GradeIcon'} />
 
                   </Paper>
                 </Grid>
                 {/* 总对局数*/}
                 <Grid item xs={12} md={3} lg={3}>
                   <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 240, }}>
-                    <AppWidgetSummary title="总对局数" total={25} color="info" icon={'ant-design:apple-filled'} />
+                    <AppWidgetSummary title="总对局数" total={25} color="info" icon={'SportsEsportsIcon'} />
                   </Paper>
                 </Grid>
                 {/* 胜场*/}
                 <Grid item xs={12} md={3} lg={3}>
                   <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 240, }}>
-                    <AppWidgetSummary title="总胜场数" total={12} color="warning" icon={'ant-design:windows-filled'} />
+                    <AppWidgetSummary title="总胜场数" total={12} color="warning" icon={'EmojiEventsIcon'} />
                   </Paper>
                 </Grid>
                 {/* 败场*/}
                 <Grid item xs={12} md={3} lg={3}>
                   <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 240, }}>
-                    <AppWidgetSummary title="总败场数" total={5} color="error" icon={'ant-design:bug-filled'} />
+                    <AppWidgetSummary title="总败场数" total={5} color="error" icon={'GppBadIcon'} />
                   </Paper>
                 </Grid>
                 {/* 图*/}
