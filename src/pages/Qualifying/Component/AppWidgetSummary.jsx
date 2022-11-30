@@ -5,8 +5,10 @@ import { Card, Typography } from '@mui/material';
 // utils
 import { fShortenNumber } from '../Component/formatNumber';
 // components
-import Iconify from '../Component/Iconify';
-
+import GradeIcon from '@mui/icons-material/Grade';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsportsOutlined';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import GppBadIcon from '@mui/icons-material/GppBad';
 // ----------------------------------------------------------------------
 
 const StyledIcon = styled('div')(({ theme }) => ({
@@ -47,7 +49,11 @@ export default function AppWidgetSummary({ title, total, icon, color = 'primary'
             )} 100%)`,
         }}
       >
-        <Iconify icon={icon} width={24} height={24} />
+        {icon == 'GradeIcon' ? <GradeIcon /> : <></>}
+        {icon == 'SportsEsportsIcon' ? <SportsEsportsIcon /> : <></>}
+        {icon == 'GppBadIcon' ? <GppBadIcon /> : <></>}
+        {icon == 'EmojiEventsIcon' ? <EmojiEventsIcon /> : <></>}
+
       </StyledIcon>
 
       <Typography variant="h3">{fShortenNumber(total)}</Typography>
