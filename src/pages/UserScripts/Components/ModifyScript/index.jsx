@@ -62,7 +62,7 @@ function ModifyScript(param) {
         handleSave()
         setMyChange(false)
       }
-    }, 3000)
+    }, 500)
 
     return () => clearTimeout(delayDebounceFn)
   })
@@ -89,7 +89,17 @@ function ModifyScript(param) {
         />
       </Grid>
       <Grid>
-        <CodeEditor
+        <Editor
+          value={code}
+          onValueChange={code => { setCode(code), setMyChange(true) }}
+          highlight={code => highlight(code, languages.js)}
+          padding={10}
+          style={{
+            fontFamily: '"Fira code", "Fira Mono", monospace',
+            fontSize: 18,
+          }}
+        />
+        {/* <CodeEditor
           value={code}
           language="js"
           placeholder="Please enter JS code."
@@ -100,7 +110,7 @@ function ModifyScript(param) {
             backgroundColor: "#f5f5f5",
             fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
           }}
-        />
+        /> */}
       </Grid>
     </Grid>
   );
