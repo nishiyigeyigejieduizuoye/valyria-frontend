@@ -18,15 +18,6 @@ import { Toolbar, } from "@mui/material";
 import edit from './Component/edit.svg'
 import pk from './Component/pk.svg'
 
-const mainFeaturedPost = {
-  title: 'Valyria',
-  description:
-    "Valyria 是基于 generals.io 游戏规则的在线 AI 对战平台，玩家需要通过脚本语言编写自己的 AI 程序，与其他玩家的 AI 程序进行对战。",
-
-  imageText: 'main image description',
-  linkText: '获取更多信息',
-};
-
 const featuredPosts = [
   {
     title: '编写脚本',
@@ -55,9 +46,9 @@ const sidebar = {
     '啊确实',
 
   social: [
-    { name: 'GitHub', icon: GitHubIcon },
-    { name: 'Twitter', icon: TwitterIcon },
-    { name: 'Facebook', icon: FacebookIcon },
+    { name: 'GitHub', icon: GitHubIcon, url: 'https://github.com/TeamNEDP?tab=repositories' },
+    { name: 'Twitter', icon: TwitterIcon, url: '#' },
+    { name: 'Facebook', icon: FacebookIcon, url: '#' },
   ],
 };
 const main = {
@@ -78,7 +69,7 @@ export default function HomePage() {
       <CssBaseline />
       <Container maxWidth="lg">
         <main>
-          <MainFeaturedPost post={mainFeaturedPost} />
+          <MainFeaturedPost />
           <Grid container spacing={4}>
             {featuredPosts.map((post) => (
               <FeaturedPost key={post.title} post={post} />
