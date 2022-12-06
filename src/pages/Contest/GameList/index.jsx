@@ -49,6 +49,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { fontFamily, letterSpacing } from "@mui/system";
+import blueicon from '@/pages/Contest/blue.svg'
+import redicon from '@/pages/Contest/red.svg'
+import greyicon from '@/pages/Contest/grey.svg'
 
 function Row(props) {
   //列表子项
@@ -57,7 +60,17 @@ function Row(props) {
   const navigate = useNavigate();
   return (
     <React.Fragment >
-      <TableRow >
+      <TableRow sx={{
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundImage:
+          row.result == null ? `url(${greyicon})` :
+            row.official ?
+              row.result.winner == row.role ? `url(${blueicon})` :
+                row.result.winner == 'D' ? `url(${greyicon})` : `url(${redicon})` :
+              row.result.winner == 'B' ? `url(${blueicon})` : row.result.winner == 'R' ?
+                `url(${redicon})` : `url(${greyicon})`
+      }}>
         <TableCell >
 
         </TableCell>
@@ -66,9 +79,13 @@ function Row(props) {
         </TableCell>
 
         <TableCell >
-          {row.result == null ? <></> : row.result.winner == 'R' ?
-            <h1 style={{ color: "blue", fontFamily: '楷体', letterSpacing: 15 }} >胜利</h1>
-            : <h1 style={{ color: "red ", fontFamily: '楷体', letterSpacing: 15 }} >失败</h1>}
+          {row.result == null ? <></> : row.official ?
+            row.result.winner == row.role ? <i><h1 >Victory</h1></i> :
+              row.result.winner == 'D' ? <i><h1 >Draw</h1></i> : <i><h1>Defeat</h1></i> :
+            row.result.winner == 'B' ? <i><h1 >Victory</h1></i> : row.result.winner == 'R' ?
+              <i><h1>Defeat</h1></i> : <i><h1 >Draw</h1></i>
+
+          }
 
         </TableCell>
         <TableCell align="center">
@@ -101,9 +118,7 @@ function Row(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5} sx={{ borderBottom: 1 }}>
           <Collapse in={open} timeout="auto" unmountOnExit >
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                游戏详情:
-              </Typography>
+
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
