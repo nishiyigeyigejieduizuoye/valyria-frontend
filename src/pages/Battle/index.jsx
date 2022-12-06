@@ -6,6 +6,17 @@ import { get_games_details } from "../../api/battle_api";
 import { useSearchParams } from "react-router-dom";
 import { Input } from "@mui/material";
 import { Toolbar, } from "@mui/material";
+import Slider from '@mui/material/Slider';
+import MuiInput from '@mui/material/Input';
+import Rightbar from './Component/Rightbar'
+import LabelOutlinedIcon from '@mui/icons-material/LabelOutlined';
+import { styled } from '@mui/material/styles';
+import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
+import Paper from '@mui/material/Paper';
+
+import Box from '@mui/material/Box';
+import logo from '@/logo/logo.svg';
 let map;
 let ticks;
 const Gx = window.innerWidth / 10;
@@ -266,9 +277,9 @@ class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      size: 50,
-      width: map.width * 50,
-      height: map.height * 50,
+      size: 75,
+      width: map.width * 75,
+      height: map.height * 75,
       str: [],
     };
   }
@@ -327,6 +338,21 @@ const App = () => {
   const [tick, setTick] = useState(0);
   const [auto, setAuto] = useState(false);
 
+  const handleSliderChange = (event, newValue) => {
+    setTick(newValue);
+  };
+
+  const handleInputChange = (event) => {
+    setTick(event.target.value === '' ? '' : Number(event.target.value));
+  };
+  const handleBlur = () => {
+    if (tick < 0) {
+      setTick(0);
+    } else if (tick > ticks.length) {
+      setTick(ticks.length);
+    }
+  };
+
   useEffect(() => {
     if (tick + 1 >= ticks.length) {
       setAuto(false);
@@ -340,39 +366,80 @@ const App = () => {
       }, 100);
     }
   }, [tick, setTick, auto]);
-
+  const Input = styled(MuiInput)`width: 42px;`;
   return (
     <>
-      <Stage width={1238} height={450}>
-        <Layer>
-          <Board />
-          <Game tick={tick} />
-        </Layer>
-      </Stage>
-      <div>
-        <button
-          onClick={() => {
-            if (tick + 1 < ticks.length) setTick(tick + 1);
-          }}
-        >
-          第 {tick} 步
-        </button>
-        <button
-          onClick={() => {
-            setAuto(!auto);
-          }}
-        >
-          {auto ? "关闭自动播放" : "开启自动播放"}
-        </button>
-      </div>
-      {/* {tick < ticks.length && <>
-        <p>Next tick:</p>
-        <p>Operator: {ticks[tick].operator}</p>
-        <p>Action error: {ticks[tick].action_error}</p>
-        <Input multiline fullWidth disabled value={JSON.stringify(ticks[tick].action, null, 2)}/>
-        <p>Changes: </p>
-        <Input multiline fullWidth disabled value={JSON.stringify(ticks[tick].changes, null, 2)}/>
-      </>} */}
+      <Toolbar></Toolbar>
+
+      <Grid container rowSpacing={3}>
+
+        <Rightbar></Rightbar>
+        <Grid item xs={12} sm={12} md={7} >
+          <Paper
+            sx={{
+              position: 'relative',
+
+              mb: 4,
+              backgroundSize: 'cover',
+              opacity: 0.8,
+              backgroundPosition: 'center',
+              backgroundImage: `url(${logo})`,
+
+
+            }}
+          >
+
+
+            <Stage width={1100} height={450}>
+              <Layer>
+                <Board />
+                <Game tick={tick} />
+              </Layer>
+            </Stage>
+
+            <Grid container spacing={2} >
+              <Grid item>
+                <LabelOutlinedIcon color="primary" />
+              </Grid>
+              <Grid item md>
+                <Slider
+                  value={typeof tick === 'number' ? tick : 0}
+                  step={1}
+                  min={1}
+                  max={ticks.length}
+                  onChange={handleSliderChange}
+                // aria-label="Small"
+                />
+              </Grid>
+              <Grid item>
+                <Input
+                  value={tick}
+                  size="small"
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  inputProps={{
+                    step: 10,
+                    min: 0,
+                    max: 1000,
+                    type: 'number',
+                    'aria-labelledby': 'input-slider',
+                  }}
+                />
+              </Grid>
+              <Grid item>
+                <Button variant="contained" onClick={() => { setAuto(!auto); }}
+                >{auto ? "关闭自动播放" : "开启自动播放"}</Button></Grid>
+              <Grid item md='12'></Grid>
+
+            </Grid>
+
+          </Paper>
+
+
+        </Grid>
+
+        <Rightbar></Rightbar>
+      </Grid>
     </>
   );
 };
