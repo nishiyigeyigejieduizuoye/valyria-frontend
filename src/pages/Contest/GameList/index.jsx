@@ -92,9 +92,9 @@ function Row(props) {
         </TableCell>
         <TableCell align="center">
           {/* {row.official ? <CheckIcon /> : <ClearIcon />} */}
-          {row.offical ?
+          {row.official ?
             <h3>排位赛</h3>
-            : <h3>常规赛</h3>}
+            : <h3>自定义比赛</h3>}
         </TableCell>
       </TableRow>
       <TableRow>
