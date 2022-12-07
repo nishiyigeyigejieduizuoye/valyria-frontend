@@ -56,7 +56,7 @@ import greyicon from '@/pages/Contest/grey.svg'
 function Row(props) {
   //列表子项
   const { row } = props;
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
   return (
     <React.Fragment >
@@ -72,7 +72,13 @@ function Row(props) {
                 `url(${redicon})` : `url(${greyicon})`
       }}>
         <TableCell >
-
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
         </TableCell>
         <TableCell component="th" scope="row" align="justify">
           <Chip icon={<AccessTimeIcon />} label={moment(row.date * 1000).format("YYYY-MM-DD HH:mm:ss")} />{" "}
@@ -171,7 +177,8 @@ function Row(props) {
                       variant="contained"
                       endIcon={<SendIcon />}
                       onClick={() => {
-                        navigate("/battle?id=" + row.id);
+
+                        navigate("/battle?id=" + row.id + '&r_user_id=' + row.r_user_id + '&b_user_id=' + row.b_user_id);
                       }}
                     >
                       复盘

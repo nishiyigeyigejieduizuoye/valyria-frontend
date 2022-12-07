@@ -334,22 +334,23 @@ class Game extends Component {
   }
 }
 
-const App = () => {
+const App = (props) => {
+  const { r_user_id, b_user_id } = props;
   const [tick, setTick] = useState(0);
   const [auto, setAuto] = useState(false);
-
+  const [speed, setSpeed] = useState(1);
   const handleSliderChange = (event, newValue) => {
-    setTick(newValue);
+    setSpeed(newValue);
   };
 
   const handleInputChange = (event) => {
-    setTick(event.target.value === '' ? '' : Number(event.target.value));
+    setSpeed(event.target.value === '' ? '' : Number(event.target.value));
   };
   const handleBlur = () => {
-    if (tick < 0) {
-      setTick(0);
-    } else if (tick > ticks.length) {
-      setTick(ticks.length);
+    if (speed < 1) {
+      setSpeed(1);
+    } else if (speed > 20) {
+      setSpeed(20);
     }
   };
 
@@ -363,7 +364,7 @@ const App = () => {
     if (auto && tick + 1 < ticks.length) {
       setTimeout(() => {
         setTick(tick + 1);
-      }, 100);
+      }, 100 / speed);
     }
   }, [tick, setTick, auto]);
   const Input = styled(MuiInput)`width: 42px;`;
@@ -373,7 +374,7 @@ const App = () => {
 
       <Grid container rowSpacing={3}>
 
-        <Rightbar></Rightbar>
+        <Rightbar id={b_user_id}></Rightbar>
         <Grid item xs={12} sm={12} md={7} >
           <Paper
             sx={{
@@ -403,17 +404,17 @@ const App = () => {
               </Grid>
               <Grid item md>
                 <Slider
-                  value={typeof tick === 'number' ? tick : 0}
+                  value={typeof speed === 'number' ? speed : 0}
                   step={1}
                   min={1}
-                  max={ticks.length}
+                  max={20}
                   onChange={handleSliderChange}
                 // aria-label="Small"
                 />
               </Grid>
               <Grid item>
                 <Input
-                  value={tick}
+                  value={speed}
                   size="small"
                   onChange={handleInputChange}
                   onBlur={handleBlur}
@@ -438,7 +439,7 @@ const App = () => {
 
         </Grid>
 
-        <Rightbar></Rightbar>
+        <Rightbar id={r_user_id}></Rightbar>
       </Grid>
     </>
   );
@@ -448,7 +449,8 @@ const Battle = () => {
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const contestId = searchParams.get("id");
-
+  const r_user_id = searchParams.get("r_user_id");
+  const b_user_id = searchParams.get("b_user_id");
   useEffect(() => {
     (async () => {
       let data = await get_games_details(contestId);
@@ -456,10 +458,11 @@ const Battle = () => {
       map = data.data.map;
       ticks = data.data.ticks;
       setLoading(false);
+
     })();
   }, [contestId, get_games_details, setLoading]);
 
-  return <><Toolbar />{loading ? <p>加载中</p> : <App />}</>;
+  return <><Toolbar />{loading ? <p>加载中</p> : <App r_user_id={r_user_id} b_user_id={b_user_id} />}</>;
 };
 
 export default Battle;

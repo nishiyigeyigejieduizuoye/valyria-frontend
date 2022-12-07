@@ -9,7 +9,8 @@ import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-export default function Rightbar() {
+export default function Rightbar(props) {
+    const { id, } = props;
     const userInfo = useRecoilValue(UserInfoState);
     return (
         <>
@@ -24,16 +25,14 @@ export default function Rightbar() {
 
                     }}
                 >
-                    <Avatar alt="Avatar" src={"/api/user/" + userInfo?.data.id + "/avatar"} sx={{ width: 140, height: 140 }} />
-                    <Typography component="h1" variant="h5">
+                    <Avatar alt="Avatar" src={"/api/user/" + id + "/avatar"} sx={{ width: 140, height: 140 }} />
+                    {/* <Typography component="h1" variant="h5">
                         {userInfo?.data.name}
                     </Typography>
                     <Typography >
                         积分:{userInfo?.data.rating}
-                    </Typography>
-                    <Typography >
-                        脚本名:天下无敌
-                    </Typography>
+                    </Typography> */}
+
 
                 </Box>
             </Grid>
