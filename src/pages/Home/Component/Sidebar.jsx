@@ -12,10 +12,12 @@ function Sidebar(props) {
     return (
         <Grid item xs={12} md={4}>
             <Paper elevation={0} sx={{ p: 2, bgcolor: 'grey.200' }}>
-                <Typography variant="h6" gutterBottom>
-                    {title}
+                <Typography variant="h5" gutterBottom>
+                    <strong>{title}</strong>
                 </Typography>
-                <Typography>{description}</Typography>
+                <Typography>
+                    这是一个大作业 by <i><strong>TeamNEDP</strong></i>
+                </Typography>
             </Paper>
 
             <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>

@@ -63,6 +63,7 @@ function Row(props) {
       <TableRow sx={{
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        opacity: 0.9,
         backgroundImage:
           row.result == null ? `url(${greyicon})` :
             row.official ?
@@ -72,16 +73,17 @@ function Row(props) {
                 `url(${redicon})` : `url(${greyicon})`
       }}>
         <TableCell >
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
+          {row.status == "finished" ?
+            <IconButton
+              aria-label="expand row"
+              size="small"
+              onClick={() => setOpen(!open)}
+            >
+              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </IconButton> : <></>}
         </TableCell>
         <TableCell component="th" scope="row" align="justify">
-          <Chip icon={<AccessTimeIcon />} label={moment(row.date * 1000).format("YYYY-MM-DD HH:mm:ss")} />{" "}
+          <Chip icon={<AccessTimeIcon />} sx={{ 'fontWeight': 'bolder' }} variant="outlined" label={moment(row.date * 1000).format("YYYY-MM-DD HH:mm:ss")} />{""}
         </TableCell>
 
         <TableCell >
@@ -121,7 +123,7 @@ function Row(props) {
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5} sx={{ borderBottom: 1 }}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5} >
           <Collapse in={open} timeout="auto" unmountOnExit >
             <Box sx={{ margin: 1 }}>
 
@@ -187,6 +189,7 @@ function Row(props) {
                       variant="contained"
                       endIcon={<SendIcon />}
                       onClick={() => {
+
                         navigate("/");
                       }}
                     >
@@ -270,17 +273,17 @@ export default function GameList() {
         <Table  >
           <TableHead >
             <TableRow >
-              <TableCell sx={{ borderBottom: 1 }} />
-              <TableCell align="justify" sx={{ borderBottom: 1 }} >
+              <TableCell />
+              <TableCell align="justify" >
                 <h2><strong >游戏时间</strong></h2>
               </TableCell>
-              <TableCell sx={{ borderBottom: 1 }}>
+              <TableCell >
                 <h2><strong>游戏结果</strong></h2>
               </TableCell>
-              <TableCell align="center" sx={{ borderBottom: 1 }}>
+              <TableCell align="center" >
                 <h2><strong>游戏状态</strong></h2>
               </TableCell>
-              <TableCell align="center" sx={{ borderBottom: 1 }}>
+              <TableCell align="center" >
                 <h2><strong>比赛类型</strong></h2>
               </TableCell>
             </TableRow>

@@ -18,14 +18,15 @@ function Main(props) {
                 },
             }}
         >
-            <Typography variant="h6" gutterBottom>
-                {title}
+            <Typography variant="h5" gutterBottom>
+                <strong>{title}</strong>
             </Typography>
             <Divider />
             {archives.map((archive) => (
-                <Link display="block" variant="body1" href={archive.url} key={archive.title}>
-                    {archive.title}
-                </Link>
+                <i>{archive.title}</i>
+                // <Link display="block" variant="body1" href={archive.url} key={archive.title}>
+                //     {archive.title}
+                // </Link>
             ))}
 
         </Grid>

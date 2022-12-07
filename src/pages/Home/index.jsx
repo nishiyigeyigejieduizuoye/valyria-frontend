@@ -43,7 +43,7 @@ const featuredPosts = [
 const sidebar = {
   title: 'About',
   description:
-    '这是一个软工实践大作业',
+    '这是一个大作业 by TeamNEDP',
 
   social: [
     { name: 'GitHub', icon: GitHubIcon, url: 'https://github.com/TeamNEDP?tab=repositories' },
@@ -53,11 +53,8 @@ const sidebar = {
 };
 const main = {
   archives: [
-    { title: '11.29 软工竟然推迟了', url: '#' },
-    { title: '11.20 排位赛开启通知', url: '#' },
-    { title: '11.19 游戏维护通知', url: '#' },
-    { title: '11.18 前端又出了点bug', url: '#' },
-    { title: '11.17 前端出了点bug', url: '#' },
+    { title: '现已支持排位赛功能。', url: '#' },
+
   ],
 }
 const theme = createTheme();
