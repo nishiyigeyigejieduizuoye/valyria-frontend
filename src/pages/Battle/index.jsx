@@ -12,7 +12,7 @@ import Rightbar from './Component/Rightbar'
 import LabelOutlinedIcon from '@mui/icons-material/LabelOutlined';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid'
-import Button from '@mui/material/Button'
+import { Button, ButtonGroup } from '@mui/material'
 import Paper from '@mui/material/Paper';
 
 import Box from '@mui/material/Box';
@@ -45,7 +45,6 @@ function draw(i, j, size, type, soldiers) {
 
 const Judge = (props) => {
   const tick = props.tick;
-  console.log(tick);
 
   useEffect(() => {
     if (tick >= ticks.length) return;
@@ -54,7 +53,6 @@ const Judge = (props) => {
     }
     for (const change of ticks[tick].changes) {
       //更新地图指定格的状态
-      console.log(ticks[tick].changes.length);
       map.grids[change.x * map.width + change.y].type = change.grid.type;
       map.grids[change.x * map.width + change.y].soldiers =
         change.grid.soldiers;
@@ -340,17 +338,17 @@ const App = (props) => {
   const [auto, setAuto] = useState(false);
   const [speed, setSpeed] = useState(1);
   const handleSliderChange = (event, newValue) => {
-    setSpeed(newValue);
+    setTick(newValue);
   };
 
   const handleInputChange = (event) => {
-    setSpeed(event.target.value === '' ? '' : Number(event.target.value));
+    setTick(event.target.value === '' ? '' : Number(event.target.value));
   };
   const handleBlur = () => {
-    if (speed < 1) {
-      setSpeed(1);
-    } else if (speed > 20) {
-      setSpeed(20);
+    if (tick < 1) {
+      setTick(1);
+    } else if (tick > ticks.length) {
+      setSpeed(ticks.length);
     }
   };
 
@@ -374,7 +372,7 @@ const App = (props) => {
 
       <Grid container rowSpacing={3}>
 
-        <Rightbar id={b_user_id}></Rightbar>
+        <Rightbar id={r_user_id}></Rightbar>
         <Grid item xs={12} sm={12} md={7} >
           <Paper
             sx={{
@@ -390,13 +388,18 @@ const App = (props) => {
             }}
           >
 
+            <Grid container rowSpacing={7}  >
+              <Grid>
+                <Stage width={700} height={450}>
+                  <Layer>
+                    <Board />
+                    <Game tick={tick} />
+                  </Layer>
+                </Stage>
+              </Grid>
+              <Grid item md={12}></Grid>
+            </Grid>
 
-            <Stage width={1100} height={450}>
-              <Layer>
-                <Board />
-                <Game tick={tick} />
-              </Layer>
-            </Stage>
 
             <Grid container spacing={2} >
               <Grid item>
@@ -404,17 +407,17 @@ const App = (props) => {
               </Grid>
               <Grid item md>
                 <Slider
-                  value={typeof speed === 'number' ? speed : 0}
+                  value={typeof tick === 'number' ? tick : 0}
                   step={1}
                   min={1}
-                  max={20}
+                  max={ticks.length}
                   onChange={handleSliderChange}
                 // aria-label="Small"
                 />
               </Grid>
               <Grid item>
                 <Input
-                  value={speed}
+                  value={tick}
                   size="small"
                   onChange={handleInputChange}
                   onBlur={handleBlur}
@@ -427,19 +430,25 @@ const App = (props) => {
                   }}
                 />
               </Grid>
-              <Grid item>
-                <Button variant="contained" onClick={() => { setAuto(!auto); }}
-                >{auto ? "关闭自动播放" : "开启自动播放"}</Button></Grid>
-              <Grid item md='12'></Grid>
 
             </Grid>
-
+            <Grid container justifyContent="center">
+              <Grid item>
+                <ButtonGroup variant="contained" aria-label="outlined primary button group">
+                  <Button onClick={() => { setSpeed(1), console.log(speed) }}>X1</Button>
+                  <Button onClick={() => setSpeed(5)}>X5</Button>
+                  <Button onClick={() => { setSpeed(10), console.log(speed) }}>X10</Button>
+                  <Button variant="contained" onClick={() => { setAuto(!auto); }}
+                  >{auto ? "停止播放" : "开启播放"}</Button>
+                </ButtonGroup>
+              </Grid>
+            </Grid>
           </Paper>
 
 
         </Grid>
 
-        <Rightbar id={r_user_id}></Rightbar>
+        <Rightbar id={b_user_id}></Rightbar>
       </Grid>
     </>
   );
@@ -454,7 +463,6 @@ const Battle = () => {
   useEffect(() => {
     (async () => {
       let data = await get_games_details(contestId);
-      console.log(data);
       map = data.data.map;
       ticks = data.data.ticks;
       setLoading(false);
