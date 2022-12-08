@@ -83,7 +83,7 @@ function Row(props) {
             </IconButton> : <></>}
         </TableCell>
         <TableCell component="th" scope="row" align="justify">
-          <Chip icon={<AccessTimeIcon />} sx={{ 'fontWeight': 'bolder' }} variant="outlined" label={moment(row.date * 1000).format("YYYY-MM-DD HH:mm:ss")} />{""}
+          <Chip icon={<AccessTimeIcon />} sx={{ 'fontWeight': 'bolder', 'backgroundColor': 'white' }} variant="outlined" label={moment(row.date * 1000).format("YYYY-MM-DD HH:mm:ss")} />{""}
         </TableCell>
 
         <TableCell >
@@ -258,14 +258,19 @@ export default function GameList() {
     }
   };
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value));
+    setRowsPerPage(row1);
     setCurrentPage(1);
   };
   const handleChangePage = (event) => {
-    setCurrentPage(parseInt(event.target.value));
+
+
+    setCurrentPage(page)
     setRowsPerPage(rowsPerPage);
+
   };
   const [open, setOpen] = useState(false);
+  const [page, setPage] = useState(1);
+  const [row1, setRow] = useState(20);
   return (
     <Grid container>
 
@@ -298,14 +303,24 @@ export default function GameList() {
               <TableCell colSpan={1}> </TableCell>
               <TableCell colSpan={2}>
                 <Typography variant="h5" component="h5">
-                  每页数量:
+                  每页行数:
                   <TextField
                     hiddenLabel
                     id="filled-hidden-label-small"
-                    value={rowsPerPage}
+                    value={row1}
                     sx={{ width: "5ch" }}
                     size="small"
-                    onChange={handleChangeRowsPerPage}
+                    onChange={(e) => { setRow(e.target.value) }}
+                    onKeyPress={(event) => {
+                      if (event.key === 'Enter') {
+                        if (row1 === '') {
+                          addMessage("error", "每页行数不能为空！ ");
+
+                        }
+                        handleChangeRowsPerPage()
+                      }
+
+                    }}
                   />
                 </Typography>
               </TableCell>
@@ -317,8 +332,18 @@ export default function GameList() {
                     id="filled-hidden-label-small"
                     sx={{ width: "5ch" }}
                     size="small"
-                    value={currentPage}
-                    onChange={handleChangePage}
+                    value={page}
+                    onChange={(e) => { setPage(e.target.value) }}
+                    onKeyPress={(event) => {
+                      if (event.key === 'Enter') {
+                        if (page === '') {
+                          addMessage("error", "页数不能为空！ ");
+                        }
+                        handleChangePage()
+                      }
+
+                    }}
+
                   />
                 </Typography>
               </TableCell>

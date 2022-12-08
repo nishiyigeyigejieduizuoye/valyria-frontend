@@ -14,7 +14,6 @@ import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid'
 import { Button, ButtonGroup } from '@mui/material'
 import Paper from '@mui/material/Paper';
-
 import Box from '@mui/material/Box';
 import logo from '@/logo/logo.svg';
 let map;
@@ -368,40 +367,44 @@ const App = (props) => {
   const Input = styled(MuiInput)`width: 42px;`;
   return (
     <>
-      <Toolbar></Toolbar>
-
-      <Grid container rowSpacing={3}>
-
+      {/* <Toolbar></Toolbar> */}
+      <Toolbar />
+      <Grid container >
         <Rightbar id={r_user_id}></Rightbar>
-        <Grid item xs={12} sm={12} md={7} >
-          <Paper
-            sx={{
-              position: 'relative',
 
-              mb: 4,
-              backgroundSize: 'cover',
-              opacity: 0.8,
-              backgroundPosition: 'center',
-              backgroundImage: `url(${logo})`,
+        <Grid container item md={7} rowSpacing={2}>
+          <Toolbar></Toolbar>
+          <Grid item md={12}>
+            <Paper
+              sx={{
+                position: 'relative',
+
+                mb: 4,
+                backgroundSize: 'cover',
+                opacity: 0.8,
+                backgroundPosition: 'center',
+                backgroundImage: `url(${logo})`,
 
 
-            }}
-          >
+              }}
+            >
 
-            <Grid container rowSpacing={7}  >
-              <Grid>
-                <Stage width={700} height={450}>
-                  <Layer>
-                    <Board />
-                    <Game tick={tick} />
-                  </Layer>
-                </Stage>
+              <Grid container rowSpacing={7}  >
+                <Grid>
+                  <Stage width={550} height={450}>
+                    <Layer>
+                      <Board />
+                      <Game tick={tick} />
+                    </Layer>
+                  </Stage>
+                </Grid>
+                <Grid item md={12}></Grid>
               </Grid>
-              <Grid item md={12}></Grid>
-            </Grid>
+            </Paper>
+          </Grid>
 
-
-            <Grid container spacing={2} >
+          <Grid item md={12} component={Paper} elevation={2} >
+            <Grid container spacing={2}  >
               <Grid item>
                 <LabelOutlinedIcon color="primary" />
               </Grid>
@@ -432,7 +435,7 @@ const App = (props) => {
               </Grid>
 
             </Grid>
-            <Grid container justifyContent="center">
+            <Grid container justifyContent="center" >
               <Grid item>
                 <ButtonGroup variant="contained" aria-label="outlined primary button group">
                   <Button onClick={() => { setSpeed(1), console.log(speed) }}>X1</Button>
@@ -443,12 +446,11 @@ const App = (props) => {
                 </ButtonGroup>
               </Grid>
             </Grid>
-          </Paper>
-
-
+          </Grid>
         </Grid>
 
         <Rightbar id={b_user_id}></Rightbar>
+
       </Grid>
     </>
   );
@@ -470,7 +472,7 @@ const Battle = () => {
     })();
   }, [contestId, get_games_details, setLoading]);
 
-  return <><Toolbar />{loading ? <p>加载中</p> : <App r_user_id={r_user_id} b_user_id={b_user_id} />}</>;
+  return <>{loading ? <p>加载中</p> : <App r_user_id={r_user_id} b_user_id={b_user_id} />}</>;
 };
 
 export default Battle;
