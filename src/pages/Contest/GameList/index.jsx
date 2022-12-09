@@ -248,18 +248,21 @@ export default function GameList() {
   const handleChangePageLeft = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      setPage(currentPage - 1);
       window.scrollTo(0, 0)
     }
   };
   const handleChangePageRight = () => {
     if (gamelists?.length == rowsPerPage) {
       setCurrentPage(currentPage + 1);
+      setPage(currentPage + 1)
       window.scrollTo(0, 0)
     }
   };
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(row1);
     setCurrentPage(1);
+    setPage(1)
   };
   const handleChangePage = (event) => {
 
