@@ -17,7 +17,7 @@ import { Button } from '@mui/material'
 import GradeIcon from '@mui/icons-material/Grade';
 import { ListItem, ListItemIcon } from '@mui/material'
 export default function Rightbar(props) {
-    const { id, } = props;
+    const { id, role } = props;
     const [userInfo, setUserInfo] = useState('')
     useEffect(() => {
         (async () => {
@@ -43,7 +43,7 @@ export default function Rightbar(props) {
                     }}
                 >
                     <Avatar alt="Avatar" src={"/api/user/" + id + "/avatar"} sx={{ width: 140, height: 140 }} />
-                    <Typography component="h1" variant="h6">
+                    <Typography component="h1" variant="h6" sx={{ 'color': role == 'R' ? 'red' : 'blue' }}>
                         <strong><i>{userInfo.name}</i></strong>
                     </Typography>
                     <Typography >

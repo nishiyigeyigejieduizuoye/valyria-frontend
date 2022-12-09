@@ -370,7 +370,7 @@ const App = (props) => {
       {/* <Toolbar></Toolbar> */}
       <Toolbar />
       <Grid container >
-        <Rightbar id={r_user_id}></Rightbar>
+        <Rightbar id={r_user_id} role={'R'}></Rightbar>
 
         <Grid container item md={7} rowSpacing={2}>
           <Toolbar></Toolbar>
@@ -449,7 +449,7 @@ const App = (props) => {
           </Grid>
         </Grid>
 
-        <Rightbar id={b_user_id}></Rightbar>
+        <Rightbar id={b_user_id} role={'B'}></Rightbar>
 
       </Grid>
     </>
