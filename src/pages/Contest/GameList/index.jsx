@@ -90,8 +90,8 @@ function Row(props) {
           {row.result == null ? <></> : row.official ?
             row.result.winner == row.role ? <i><h1 >Victory</h1></i> :
               row.result.winner == 'D' ? <i><h1 >Draw</h1></i> : <i><h1>Defeat</h1></i> :
-            row.result.winner == 'B' ? <i><h1 >Victory</h1></i> : row.result.winner == 'R' ?
-              <i><h1>Defeat</h1></i> : <i><h1 >Draw</h1></i>
+            row.result.winner == 'B' ? <i><h1 >Blue Wins</h1></i> : row.result.winner == 'R' ?
+              <i><h1>Red Wins</h1></i> : <i><h1 >Draw</h1></i>
 
           }
 
